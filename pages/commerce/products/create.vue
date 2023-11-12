@@ -21,6 +21,13 @@
           :error="!!validationErrors.price"
           :error-messages="validationErrors.price"
         />
+        <v-text-field
+          ref="stock_price"
+          label="Акционная стоимость"
+          v-model.number="product.stock_price"
+          required
+          type="number"
+        />
         <div class="flex items-center gap-x-2">
           <v-autocomplete
             single-line
@@ -120,6 +127,7 @@ export default {
         price: this.product.price,
         product_category_id: this.product.product_category_id,
         product_type_id: this.product.product_type_id,
+        //stock_price: this.product.stock_price,
       }
     },
   },

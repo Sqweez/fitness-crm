@@ -94,7 +94,10 @@ export default {
     },
     async _onSubmit (product) {
       if (this.IS_BOSS) {
-        this.payload = {...product};
+        this.payload = {
+          ...product,
+          price: product.stock_price ? product.stock_price : product.price,
+        };
         this.showPurchaseSuperModal = true;
         return;
       }

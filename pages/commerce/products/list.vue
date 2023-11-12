@@ -19,6 +19,10 @@
         label="Скрыть отсутствующие"
         v-model="hideNotInstock"
       />
+      <v-checkbox
+        label="Только акционные товары"
+        v-model="onlyStocks"
+      />
       <v-data-table
         :items-per-page="-1"
         :loading="isSearching"
@@ -31,7 +35,14 @@
           {{ index + 1 }}
         </template>
         <template v-slot:item.price="{ item }">
-          {{ item.price | priceFilters }}
+         <span :class="[
+            item.stock_price ? 'line-through' : ''
+          ]">
+            {{ item.price | priceFilters }}
+          </span><br>
+          <span v-if="item.stock_price">
+            {{ item.stock_price | priceFilters }}
+          </span>
         </template>
         <template v-slot:item.quantity="{ item }">
           {{ item.quantity }} шт.
@@ -61,6 +72,7 @@ export default {
   extends: useProductSaleMixin,
   data: () => ({
     hideNotInstock: false,
+    onlyStocks: false,
     panelIndex: -1,
     isPanelOpened: false,
     headers: [
@@ -106,6 +118,8 @@ export default {
         quantity: this.getQuantity(product)
       })).filter(p => {
         return this.hideNotInstock ? p.quantity > 0 : true;
+      }).filter(product => {
+        return this.onlyStocks ? product.stock_price : true;
       }) : [];
     }
   },

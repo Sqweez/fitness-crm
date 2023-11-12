@@ -45,10 +45,7 @@ export default {
     sidebarOpen: false,
     showSelectClubModal: false,
     keepAlivePages: [
-      'products-index-page',
       'ClientsPage',
-      'ServiceIndexPage',
-      'UsersIndexPage',
       'SleepingClientsIndexPage'
     ],
   }),

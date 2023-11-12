@@ -22,7 +22,14 @@
             @current-items="getFilteredItems"
           >
             <template v-slot:item.price="{ item }">
-              {{ item.price | priceFilters }}
+              <span :class="[
+            item.stock_price ? 'line-through' : ''
+          ]">
+            {{ item.price | priceFilters }}
+          </span><br>
+              <span v-if="item.stock_price">
+            {{ item.stock_price | priceFilters }}
+          </span>
             </template>
             <template v-slot:item.quantity="{ item }">
               {{ item.quantity }} шт.

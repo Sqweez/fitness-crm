@@ -35,7 +35,14 @@
             @current-items="getFilteredItems"
           >
             <template v-slot:item.price="{ item }">
-              {{ item.price | priceFilters }}
+             <span :class="[
+            item.stock_price ? 'line-through' : ''
+          ]">
+            {{ item.price | priceFilters }}
+          </span><br>
+              <span v-if="item.stock_price">
+            {{ item.stock_price | priceFilters }}
+          </span>
             </template>
             <template v-slot:item.quantity="{ item }">
               {{ item.quantity }} шт.
@@ -68,10 +75,10 @@ export default {
     ...mapGetters({
       products: 'products/shopProducts',
     }),
-    resultsCanBeShown () {
+    resultsCanBeShown() {
       return true;
     },
-    filteredProducts () {
+    filteredProducts() {
       return !!this.resultsCanBeShown ? this.products.map(product => ({
         ...product,
         quantity: this.getQuantity(product)
@@ -79,7 +86,7 @@ export default {
     }
   },
   methods: {
-    async onPanelOpen () {
+    async onPanelOpen() {
       if (!this.isPanelOpened) {
         this.$loader.enable();
         if (this.IS_BOSS) {
@@ -91,7 +98,7 @@ export default {
         this.$loader.disable();
       }
     },
-    getFilteredItems (items) {
+    getFilteredItems(items) {
       if (items.length === 1) {
         // this._onSubmit(items[0]);
       }

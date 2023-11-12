@@ -40,6 +40,12 @@
             item-value="id"
           />
         </v-col>
+        <v-col>
+          <v-checkbox
+            label="Только акционные товары"
+            v-model="onlyStocks"
+          />
+        </v-col>
       </v-row>
       <v-text-field
         label="Поиск"
@@ -55,7 +61,14 @@
         :headers="headers"
       >
         <template v-slot:item.price="{ item }">
-          {{ item.price | priceFilters }}
+          <span :class="[
+            item.stock_price ? 'line-through' : ''
+          ]">
+            {{ item.price | priceFilters }}
+          </span><br>
+          <span v-if="item.stock_price">
+            {{ item.stock_price | priceFilters }}
+          </span>
         </template>
         <template v-slot:item.quantity="{ item }">
           <v-list>
@@ -120,6 +133,7 @@ export default {
   name: 'products-index-page',
   mixins: [userMixin],
   data: () => ({
+    onlyStocks: false,
     showProductBatchModal: false,
     showProductBatchInformationModal: false,
     search: '',
@@ -169,6 +183,8 @@ export default {
           return p.not_in_stock === false;
         }
         return p.not_in_stock === true;
+      }).filter(product => {
+        return this.onlyStocks ? product.stock_price : true;
       })
     },
     headers () {
