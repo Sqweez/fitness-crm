@@ -72,6 +72,9 @@ export const actions = {
     await this.$axios.delete(`v1/users/${id}`);
     commit('deleteUser', id);
   },
+  async restoreUser ({ commit }, id) {
+    await this.$axios.post(`v1/users/${id}/restore`);
+  },
   async updateUser({ commit }, payload) {
     const data = await this.$axios.$patch(`v1/users/${payload.id}`, payload);
     commit('updateUser', data.user);

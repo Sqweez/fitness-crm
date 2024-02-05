@@ -58,6 +58,9 @@
                     <t-list-item  title="Номер шкафчика" v-if="client.cabinet_number">
                       {{ client.cabinet_number }}
                     </t-list-item>
+                    <t-list-item  title="Пароль для приложения">
+                      {{ client.mobile_password }}
+                    </t-list-item>
                   </v-list>
                 </v-expansion-panel-content>
               </v-expansion-panel>

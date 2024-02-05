@@ -30,8 +30,11 @@
           </v-btn>
           <input type="file" accept="image/*" ref="fileInput" class="hidden" @change="_onPhotoChange">
           <v-switch label="Виден в приложении" v-model="visibleInApp"/>
-          <v-btn block color="error" @click="_onDelete">
+          <v-btn  v-if="user.is_active" block color="error" @click="_onDelete">
             Уволить <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <v-btn  v-if="!user.is_active" block color="error" @click="_onRestore">
+            Восстановить <v-icon>mdi-check</v-icon>
           </v-btn>
         </t-card-page>
       </v-col>
@@ -186,13 +189,23 @@ export default {
       '$getUser': "users/getUser",
       '$deleteUser': "users/deleteUser",
       '$updateUser': "users/updateUser",
-      '$uploadPhoto': "users/uploadPhoto"
+      '$uploadPhoto': "users/uploadPhoto",
+      '$restoreUser': 'users/restoreUser'
     }),
     _onDelete () {
-      this.$confirm('Вы действительно хотите удалить выбранного пользователя')
+      this.$confirm('Вы действительно хотите удалить выбранного сотрудника')
         .then(_ => {
           this.$loader.enable('Пожалуйста, подождите');
           this.$deleteUser(this.user.id);
+          this.$loader.disable();
+          this.$router.back();
+        })
+    },
+    _onRestore () {
+      this.$confirm('Вы действительно хотите восстановить выбранного сотрудника')
+        .then(_ => {
+          this.$loader.enable('Пожалуйста, подождите');
+          this.$restoreUser(this.user.id);
           this.$loader.disable();
           this.$router.back();
         })

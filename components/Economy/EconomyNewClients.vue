@@ -67,7 +67,7 @@ export default {
       return this.reports.filter(r => {
         return this.club === -1  ? true : r.club.id === this.club;
       }).filter(r => {
-        return this.user === -1 ? true : r.user.id === this.user;
+        return this.user === -1 ? true : r.registrar.id === this.user;
       });;
     },
     totalVisits () {
