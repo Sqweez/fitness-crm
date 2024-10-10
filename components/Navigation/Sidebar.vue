@@ -56,7 +56,7 @@
             <div class="w-8 h-8 overflow-hidden rounded-full">
               <img src="~/assets/images/logo.jpg" alt="Logo" class="w-full h-full object-cover">
             </div>
-            <p class="text-white uppercase font-semibold">top star | CRM</p>
+            <p class="text-white uppercase font-semibold">CRM</p>
           </div>
         </router-link>
       </div>

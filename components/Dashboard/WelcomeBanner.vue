@@ -1,5 +1,5 @@
 <template>
-  <div class="relative bg-lime-400 p-4 sm:p-6 rounded-sm overflow-hidden mb-8">
+  <div class="relative bg-violet-400 p-4 sm:p-6 rounded-sm overflow-hidden mb-8">
 
     <!-- Background illustration -->
     <div class="absolute right-0 top-0 -mt-4 mr-16 pointer-events-none hidden xl:block" aria-hidden="true">
@@ -45,7 +45,7 @@
 
     <!-- Content -->
     <div class="relative">
-      <h1 class="text-2xl md:text-3xl text-gray-800 font-bold mb-1">Приветствуем Вас в Top Star CRM👋</h1>
+      <h1 class="text-2xl md:text-3xl text-gray-800 font-bold mb-1">Приветствуем Вас в Fitness CRM👋</h1>
       <p>Удачной работы и хорошего дня!</p>
     </div>
 

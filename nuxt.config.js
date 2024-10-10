@@ -5,7 +5,7 @@ export default {
   ssr: false,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'TOP STAR | CRM',
+    title: 'Fitness | CRM',
     htmlAttrs: {
       lang: 'ru'
     },
