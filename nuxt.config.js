@@ -3,6 +3,7 @@ import ru from 'vuetify/src/locale/ru';
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
+  target: 'static',
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Fitness | CRM',
