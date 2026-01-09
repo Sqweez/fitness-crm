@@ -2,6 +2,10 @@
   "name": "fitness-crm",
   "version": "1.0.0",
   "private": true,
+  "web-types": [
+    "./node_modules/@nuxt/vue-app/web-types/web-types.json",
+    "./node_modules/vuetify/dist/json/web-types.json"
+  ],
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build --dotenv .env.production",
