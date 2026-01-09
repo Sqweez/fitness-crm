@@ -24,18 +24,19 @@
           </div>
         </t-card-page>
         <t-card-page title="Быстрые действия" class="mt-4">
-          <h3>Быстрые действия с пользователем:</h3>
-          <v-btn block color="primary" @click="$refs.fileInput.click()">
-            Загрузить фото <v-icon>mdi-camera</v-icon>
-          </v-btn>
-          <input type="file" accept="image/*" ref="fileInput" class="hidden" @change="_onPhotoChange">
-          <v-switch v-if="$hasMobileApplication" label="Виден в приложении" v-model="visibleInApp"/>
-          <v-btn  v-if="user.is_active" block color="error" @click="_onDelete">
-            Уволить <v-icon>mdi-close</v-icon>
-          </v-btn>
-          <v-btn  v-if="!user.is_active" block color="error" @click="_onRestore">
-            Восстановить <v-icon>mdi-check</v-icon>
-          </v-btn>
+          <div class="flex flex-col gap-y-3">
+            <v-btn block color="primary" @click="$refs.fileInput.click()">
+              Загрузить фото <v-icon>mdi-camera</v-icon>
+            </v-btn>
+            <input type="file" accept="image/*" ref="fileInput" class="hidden" @change="_onPhotoChange">
+            <v-switch v-if="$hasMobileApplication" label="Виден в приложении" v-model="visibleInApp"/>
+            <v-btn v-if="user.is_active" block color="error" @click="_onDelete">
+              Уволить <v-icon>mdi-close</v-icon>
+            </v-btn>
+            <v-btn v-if="!user.is_active" block color="error" @click="_onRestore">
+              Восстановить <v-icon>mdi-check</v-icon>
+            </v-btn>
+          </div>
         </t-card-page>
       </v-col>
       <v-col cols="9">
@@ -139,8 +140,10 @@ import {mapActions, mapGetters} from 'vuex';
 import UserAvatar from '@/assets/images/logo.jpg'
 import {deepClone} from "@/utils/helpers";
 import isBossMiddleware from '@/middleware/isBossMiddleware';
+import userMixin from '@/mixins/userMixin';
 
 export default {
+  mixins: [userMixin],
   data: () => ({
     avatar: UserAvatar,
     visibleInApp: false,
