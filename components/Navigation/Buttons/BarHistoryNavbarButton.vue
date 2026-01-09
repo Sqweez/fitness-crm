@@ -6,7 +6,7 @@
       class="w-8 h-8 flex items-center justify-center bg-gray-100 hover:bg-gray-200 transition duration-150 rounded-full"
       aria-haspopup="true"
     >
-      <CupSoda class="text-gray-500" :size="20" />
+      <CupSoda class="text-black" :size="20" />
     </button>
   </div>-->  <div class="relative inline-flex" v-click-outside="() => {dropdownOpen = false}">
   <button
@@ -17,7 +17,7 @@
     @click.prevent="dropdownOpen = !dropdownOpen"
     :aria-expanded="dropdownOpen"
   >
-    <CupSoda class="text-gray-500" :size="20" />
+    <CupSoda class="text-black" :size="20" />
   </button>
   <transition
     enter-active-class="transition ease-out duration-200 transform"

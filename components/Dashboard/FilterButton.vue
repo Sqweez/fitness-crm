@@ -2,7 +2,7 @@
   <div v-click-outside="() => {dropdownOpen = false;}" class="relative inline-flex">
     <button
       ref="trigger"
-      class="btn bg-white border-gray-200 hover:border-gray-300 text-gray-500 hover:text-gray-600"
+      class="btn bg-white border-gray-200 hover:border-gray-300 text-black hover:text-gray-600"
       aria-haspopup="true"
       @click.prevent="dropdownOpen = !dropdownOpen"
       :aria-expanded="dropdownOpen"
@@ -64,7 +64,7 @@
           <div class="py-2 px-3 border-t border-gray-200 bg-gray-50">
             <ul class="flex items-center justify-between">
               <li>
-                <button class="btn-xs bg-white border-gray-200 hover:border-gray-300 text-gray-500 hover:text-gray-600">Clear</button>
+                <button class="btn-xs bg-white border-gray-200 hover:border-gray-300 text-black hover:text-gray-600">Clear</button>
               </li>
               <li>
                 <button class="btn-xs bg-indigo-500 hover:bg-indigo-600 text-white" @click="dropdownOpen = false" @focusout="dropdownOpen = false">Apply</button>

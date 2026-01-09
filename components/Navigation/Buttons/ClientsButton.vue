@@ -9,7 +9,7 @@
     @click.prevent="dropdownOpen = !dropdownOpen"
     :aria-expanded="dropdownOpen"
   >
-    <Users class="text-gray-500" :size="20" />
+    <Users class="text-black" :size="20" />
   </button>
   <transition
     enter-active-class="transition ease-out duration-200 transform"

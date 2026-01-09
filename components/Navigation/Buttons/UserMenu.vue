@@ -27,7 +27,7 @@
       <div v-show="dropdownOpen" class="origin-top-right z-10 absolute top-full min-w-44 bg-white border border-gray-200 py-1.5 rounded shadow-lg overflow-hidden mt-1" :class="align === 'right' ? 'right-0' : 'left-0'">
         <div class="pt-0.5 pb-2 px-3 mb-1 border-b border-gray-200">
           <div class="text-sm font-medium">{{ $auth.user.club.name }}</div>
-          <div class="text-xs text-gray-500 italic">{{ $auth.user.position }}</div>
+          <div class="text-xs text-black italic">{{ $auth.user.position }}</div>
         </div>
         <ul
           ref="dropdown"
