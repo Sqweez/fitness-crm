@@ -1,4 +1,5 @@
 <template>
+  <!-- Deprecated: use SidebarV2.vue -->
   <div v-if="IS_BOSS">
     <!-- Sidebar backdrop (mobile only) -->
     <div class="fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-40 lg:hidden lg:z-auto transition-opacity duration-200" :class="sidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'" aria-hidden="true"></div>
@@ -606,6 +607,7 @@
 import SidebarLinkGroup from './SidebarLinkGroup.vue'
 import userMixin from '@/mixins/userMixin';
 
+// Deprecated: use SidebarV2.vue
 export default {
   name: 'Sidebar',
   props: ['sidebarOpen'],

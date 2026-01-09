@@ -3,7 +3,7 @@
     <!-- utils components -->
     <util-container />
     <!-- Sidebar -->
-    <Sidebar :sidebarOpen="sidebarOpen" @close-sidebar="sidebarOpen = false" />
+    <sidebar :sidebarOpen="sidebarOpen" @close-sidebar="sidebarOpen = false" />
     <select-club-modal :state="showSelectClubModal" @close="showSelectClubModal = false;"/>
     <!-- Content area -->
     <div class="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden" id="app-container">
@@ -35,9 +35,11 @@
 
 <script>
 import userMixin from '@/mixins/userMixin';
+import Sidebar from '~/components/Navigation/SidebarV2.vue';
 
 export default {
   name: 'Dashboard',
+  components: { Sidebar },
   mixins: [
     userMixin
   ],
