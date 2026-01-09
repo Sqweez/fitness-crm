@@ -31,281 +31,52 @@
 
         <!-- Main Container -->
         <div class="sidebar-main">
-          <!-- Primary Menu -->
-          <nav class="sidebar-menu">
-            <!-- Главная -->
-            <router-link to="/" custom v-slot="{ navigate, isExactActive }">
-              <button
-                class="sidebar-menu-item"
-                :class="{ 'sidebar-menu-item--active': isExactActive }"
-                @click="navigate"
+          <template v-for="(group, index) in menuGroups">
+            <nav v-if="!group.title" :key="`menu-${index}`" class="sidebar-menu">
+              <router-link
+                v-for="item in group.children"
+                :key="item.to"
+                :to="item.to"
+                custom
+                v-slot="{ navigate, isActive, isExactActive }"
               >
-                <span class="sidebar-menu-item__content">
-                  <svg class="sidebar-menu-item__icon" width="20" height="20" viewBox="0 0 20 20" fill="none"
-                       xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M12.5 3.125H4.375C4.02982 3.125 3.75 3.40482 3.75 3.75V16.25C3.75 16.5952 4.02982 16.875 4.375 16.875H15.625C15.9702 16.875 16.25 16.5952 16.25 16.25V6.875L12.5 3.125Z"
-                      stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M12.5 3.125V6.875H16.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                          stroke-linejoin="round" />
-                  </svg>
-                  <span class="sidebar-menu-item__label">Главная</span>
-                </span>
-              </button>
-            </router-link>
-
-            <!-- Клиенты -->
-            <router-link to="/clients" custom v-slot="{ navigate, isActive }">
-              <button
-                class="sidebar-menu-item"
-                :class="{ 'sidebar-menu-item--active': isActive || isClientsActive }"
-                @click="navigate"
-              >
-                <span class="sidebar-menu-item__content">
-                  <svg class="sidebar-menu-item__icon" width="20" height="20" viewBox="0 0 20 20" fill="none"
-                       xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M12.5 3.125H4.375C4.02982 3.125 3.75 3.40482 3.75 3.75V16.25C3.75 16.5952 4.02982 16.875 4.375 16.875H15.625C15.9702 16.875 16.25 16.5952 16.25 16.25V6.875L12.5 3.125Z"
-                      stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M12.5 3.125V6.875H16.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                          stroke-linejoin="round" />
-                  </svg>
-                  <span class="sidebar-menu-item__label">Клиенты</span>
-                </span>
-              </button>
-            </router-link>
-
-            <!-- Сотрудники (IS_BOSS only) -->
-            <router-link v-if="IS_BOSS" to="/users" custom v-slot="{ navigate, isActive }">
-              <button
-                class="sidebar-menu-item"
-                :class="{ 'sidebar-menu-item--active': isActive || isUsersActive }"
-                @click="navigate"
-              >
-                <span class="sidebar-menu-item__content">
-                  <svg class="sidebar-menu-item__icon" width="20" height="20" viewBox="0 0 20 20" fill="none"
-                       xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M12.5 3.125H4.375C4.02982 3.125 3.75 3.40482 3.75 3.75V16.25C3.75 16.5952 4.02982 16.875 4.375 16.875H15.625C15.9702 16.875 16.25 16.5952 16.25 16.25V6.875L12.5 3.125Z"
-                      stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M12.5 3.125V6.875H16.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                          stroke-linejoin="round" />
-                  </svg>
-                  <span class="sidebar-menu-item__label">Сотрудники</span>
-                </span>
-              </button>
-            </router-link>
-
-            <!-- Прайс (IS_BOSS only) -->
-            <router-link v-if="IS_BOSS" to="/commerce/services" custom v-slot="{ navigate, isActive }">
-              <button
-                class="sidebar-menu-item"
-                :class="{ 'sidebar-menu-item--active': isActive || isServicesActive }"
-                @click="navigate"
-              >
-                <span class="sidebar-menu-item__content">
-                  <svg class="sidebar-menu-item__icon" width="20" height="20" viewBox="0 0 20 20" fill="none"
-                       xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M12.5 3.125H4.375C4.02982 3.125 3.75 3.40482 3.75 3.75V16.25C3.75 16.5952 4.02982 16.875 4.375 16.875H15.625C15.9702 16.875 16.25 16.5952 16.25 16.25V6.875L12.5 3.125Z"
-                      stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M12.5 3.125V6.875H16.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                          stroke-linejoin="round" />
-                  </svg>
-                  <span class="sidebar-menu-item__label">Прайс</span>
-                </span>
-              </button>
-            </router-link>
-
-            <!-- Магазин (IS_BOSS only) -->
-            <router-link v-if="IS_BOSS" to="/commerce/products" custom v-slot="{ navigate, isActive }">
-              <button
-                class="sidebar-menu-item"
-                :class="{ 'sidebar-menu-item--active': isActive || isProductsActive }"
-                @click="navigate"
-              >
-                <span class="sidebar-menu-item__content">
-                  <svg class="sidebar-menu-item__icon" width="20" height="20" viewBox="0 0 20 20" fill="none"
-                       xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M12.5 3.125H4.375C4.02982 3.125 3.75 3.40482 3.75 3.75V16.25C3.75 16.5952 4.02982 16.875 4.375 16.875H15.625C15.9702 16.875 16.25 16.5952 16.25 16.25V6.875L12.5 3.125Z"
-                      stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M12.5 3.125V6.875H16.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                          stroke-linejoin="round" />
-                  </svg>
-                  <span class="sidebar-menu-item__label">Магазин</span>
-                </span>
-              </button>
-            </router-link>
-          </nav>
-
-          <!-- Separator -->
-          <div class="sidebar-separator"></div>
-
-          <!-- Statistics Section (IS_BOSS only) -->
-          <div v-if="IS_BOSS" class="sidebar-section">
-            <div class="sidebar-section__header">СТАТИСТИКА</div>
-            <nav class="sidebar-menu sidebar-menu--section">
-              <!-- Общие данные -->
-              <router-link to="/statistics/common" custom v-slot="{ navigate, isActive }">
                 <button
                   class="sidebar-menu-item"
-                  :class="{ 'sidebar-menu-item--active': isActive }"
+                  :class="{ 'sidebar-menu-item--active': isMenuItemActive(item, isActive, isExactActive) }"
                   @click="navigate"
                 >
                   <span class="sidebar-menu-item__content">
-                    <svg class="sidebar-menu-item__icon" width="20" height="20" viewBox="0 0 20 20" fill="none"
-                         xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M12.5 3.125H4.375C4.02982 3.125 3.75 3.40482 3.75 3.75V16.25C3.75 16.5952 4.02982 16.875 4.375 16.875H15.625C15.9702 16.875 16.25 16.5952 16.25 16.25V6.875L12.5 3.125Z"
-                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                      <path d="M12.5 3.125V6.875H16.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                    <span class="sidebar-menu-item__label">Общие данные</span>
-                  </span>
-                </button>
-              </router-link>
-
-              <!-- Экономика -->
-              <router-link to="/statistics/economy" custom v-slot="{ navigate, isActive }">
-                <button
-                  class="sidebar-menu-item"
-                  :class="{ 'sidebar-menu-item--active': isActive }"
-                  @click="navigate"
-                >
-                  <span class="sidebar-menu-item__content">
-                    <svg class="sidebar-menu-item__icon" width="20" height="20" viewBox="0 0 20 20" fill="none"
-                         xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M12.5 3.125H4.375C4.02982 3.125 3.75 3.40482 3.75 3.75V16.25C3.75 16.5952 4.02982 16.875 4.375 16.875H15.625C15.9702 16.875 16.25 16.5952 16.25 16.25V6.875L12.5 3.125Z"
-                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                      <path d="M12.5 3.125V6.875H16.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                    <span class="sidebar-menu-item__label">Экономика</span>
-                  </span>
-                </button>
-              </router-link>
-
-              <!-- Магазин/Бар -->
-              <router-link to="/statistics/shop" custom v-slot="{ navigate, isActive }">
-                <button
-                  class="sidebar-menu-item"
-                  :class="{ 'sidebar-menu-item--active': isActive }"
-                  @click="navigate"
-                >
-                  <span class="sidebar-menu-item__content">
-                    <svg class="sidebar-menu-item__icon" width="20" height="20" viewBox="0 0 20 20" fill="none"
-                         xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M12.5 3.125H4.375C4.02982 3.125 3.75 3.40482 3.75 3.75V16.25C3.75 16.5952 4.02982 16.875 4.375 16.875H15.625C15.9702 16.875 16.25 16.5952 16.25 16.25V6.875L12.5 3.125Z"
-                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                      <path d="M12.5 3.125V6.875H16.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                    <span class="sidebar-menu-item__label">Магазин/Бар</span>
-                  </span>
-                </button>
-              </router-link>
-
-              <!-- Прайс -->
-              <router-link to="/statistics/price" custom v-slot="{ navigate, isActive }">
-                <button
-                  class="sidebar-menu-item"
-                  :class="{ 'sidebar-menu-item--active': isActive }"
-                  @click="navigate"
-                >
-                  <span class="sidebar-menu-item__content">
-                    <svg class="sidebar-menu-item__icon" width="20" height="20" viewBox="0 0 20 20" fill="none"
-                         xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M12.5 3.125H4.375C4.02982 3.125 3.75 3.40482 3.75 3.75V16.25C3.75 16.5952 4.02982 16.875 4.375 16.875H15.625C15.9702 16.875 16.25 16.5952 16.25 16.25V6.875L12.5 3.125Z"
-                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                      <path d="M12.5 3.125V6.875H16.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                    <span class="sidebar-menu-item__label">Прайс</span>
-                  </span>
-                </button>
-              </router-link>
-
-              <!-- Заканчивающиеся безлимиты -->
-              <router-link to="/statistics/unlimited-ending" custom v-slot="{ navigate, isActive }">
-                <button
-                  class="sidebar-menu-item"
-                  :class="{ 'sidebar-menu-item--active': isActive }"
-                  @click="navigate"
-                >
-                  <span class="sidebar-menu-item__content">
-                    <svg class="sidebar-menu-item__icon" width="20" height="20" viewBox="0 0 20 20" fill="none"
-                         xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M12.5 3.125H4.375C4.02982 3.125 3.75 3.40482 3.75 3.75V16.25C3.75 16.5952 4.02982 16.875 4.375 16.875H15.625C15.9702 16.875 16.25 16.5952 16.25 16.25V6.875L12.5 3.125Z"
-                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                      <path d="M12.5 3.125V6.875H16.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                    <span class="sidebar-menu-item__label">Заканчивающиеся безлимиты</span>
+                    <component :is="item.icon" class="sidebar-menu-item__icon" :size="20" />
+                    <span class="sidebar-menu-item__label">{{ item.label }}</span>
                   </span>
                 </button>
               </router-link>
             </nav>
-          </div>
-
-          <!-- Separator -->
-          <div v-if="IS_BOSS" class="sidebar-separator"></div>
-
-          <!-- Requests Section (IS_BOSS only) -->
-          <div v-if="IS_BOSS" class="sidebar-section">
-            <div class="sidebar-section__header">ЗАПРОСЫ</div>
-            <nav class="sidebar-menu sidebar-menu--section">
-              <!-- Штрафные тренировки -->
-              <router-link to="/requests/clients/penalty" custom v-slot="{ navigate, isActive }">
-                <button
-                  class="sidebar-menu-item"
-                  :class="{ 'sidebar-menu-item--active': isActive }"
-                  @click="navigate"
+            <div v-else :key="`section-${index}`" class="sidebar-section">
+              <div class="sidebar-section__header">{{ group.title }}</div>
+              <nav class="sidebar-menu sidebar-menu--section">
+                <router-link
+                  v-for="item in group.children"
+                  :key="item.to"
+                  :to="item.to"
+                  custom
+                  v-slot="{ navigate, isActive, isExactActive }"
                 >
-                  <span class="sidebar-menu-item__content">
-                    <svg class="sidebar-menu-item__icon" width="20" height="20" viewBox="0 0 20 20" fill="none"
-                         xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M12.5 3.125H4.375C4.02982 3.125 3.75 3.40482 3.75 3.75V16.25C3.75 16.5952 4.02982 16.875 4.375 16.875H15.625C15.9702 16.875 16.25 16.5952 16.25 16.25V6.875L12.5 3.125Z"
-                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                      <path d="M12.5 3.125V6.875H16.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                    <span class="sidebar-menu-item__label">Штрафные тренировки</span>
-                  </span>
-                </button>
-              </router-link>
-
-              <!-- Восстановления -->
-              <router-link to="/requests/clients/restored" custom v-slot="{ navigate, isActive }">
-                <button
-                  class="sidebar-menu-item"
-                  :class="{ 'sidebar-menu-item--active': isActive }"
-                  @click="navigate"
-                >
-                  <span class="sidebar-menu-item__content">
-                    <svg class="sidebar-menu-item__icon" width="20" height="20" viewBox="0 0 20 20" fill="none"
-                         xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M12.5 3.125H4.375C4.02982 3.125 3.75 3.40482 3.75 3.75V16.25C3.75 16.5952 4.02982 16.875 4.375 16.875H15.625C15.9702 16.875 16.25 16.5952 16.25 16.25V6.875L12.5 3.125Z"
-                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                      <path d="M12.5 3.125V6.875H16.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                    <span class="sidebar-menu-item__label">Восстановления</span>
-                  </span>
-                </button>
-              </router-link>
-            </nav>
-          </div>
-
-          <!-- Separator -->
-          <div v-if="IS_BOSS" class="sidebar-separator"></div>
+                  <button
+                    class="sidebar-menu-item"
+                    :class="{ 'sidebar-menu-item--active': isMenuItemActive(item, isActive, isExactActive) }"
+                    @click="navigate"
+                  >
+                    <span class="sidebar-menu-item__content">
+                      <component :is="item.icon" class="sidebar-menu-item__icon" :size="20" />
+                      <span class="sidebar-menu-item__label">{{ item.label }}</span>
+                    </span>
+                  </button>
+                </router-link>
+              </nav>
+            </div>
+            <div v-if="index < menuGroups.length - 1" :key="`sep-${index}`" class="sidebar-separator"></div>
+          </template>
         </div>
       </div>
 
@@ -329,10 +100,36 @@
 </template>
 
 <script>
+import {
+  ChartPie,
+  Coins,
+  Dumbbell,
+  Hourglass,
+  House,
+  RotateCcw,
+  ShoppingBasket,
+  Store,
+  TriangleAlert,
+  UserCog,
+  Users
+} from 'lucide-vue';
 import userMixin from '@/mixins/userMixin';
 
 export default {
   name: 'SidebarV2',
+  components: {
+    ChartPie,
+    Coins,
+    Dumbbell,
+    Hourglass,
+    House,
+    RotateCcw,
+    ShoppingBasket,
+    Store,
+    TriangleAlert,
+    UserCog,
+    Users
+  },
   mixins: [userMixin],
   props: {
     sidebarOpen: {
@@ -361,11 +158,56 @@ export default {
     },
     isProductsActive() {
       return this.currentRoute.path.startsWith('/commerce/products');
+    },
+    menuGroups() {
+      const groups = [
+        {
+          title: null,
+          children: [
+            { to: '/', label: 'Главная', icon: House, exact: true },
+            { to: '/clients', label: 'Клиенты', icon: Users, forceActive: this.isClientsActive },
+            { to: '/users', label: 'Сотрудники', icon: UserCog, forceActive: this.isUsersActive, show: this.IS_BOSS },
+            { to: '/commerce/services', label: 'Прайс', icon: Dumbbell, forceActive: this.isServicesActive, show: this.IS_BOSS },
+            { to: '/commerce/products', label: 'Магазин', icon: Store, forceActive: this.isProductsActive, show: this.IS_BOSS }
+          ]
+        },
+        {
+          title: 'СТАТИСТИКА',
+          show: this.IS_BOSS,
+          children: [
+            { to: '/statistics/common', label: 'Общие данные', icon: ChartPie },
+            { to: '/statistics/economy', label: 'Экономика', icon: Coins },
+            { to: '/statistics/shop', label: 'Магазин/Бар', icon: ShoppingBasket },
+            { to: '/statistics/price', label: 'Прайс', icon: Dumbbell },
+            { to: '/statistics/unlimited-ending', label: 'Заканчивающиеся безлимиты', icon: Hourglass }
+          ]
+        },
+        {
+          title: 'ЗАПРОСЫ',
+          show: this.IS_BOSS,
+          children: [
+            { to: '/requests/clients/penalty', label: 'Штрафные тренировки', icon: TriangleAlert },
+            { to: '/requests/clients/restored', label: 'Восстановления', icon: RotateCcw }
+          ]
+        }
+      ];
+
+      return groups
+        .filter((group) => group.show !== false)
+        .map((group) => ({
+          ...group,
+          children: group.children.filter((item) => item.show !== false)
+        }))
+        .filter((group) => group.children.length);
     }
   },
   methods: {
     toggleSidebar() {
       this.$emit('close-sidebar');
+    },
+    isMenuItemActive(item, isActive, isExactActive) {
+      const baseActive = item.exact ? isExactActive : isActive;
+      return Boolean(item.forceActive || baseActive);
     }
   }
 };
@@ -445,13 +287,13 @@ export default {
   overflow-y: auto;
 }
 
-/* Logo Section - height: 72px, padding: 20px 28px, gap: 10px */
+/* Logo Section - height: 64px, padding: 16px 28px, gap: 10px */
 .sidebar-logo {
   display: flex;
   align-items: center;
   gap: 10px;
   height: 64px;
-  padding: 20px 28px;
+  padding: 16px 28px;
   border-bottom: 1px solid var(--border-color);
   position: relative;
   width: 100%;
@@ -474,11 +316,11 @@ export default {
   color: var(--text-primary);
 }
 
-/* Slider button - position: absolute, left: 234px, top: 22px, size: 28px */
+/* Slider button - position: absolute, left: 234px, top: 18px, size: 28px */
 .sidebar-slider {
   position: absolute;
   left: 234px;
-  top: 22px;
+  top: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
