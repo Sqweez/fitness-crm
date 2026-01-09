@@ -29,7 +29,7 @@
             Загрузить фото <v-icon>mdi-camera</v-icon>
           </v-btn>
           <input type="file" accept="image/*" ref="fileInput" class="hidden" @change="_onPhotoChange">
-          <v-switch label="Виден в приложении" v-model="visibleInApp"/>
+          <v-switch v-if="$hasMobileApplication" label="Виден в приложении" v-model="visibleInApp"/>
           <v-btn  v-if="user.is_active" block color="error" @click="_onDelete">
             Уволить <v-icon>mdi-close</v-icon>
           </v-btn>
@@ -114,7 +114,7 @@
               :error="!!validationErrors.pass"
               :error-messages="validationErrors.pass"
             />
-            <v-textarea label="Описание" v-model="_user.description"/>
+            <v-textarea v-if="$hasMobileApplication" label="Описание" v-model="_user.description"/>
             <v-text-field
               label="Пароль"
               v-if="changePassword"

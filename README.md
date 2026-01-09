@@ -2,6 +2,8 @@
 
 ## Build Setup
 
+Локальный запуск проекта осуществляется только через Docker.
+
 ```bash
 # install dependencies
 $ npm install

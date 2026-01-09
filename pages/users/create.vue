@@ -156,7 +156,7 @@
               Сфотографировать <v-icon>mdi-camera</v-icon>
             </v-btn>
           </v-col>
-          <v-col cols="12">
+          <v-col v-if="$hasMobileApplication" cols="12">
             <v-textarea label="Описание" v-model="user.description"/>
           </v-col>
         </v-row>

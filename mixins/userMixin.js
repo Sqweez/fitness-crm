@@ -1,4 +1,7 @@
+import featuresMixin from '@/mixins/featuresMixin';
+
 export default {
+  mixins: [featuresMixin],
   computed: {
     $isLoggedIn () {
       return this.$store.getters['user/$isLoggedIn']
