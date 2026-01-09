@@ -6,9 +6,7 @@
       class="w-8 h-8 flex items-center justify-center bg-gray-100 hover:bg-gray-200 transition duration-150 rounded-full"
       aria-haspopup="true"
     >
-      <v-icon>
-        mdi-basket
-      </v-icon>
+      <ShoppingBasket class="text-gray-500" :size="20" />
     </button>
   </div>-->
   <div class="relative inline-flex" v-click-outside="() => {dropdownOpen = false}">
@@ -20,9 +18,7 @@
       @click.prevent="dropdownOpen = !dropdownOpen"
       :aria-expanded="dropdownOpen"
     >
-      <v-icon>
-        mdi-basket
-      </v-icon>
+    <ShoppingBasket class="text-gray-500" :size="20" />
     </button>
     <transition
       enter-active-class="transition ease-out duration-200 transform"
@@ -61,9 +57,11 @@
 </template>
 
 <script>
+import { ShoppingBasket } from 'lucide-vue';
 import userMixin from '@/mixins/userMixin';
 
 export default {
+  components: { ShoppingBasket },
   mixins: [userMixin],
   data: () => ({
     dropdownOpen: false

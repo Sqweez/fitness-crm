@@ -81,7 +81,7 @@
       </div>
 
       <!-- Footer -->
-      <div class="sidebar-footer">
+      <div class="sidebar-footer" v-if="false">
         <div class="sidebar-footer__content">
           <div class="sidebar-footer__avatar">
             <span>{{ userInitial }}</span>

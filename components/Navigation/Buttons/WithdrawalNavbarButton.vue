@@ -6,9 +6,7 @@
       class="w-8 h-8 flex items-center justify-center bg-gray-100 hover:bg-gray-200 transition duration-150 rounded-full"
       aria-haspopup="true"
     >
-      <v-icon>
-        mdi-cash-remove
-      </v-icon>
+      <BanknoteArrowDown class="text-gray-500" :size="20" />
     </button>
     <lazy-with-drawal-modal
       :state="showWithDrawalModal"
@@ -18,7 +16,10 @@
 </template>
 
 <script>
+import { BanknoteArrowDown } from 'lucide-vue';
+
 export default {
+  components: { BanknoteArrowDown },
   data: () => ({
     showWithDrawalModal: false,
   }),

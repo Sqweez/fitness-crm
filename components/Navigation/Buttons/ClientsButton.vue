@@ -9,9 +9,7 @@
     @click.prevent="dropdownOpen = !dropdownOpen"
     :aria-expanded="dropdownOpen"
   >
-    <v-icon>
-      mdi-account-multiple
-    </v-icon>
+    <Users class="text-gray-500" :size="20" />
   </button>
   <transition
     enter-active-class="transition ease-out duration-200 transform"
@@ -61,9 +59,11 @@
 </template>
 
 <script>
+import { Users } from 'lucide-vue';
 import userMixin from '@/mixins/userMixin';
 
 export default {
+  components: { Users },
   mixins: [userMixin],
   data: () => ({
     dropdownOpen: false

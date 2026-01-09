@@ -7,7 +7,6 @@
       @click.prevent="dropdownOpen = !dropdownOpen"
       :aria-expanded="dropdownOpen"
     >
-      <img class="w-8 h-8 rounded-full" :src="$auth.user.photo ? $auth.user.photo : UserAvatar" width="32" height="32" alt="User" />
       <div class="flex items-center truncate">
         <span class="truncate ml-2 text-sm font-medium group-hover:text-gray-800">
           {{ $auth.user.name }}
@@ -63,15 +62,15 @@
 </template>
 
 <script>
-import UserAvatar from 'assets/images/logo.jpg'
+import { User } from 'lucide-vue';
 import {mapGetters} from 'vuex';
 
 export default {
   name: 'DropdownProfile',
+  components: { User },
   props: ['align'],
   data: () => ({
     dropdownOpen: false,
-    UserAvatar: UserAvatar,
   }),
   mounted() {
     // document.addEventListener('click', this.clickHandler)
