@@ -2,7 +2,24 @@ const colors = require('tailwindcss/colors');
 const plugin = require('tailwindcss/plugin');
 
 module.exports = {
-  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  content: [
+    './components/**/*.{vue,js,ts}',
+    './layouts/**/*.{vue,js}',
+    './pages/**/*.{vue,js}',
+    './plugins/**/*.{js,ts}',
+    './middleware/**/*.{js,ts}',
+    './mixins/**/*.{js,ts}',
+    './utils/**/*.{js,ts}',
+    './nuxt.config.{js,ts}',
+    './app.{js,ts,vue}',
+  ],
+  safelist: [
+    'backdrop-blur-sm',
+    'font-body',
+    'font-display',
+    { pattern: /text-(blue|slate)-(400|500|600|700|800)/ },
+    { pattern: /hover:text-blue-600/ },
+  ],
   theme: {
     extend: {
       boxShadow: {
@@ -21,6 +38,8 @@ module.exports = {
       },
       fontFamily: {
         inter: ['Inter', 'sans-serif'],
+        display: ['Sora', 'sans-serif'],
+        body: ['Instrument Sans', 'sans-serif'],
       },
       fontSize: {
         xs: ['0.75rem', { lineHeight: '1.5' }],
