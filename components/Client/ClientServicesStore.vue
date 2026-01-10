@@ -32,11 +32,14 @@
           </v-expansion-panels>
           <v-text-field
             v-model="serviceSearch"
-            append-icon="mdi-magnify"
             label="Поиск"
             single-line
             hide-details
-          ></v-text-field>
+          >
+            <template v-slot:append>
+              <Search :size="20" class="text-gray-400" />
+            </template>
+          </v-text-field>
           <v-data-table
             :headers="serviceHeaders"
             :items="filteredServices"
@@ -97,9 +100,11 @@
 <script>
 import {mapActions, mapGetters} from "vuex";
 import userMixin from '@/mixins/userMixin';
+import { Search } from 'lucide-vue';
 
 export default {
   mixins: [userMixin],
+  components: { Search },
   data: () => ({
     showPurchaseModal: false,
     clubId: -1,

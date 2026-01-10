@@ -26,15 +26,15 @@
         <t-card-page title="Быстрые действия" class="mt-4">
           <div class="flex flex-col gap-y-3">
             <v-btn block color="primary" @click="$refs.fileInput.click()">
-              Загрузить фото <v-icon>mdi-camera</v-icon>
+              Загрузить фото <Camera :size="18" class="ml-1" />
             </v-btn>
             <input type="file" accept="image/*" ref="fileInput" class="hidden" @change="_onPhotoChange">
             <v-switch v-if="$hasMobileApplication" label="Виден в приложении" v-model="visibleInApp"/>
             <v-btn v-if="user.is_active" block color="error" @click="_onDelete">
-              Уволить <v-icon>mdi-close</v-icon>
+              Уволить <X :size="18" class="ml-1" />
             </v-btn>
             <v-btn v-if="!user.is_active" block color="error" @click="_onRestore">
-              Восстановить <v-icon>mdi-check</v-icon>
+              Восстановить <Check :size="18" class="ml-1" />
             </v-btn>
           </div>
         </t-card-page>
@@ -123,7 +123,7 @@
             />
             <v-switch label="Сменить пароль?" v-model="changePassword" />
             <v-btn block color="primary" type="button" @click="_onSubmit">
-              Сохранить <v-icon>mdi-check</v-icon>
+              Сохранить <Check :size="18" class="ml-1" />
             </v-btn>
           </v-form>
         </t-card-page>
@@ -141,9 +141,11 @@ import UserAvatar from '@/assets/images/logo.jpg'
 import {deepClone} from "@/utils/helpers";
 import isBossMiddleware from '@/middleware/isBossMiddleware';
 import userMixin from '@/mixins/userMixin';
+import { Camera, Check, X } from 'lucide-vue';
 
 export default {
   mixins: [userMixin],
+  components: { Camera, Check, X },
   data: () => ({
     avatar: UserAvatar,
     visibleInApp: false,

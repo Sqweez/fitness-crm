@@ -1,0 +1,449 @@
+// =============================================================================
+// shadcn/ui style overrides for Vuetify v-btn
+// =============================================================================
+
+// CSS Variables
+:root {
+  // Primary/Success - flat green
+  --btn-primary: #22C55E;
+  --btn-primary-hover: #16A34A;
+  --btn-primary-foreground: #FFFFFF;
+
+  // Destructive/Error
+  --btn-destructive: #EF4444;
+  --btn-destructive-hover: #DC2626;
+
+  // UI colors (from shadcn)
+  --btn-border: #E2E8F0;
+  --btn-hover-bg: #F1F5F9;
+  --btn-text: #0F172A;
+
+  --btn-radius: 6px;
+}
+
+// =============================================================================
+// Base v-btn reset
+// =============================================================================
+.v-btn {
+  // Typography - exact shadcn/ui values
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  font-size: 14px !important;
+  line-height: 24px !important;
+  font-weight: 500 !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+
+  // Shape
+  border-radius: var(--btn-radius) !important;
+  box-shadow: none !important;
+
+  // Padding - shadcn style (16px horizontal, 8px vertical)
+  padding: 0 16px !important;
+  height: 40px !important;
+
+  // Smooth transitions
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease !important;
+
+  // Apply font to button content
+  .v-btn__content {
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    font-size: 14px !important;
+    line-height: 24px !important;
+    font-weight: 500 !important;
+    font-family: inherit !important;
+  }
+
+  // Remove ripple effect
+  .v-ripple__container {
+    display: none !important;
+  }
+
+  &:hover {
+    box-shadow: none !important;
+  }
+
+  // Focus ring (shadcn/ui style)
+  &:focus-visible {
+    outline: 2px solid var(--btn-primary) !important;
+    outline-offset: 2px !important;
+  }
+
+  // Disabled state
+  &.v-btn--disabled {
+    opacity: 0.5 !important;
+  }
+}
+
+// =============================================================================
+// Primary color (color="primary") - green
+// =============================================================================
+.v-btn.primary,
+.v-btn.primary--text:not(.v-btn--text):not(.v-btn--outlined) {
+  background-color: var(--btn-primary) !important;
+  color: var(--btn-primary-foreground) !important;
+  border-color: transparent !important;
+
+  &:hover:not(.v-btn--disabled) {
+    background-color: var(--btn-primary-hover) !important;
+  }
+}
+
+// =============================================================================
+// Success color (color="success") - same green
+// =============================================================================
+.v-btn.success,
+.v-btn.success--text:not(.v-btn--text):not(.v-btn--outlined) {
+  background-color: var(--btn-primary) !important;
+  color: var(--btn-primary-foreground) !important;
+  border-color: transparent !important;
+
+  &:hover:not(.v-btn--disabled) {
+    background-color: var(--btn-primary-hover) !important;
+  }
+}
+
+// =============================================================================
+// Error/Destructive color (color="error")
+// =============================================================================
+.v-btn.error,
+.v-btn.error--text:not(.v-btn--text):not(.v-btn--outlined) {
+  background-color: var(--btn-destructive) !important;
+  color: var(--btn-primary-foreground) !important;
+  border-color: transparent !important;
+
+  &:hover:not(.v-btn--disabled) {
+    background-color: var(--btn-destructive-hover) !important;
+  }
+}
+
+// =============================================================================
+// Text/Ghost variant (v-btn text)
+// =============================================================================
+.v-btn--text,
+.v-btn.v-btn--text {
+  background-color: transparent !important;
+  color: var(--btn-text) !important;
+
+  &:hover:not(.v-btn--disabled) {
+    background-color: var(--btn-hover-bg) !important;
+  }
+
+  // Text button with success color
+  &.success--text {
+    color: var(--btn-primary) !important;
+
+    &:hover:not(.v-btn--disabled) {
+      background-color: rgba(34, 197, 94, 0.1) !important;
+    }
+  }
+
+  // Text button with error color
+  &.error--text {
+    color: var(--btn-destructive) !important;
+
+    &:hover:not(.v-btn--disabled) {
+      background-color: rgba(239, 68, 68, 0.1) !important;
+    }
+  }
+
+  // Text button with primary color
+  &.primary--text {
+    color: var(--btn-primary) !important;
+
+    &:hover:not(.v-btn--disabled) {
+      background-color: rgba(34, 197, 94, 0.1) !important;
+    }
+  }
+}
+
+// =============================================================================
+// Outlined variant (v-btn outlined)
+// =============================================================================
+.v-btn--outlined,
+.v-btn.v-btn--outlined {
+  background-color: transparent !important;
+  border: 1px solid var(--btn-border) !important;
+  color: var(--btn-text) !important;
+
+  &:hover:not(.v-btn--disabled) {
+    background-color: var(--btn-hover-bg) !important;
+  }
+
+  // Outlined with colors
+  &.primary--text {
+    border-color: var(--btn-primary) !important;
+    color: var(--btn-primary) !important;
+  }
+
+  &.success--text {
+    border-color: var(--btn-primary) !important;
+    color: var(--btn-primary) !important;
+  }
+
+  &.error--text {
+    border-color: var(--btn-destructive) !important;
+    color: var(--btn-destructive) !important;
+  }
+}
+
+// =============================================================================
+// Icon buttons (v-btn icon)
+// =============================================================================
+.v-btn--icon,
+.v-btn.v-btn--icon {
+  border-radius: var(--btn-radius) !important;
+  background-color: transparent !important;
+  padding: 0 !important;
+  min-width: 40px !important;
+  width: 40px !important;
+  height: 40px !important;
+
+  &.v-size--small {
+    min-width: 36px !important;
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  &.v-size--x-small {
+    min-width: 28px !important;
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  &:hover:not(.v-btn--disabled) {
+    background-color: var(--btn-hover-bg) !important;
+  }
+
+  // Icon button with colors
+  &.success--text,
+  &.success {
+    color: var(--btn-primary) !important;
+
+    &:hover:not(.v-btn--disabled) {
+      background-color: rgba(34, 197, 94, 0.1) !important;
+    }
+  }
+
+  &.error--text,
+  &.error {
+    color: var(--btn-destructive) !important;
+
+    &:hover:not(.v-btn--disabled) {
+      background-color: rgba(239, 68, 68, 0.1) !important;
+    }
+  }
+
+  &.primary--text,
+  &.primary {
+    color: var(--btn-primary) !important;
+
+    &:hover:not(.v-btn--disabled) {
+      background-color: rgba(34, 197, 94, 0.1) !important;
+    }
+  }
+}
+
+// =============================================================================
+// Size variants
+// =============================================================================
+
+// Default size
+.v-btn.v-size--default {
+  height: 40px !important;
+  padding: 0 16px !important;
+  font-size: 14px !important;
+}
+
+// Small size (v-btn small)
+.v-btn--size-small,
+.v-btn.v-size--small {
+  height: 36px !important;
+  padding: 0 12px !important;
+  font-size: 14px !important;
+
+  .v-btn__content {
+    font-size: 14px !important;
+  }
+}
+
+// X-small size
+.v-btn--size-x-small,
+.v-btn.v-size--x-small {
+  height: 28px !important;
+  padding: 0 8px !important;
+  font-size: 12px !important;
+
+  .v-btn__content {
+    font-size: 12px !important;
+  }
+}
+
+// Large size
+.v-btn--size-large,
+.v-btn.v-size--large {
+  height: 44px !important;
+  padding: 0 24px !important;
+  font-size: 14px !important;
+}
+
+// =============================================================================
+// Block variant (v-btn block)
+// =============================================================================
+.v-btn--block,
+.v-btn.v-btn--block {
+  display: flex !important;
+  width: 100% !important;
+}
+
+// =============================================================================
+// FAB buttons (v-btn fab)
+// =============================================================================
+.v-btn--fab,
+.v-btn.v-btn--fab {
+  border-radius: 50% !important;
+  padding: 0 !important;
+  min-width: 40px !important;
+  width: 40px !important;
+  height: 40px !important;
+
+  &.v-size--small {
+    min-width: 36px !important;
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  &.v-size--x-small {
+    min-width: 28px !important;
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  &.v-size--large {
+    min-width: 44px !important;
+    width: 44px !important;
+    height: 44px !important;
+  }
+
+  &.v-size--x-large {
+    min-width: 64px !important;
+    width: 64px !important;
+    height: 64px !important;
+  }
+}
+
+// =============================================================================
+// Additional colors - flat versions
+// =============================================================================
+.v-btn.indigo,
+.v-btn.indigo.darken-1,
+.v-btn.indigo.darken-2 {
+  background-color: #6366F1 !important;
+  color: #fff !important;
+
+  &:hover:not(.v-btn--disabled) {
+    background-color: #4F46E5 !important;
+  }
+}
+
+.v-btn.teal,
+.v-btn.teal.darken-1,
+.v-btn.teal.darken-2 {
+  background-color: #14B8A6 !important;
+  color: #fff !important;
+
+  &:hover:not(.v-btn--disabled) {
+    background-color: #0D9488 !important;
+  }
+}
+
+.v-btn.cyan,
+.v-btn.cyan.darken-1,
+.v-btn.cyan.darken-2 {
+  background-color: #06B6D4 !important;
+  color: #fff !important;
+
+  &:hover:not(.v-btn--disabled) {
+    background-color: #0891B2 !important;
+  }
+}
+
+.v-btn.orange,
+.v-btn.orange.darken-1,
+.v-btn.orange.darken-2,
+.v-btn.deep-orange {
+  background-color: #F97316 !important;
+  color: #fff !important;
+
+  &:hover:not(.v-btn--disabled) {
+    background-color: #EA580C !important;
+  }
+}
+
+.v-btn.purple,
+.v-btn.purple.darken-1,
+.v-btn.purple.darken-2 {
+  background-color: #A855F7 !important;
+  color: #fff !important;
+
+  &:hover:not(.v-btn--disabled) {
+    background-color: #9333EA !important;
+  }
+}
+
+.v-btn.pink,
+.v-btn.pink.darken-1,
+.v-btn.pink.darken-2 {
+  background-color: #EC4899 !important;
+  color: #fff !important;
+
+  &:hover:not(.v-btn--disabled) {
+    background-color: #DB2777 !important;
+  }
+}
+
+.v-btn.blue,
+.v-btn.blue.darken-1,
+.v-btn.blue.darken-2,
+.v-btn.blue.darken-3,
+.v-btn.blue.darken-4 {
+  background-color: #3B82F6 !important;
+  color: #fff !important;
+
+  &:hover:not(.v-btn--disabled) {
+    background-color: #2563EB !important;
+  }
+}
+
+.v-btn.light-blue,
+.v-btn.light-blue.darken-1,
+.v-btn.light-blue.darken-2 {
+  background-color: #0EA5E9 !important;
+  color: #fff !important;
+
+  &:hover:not(.v-btn--disabled) {
+    background-color: #0284C7 !important;
+  }
+}
+
+.v-btn.red,
+.v-btn.red.darken-1,
+.v-btn.red.darken-2 {
+  background-color: #EF4444 !important;
+  color: #fff !important;
+
+  &:hover:not(.v-btn--disabled) {
+    background-color: #DC2626 !important;
+  }
+}
+
+// =============================================================================
+// Card actions buttons (common pattern in modals)
+// =============================================================================
+.v-card__actions .v-btn {
+  &.v-btn--text {
+    padding: 0 12px !important;
+  }
+}

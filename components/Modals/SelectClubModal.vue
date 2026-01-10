@@ -23,7 +23,7 @@
     <template #actions>
       <v-spacer />
       <v-btn text color="success" :disabled="!club_id" @click.prevent="onSubmit">
-        Подтвердить <v-icon>mdi-check</v-icon>
+        Подтвердить <Check :size="18" class="ml-1" />
       </v-btn>
     </template>
   </base-modal>
@@ -32,8 +32,10 @@
 <script>
 import userMixin from '@/mixins/userMixin';
 import {mapActions} from 'vuex';
+import { Check } from 'lucide-vue';
 
 export default {
+  components: { Check },
   props: {
     state: {
       type: Boolean,

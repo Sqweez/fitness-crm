@@ -19,11 +19,14 @@
       </v-list>
       <v-text-field
         v-model="search"
-        append-icon="mdi-magnify"
         label="Поиск"
         single-line
         hide-details
-      ></v-text-field>
+      >
+        <template v-slot:append>
+          <Search :size="20" class="text-gray-400" />
+        </template>
+      </v-text-field>
       <v-data-table
         :items-per-page="-1"
         :headers="headers"
@@ -41,9 +44,11 @@
 <script>
 import {__hardcoded} from '@/utils/helpers';
 import moment from 'moment/moment';
+import { Search } from 'lucide-vue';
 
 export default {
   name: 'EconomyBarSalesPage',
+  components: { Search },
   beforeMount() {
     const today = moment().format('YYYY-MM-DD');
     this.dates = [today, today];

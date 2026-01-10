@@ -49,7 +49,7 @@
       </v-btn>
       <v-spacer />
       <v-btn text @click="_onSubmit" color="success">
-        Списать <v-icon>mdi-check</v-icon>
+        Списать <Check :size="18" class="ml-1" />
       </v-btn>
     </template>
   </base-modal>
@@ -59,8 +59,10 @@
 import {mapActions, mapGetters} from "vuex";
 import userMixin from '@/mixins/userMixin';
 import {__hardcoded} from '@/utils/helpers';
+import { Check } from 'lucide-vue';
 
 export default {
+  components: { Check },
   mixins: [userMixin],
   data: () => ({
     trainerId: null,

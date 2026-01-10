@@ -19,14 +19,14 @@
       </p>
       <input type="file" class="hidden" ref="fileInput" @change="onFileInputChange">
       <v-btn color="primary" class="my-4" @click="$refs.fileInput.click()" v-if="!uploadedDocument">
-        Загрузить документ <v-icon>mdi-upload</v-icon>
+        Загрузить документ <Upload :size="18" class="ml-1" />
       </v-btn>
       <v-list v-if="uploadedDocument">
         <t-list-item title="Загруженный документ">
           {{ uploadedDocument.name }}
           <template #action>
             <v-btn icon color="error" @click="uploadedDocument = null;">
-              <v-icon>mdi-close</v-icon>
+              <X :size="18" />
             </v-btn>
           </template>
         </t-list-item>
@@ -51,10 +51,13 @@
               :value="dateFormatted"
               label="Произвольная дата восстановления"
               persistent-hint
-              prepend-icon="mdi-calendar"
               v-bind="attrs"
               v-on="on"
-            ></v-text-field>
+            >
+              <template v-slot:prepend>
+                <Calendar :size="18" class="text-gray-400" />
+              </template>
+            </v-text-field>
           </template>
           <v-date-picker
             :first-day-of-week="1"
@@ -72,7 +75,7 @@
       </v-btn>
       <v-spacer></v-spacer>
       <v-btn text @click="_onSubmit" color="success">
-        Восстановить <v-icon>mdi-check</v-icon>
+        Восстановить <Check :size="18" class="ml-1" />
       </v-btn>
     </template>
   </base-modal>
@@ -82,7 +85,9 @@
 import {mapActions, mapGetters} from 'vuex';
 import {formatPrice, toFormData} from '@/utils/helpers';
 import {diffInDaysToday, todayForCalendar} from '@/utils/support/DateFunctions';
+import { Calendar, Check, Upload, X } from 'lucide-vue';
 export default {
+  components: { Calendar, Check, Upload, X },
   data: () => ({
     isFree: false,
     dateMenu: false,

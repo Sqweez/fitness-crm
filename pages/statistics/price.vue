@@ -31,11 +31,14 @@
         />
         <v-text-field
           v-model="searchItems"
-          append-icon="mdi-magnify"
           label="Поиск"
           single-line
           hide-details
-        />
+        >
+          <template v-slot:append>
+            <Search :size="20" class="text-gray-400" />
+          </template>
+        </v-text-field>
         <v-data-table
           :items="filteredItems"
           :search="searchItems"
@@ -61,8 +64,10 @@
 <script>
 import moment from 'moment/moment';
 import {mapActions, mapGetters} from 'vuex';
+import { Search } from 'lucide-vue';
 
 export default {
+  components: { Search },
   async beforeMount() {
     const today = moment().format('YYYY-MM-DD');
     this.dates = [today, today];

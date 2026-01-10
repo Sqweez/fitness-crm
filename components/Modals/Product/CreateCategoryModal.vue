@@ -12,7 +12,7 @@
       </v-btn>
       <v-spacer />
       <v-btn color="success" text @click="onSubmit">
-        Сохранить <v-icon>mdi-check</v-icon>
+        Сохранить <Check :size="18" class="ml-1" />
       </v-btn>
     </template>
   </base-modal>
@@ -20,8 +20,10 @@
 
 <script>
 import {mapActions} from 'vuex';
+import { Check } from 'lucide-vue';
 
 export default {
+  components: { Check },
   props: {
     state: {
       type: Boolean,

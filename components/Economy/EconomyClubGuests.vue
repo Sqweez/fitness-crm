@@ -10,11 +10,14 @@
     </v-list>
     <v-text-field
       v-model="search"
-      append-icon="mdi-magnify"
       label="Поиск"
       single-line
       hide-details
-    />
+    >
+      <template v-slot:append>
+        <Search :size="20" class="text-gray-400" />
+      </template>
+    </v-text-field>
     <v-data-table
       :items-per-page="-1"
       :headers="headers"
@@ -31,8 +34,10 @@
 
 <script>
 import {mapGetters} from "vuex";
+import { Search } from 'lucide-vue';
 
 export default {
+  components: { Search },
   data: () => ({
     search: '',
     headers: [

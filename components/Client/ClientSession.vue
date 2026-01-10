@@ -17,7 +17,7 @@
                 @click="showTrinketModal = true"
                 v-if="client.trinket_can_given"
               >
-                Выдать ключ <v-icon>mdi-key</v-icon>
+                Выдать ключ <Key :size="18" class="ml-1" />
               </v-btn>
               <v-btn
                 dark
@@ -25,7 +25,7 @@
                 @click="_onFinishVisitClick"
                 v-if="client.session_can_be_finished || client.trinket_can_given"
               >
-                Завершить посещение <v-icon>mdi-cancel</v-icon>
+                Завершить посещение <XCircle :size="18" class="ml-1" />
               </v-btn>
             </div>
           </div>
@@ -37,8 +37,10 @@
 
 <script>
 import {mapActions, mapGetters} from "vuex";
+import { Key, XCircle } from 'lucide-vue';
 
 export default {
+  components: { Key, XCircle },
   data: () => ({
     panel: [0],
     showTrinketModal: false,

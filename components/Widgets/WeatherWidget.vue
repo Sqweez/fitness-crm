@@ -3,20 +3,18 @@
     <v-responsive v-if="!loading" min-height="400">
       <v-card-title class="d-flex justify-space-between">
         <span class="display-1">Погода</span>
-        <span class="body-2 text-color--gray">
-                          <v-icon class="text-color--gray">
-                              mdi-map-marker
-                          </v-icon>
-                          {{ weather.name }}
-                      </span>
+        <span class="body-2 text-color--gray flex items-center gap-x-1">
+          <MapPin :size="16" class="text-color--gray" />
+          {{ weather.name }}
+        </span>
       </v-card-title>
       <v-card-text class="p-0">
         <div class="text-right mr-5 mt-10">
           <span class="display-4 font-weight-medium text-shadow">{{ Math.floor(weather.main.temp) }}&deg</span><br><br>
-          <span class="body-1 text-shadow">
-                                        <v-icon class="pr-2">
-                                            mdi-apple-icloud
-                                        </v-icon>{{ weather.weather[0].description }}</span>
+          <span class="body-1 text-shadow flex items-center justify-end">
+            <Cloud :size="18" class="pr-2" />
+            {{ weather.weather[0].description }}
+          </span>
         </div>
       </v-card-text>
     </v-responsive>
@@ -34,8 +32,10 @@
 </template>
 
 <script>
+import { Cloud, MapPin } from 'lucide-vue';
 
 export default {
+  components: { Cloud, MapPin },
   data: () => ({
     weather: {},
     loading: true,

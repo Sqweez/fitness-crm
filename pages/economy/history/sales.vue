@@ -29,11 +29,14 @@
       </v-list>
       <v-text-field
         v-model="search"
-        append-icon="mdi-magnify"
         label="Поиск"
         single-line
         hide-details
-      />
+      >
+        <template v-slot:append>
+          <Search :size="20" class="text-gray-400" />
+        </template>
+      </v-text-field>
       <v-data-table
         :items-per-page="-1"
         :headers="headers"
@@ -52,10 +55,12 @@
 import {__hardcoded} from '@/utils/helpers';
 import userMixin from '@/mixins/userMixin';
 import moment from 'moment';
+import { Search } from 'lucide-vue';
 
 export default {
   name: 'EconomyShopSalesPage',
   mixins: [userMixin],
+  components: { Search },
   data: () => ({
     clubId: -1,
     search: '',

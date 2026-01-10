@@ -7,9 +7,7 @@
         dark
       >
         Добавить
-        <v-icon>
-          mdi-plus
-        </v-icon>
+        <Plus :size="18" class="ml-1" />
       </v-btn>
       <v-row>
         <v-col>
@@ -94,19 +92,19 @@
         <template v-slot:item.actions="{ item }">
           <div class="flex flex-col gap-y-1">
             <v-btn color="success" small @click="openCreateSameProductPage(item)">
-              Родственный товар <v-icon>mdi-plus</v-icon>
+              Родственный товар <Plus :size="16" class="ml-1" />
             </v-btn>
             <v-btn color="blue darken-1" small @click="openEditPage(item)" dark>
-              Редактировать <v-icon>mdi-pencil</v-icon>
+              Редактировать <Pencil :size="16" class="ml-1" />
             </v-btn>
             <v-btn color="purple darken-1" small @click="openBatchModal(item)" dark>
-              Количество <v-icon>mdi-plus</v-icon>
+              Количество <Plus :size="16" class="ml-1" />
             </v-btn>
             <v-btn color="orange darken-1" small @click="getProductBatchInformation(item.id)" dark>
-              История пополнений <v-icon>mdi-information-outline</v-icon>
+              История пополнений <Info :size="16" class="ml-1" />
             </v-btn>
             <v-btn color="error" small @click="deleteProduct(item)">
-              Удалить <v-icon>mdi-close</v-icon>
+              Удалить <X :size="16" class="ml-1" />
             </v-btn>
           </div>
         </template>
@@ -128,9 +126,11 @@
 import {mapActions, mapGetters} from 'vuex';
 import PRODUCT_TYPES from '@/utils/enums/PRODUCT_TYPES';
 import userMixin from '@/mixins/userMixin';
+import { Plus, Pencil, Info, X } from 'lucide-vue';
 
 export default {
   name: 'products-index-page',
+  components: { Plus, Pencil, Info, X },
   mixins: [userMixin],
   data: () => ({
     onlyStocks: false,

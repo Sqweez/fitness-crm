@@ -6,11 +6,14 @@
       </t-list-item>
       <v-text-field
         v-model="search"
-        append-icon="mdi-magnify"
         label="Поиск"
         single-line
         hide-details
-      ></v-text-field>
+      >
+        <template v-slot:append>
+          <Search :size="20" class="text-gray-400" />
+        </template>
+      </v-text-field>
       <v-data-table
         :headers="headers"
         :items="filteredReports"
@@ -24,8 +27,10 @@
 
 <script>
 import {__hardcoded} from '@/utils/helpers';
+import { Search } from 'lucide-vue';
 
 export default {
+  components: { Search },
   data: () => ({
     search: '',
     reports: [],

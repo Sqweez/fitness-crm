@@ -150,10 +150,10 @@
             </div>
             <input type="file" accept="image/*" ref="fileInput" @change="_onFileInputChange" class="hidden">
             <v-btn color="primary" @click="$refs.fileInput.click()">
-              Загрузить фото <v-icon>mdi-upload</v-icon>
+              Загрузить фото <Upload :size="18" class="ml-1" />
             </v-btn>
             <v-btn color="primary" @click="_capturePhoto" v-show="isClientVideoEnabled">
-              Сфотографировать <v-icon>mdi-camera</v-icon>
+              Сфотографировать <Camera :size="18" class="ml-1" />
             </v-btn>
           </v-col>
           <v-col v-if="$hasMobileApplication" cols="12">
@@ -161,7 +161,7 @@
           </v-col>
         </v-row>
         <v-btn type="button" color="primary" @click="onSubmit">
-          Создать <v-icon>mdi-check</v-icon>
+          Создать <Check :size="18" class="ml-1" />
         </v-btn>
       </v-form>
     </t-card-page>
@@ -174,8 +174,10 @@ import useWebcamMixin from '@/utils/mixins/useWebcamMixin';
 import {toFormData} from '@/utils/helpers';
 import isBossMiddleware from '@/middleware/isBossMiddleware';
 import userMixin from '@/mixins/userMixin';
+import { Camera, Check, Upload } from 'lucide-vue';
 
 export default {
+  components: { Camera, Check, Upload },
   data: () => ({
     generateLoginAutomatically: false,
     generatePasswordAutomatically: false,

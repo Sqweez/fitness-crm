@@ -12,10 +12,8 @@
           <div class="flex items-center justify-between">
             {{ title }}
           </div>
-          <v-btn icon text @click="$emit('close')" v-show="!persistent">
-            <v-icon>
-              mdi-close
-            </v-icon>
+          <v-btn icon text @click="$emit('close')" v-show="!persistent" outlined>
+            <X :size="20" />
           </v-btn>
         </v-card-title>
         <v-card-text>
@@ -37,8 +35,10 @@
 
 <script>
 import {mapGetters} from 'vuex';
+import { X } from 'lucide-vue';
 
 export default {
+  components: { X },
   data: () => ({}),
   computed: {
     ...mapGetters({

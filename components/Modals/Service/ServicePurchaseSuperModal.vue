@@ -23,14 +23,17 @@
       </v-btn>
       <v-spacer />
       <v-btn color="success" text @click="$emit('submit', payload)">
-        Продать <v-icon>mdi-check</v-icon>
+        Продать <Check :size="18" class="ml-1" />
       </v-btn>
     </template>
   </base-modal>
 </template>
 
 <script>
+import { Check } from 'lucide-vue';
+
 export default {
+  components: { Check },
   data: () => ({}),
   computed: {},
   methods: {},

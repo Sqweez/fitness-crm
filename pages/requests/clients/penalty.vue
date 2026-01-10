@@ -11,16 +11,16 @@
           <div class="flex items-center">
             <span>{{ item.client.name }}</span>
             <v-btn :to="`/clients/${item.client.id}`" icon target="_blank">
-              <v-icon>mdi-eye</v-icon>
+              <Eye :size="18" />
             </v-btn>
           </div>
         </template>
         <template v-slot:item.actions="{item}">
           <v-btn icon color="error" title="Отклонить" @click="onDecline(item.id)">
-            <v-icon>mdi-close</v-icon>
+            <X :size="18" />
           </v-btn>
           <v-btn icon color="success" title="Подтвердить" @click="onAccept(item.id)">
-            <v-icon>mdi-check</v-icon>
+            <Check :size="18" />
           </v-btn>
         </template>
       </v-data-table>
@@ -30,9 +30,11 @@
 
 <script>
 import isBossMiddleware from '@/middleware/isBossMiddleware';
+import { Check, Eye, X } from 'lucide-vue';
 
 export default {
   middleware: [isBossMiddleware],
+  components: { Check, Eye, X },
   data: () => ({
     penalties: [],
     headers: [

@@ -27,16 +27,21 @@
               v-mask="'+7 (###) ### ##-##'"
               label="Логин"
               v-model="login"
-              prepend-icon="mdi-account"
               type="text">
+              <template v-slot:prepend>
+                <User :size="18" class="text-gray-400" />
+              </template>
             </v-text-field>
             <v-text-field
               @keypress.enter="doLogin"
               label="Пароль"
               v-model="password"
-              prepend-icon="mdi-lock"
               type="password"
-            ></v-text-field>
+            >
+              <template v-slot:prepend>
+                <Lock :size="18" class="text-gray-400" />
+              </template>
+            </v-text-field>
           </v-form>
         </v-card-text>
         <v-card-actions class="d-flex justify-center" v-if="hasLoginQuery">
@@ -50,10 +55,12 @@
 
 <script>
 import {__hardcoded} from '@/utils/helpers';
+import { Lock, User } from 'lucide-vue';
 
 export default {
   guest: true,
   layout: 'empty',
+  components: { Lock, User },
   data: () => ({
     login: '',
     password: '',

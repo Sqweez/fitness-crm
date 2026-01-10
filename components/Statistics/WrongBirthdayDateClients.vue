@@ -48,11 +48,14 @@
       />
       <v-text-field
         v-model="searchInput"
-        append-icon="mdi-magnify"
         label="Поиск"
         single-line
         hide-details
-      ></v-text-field>
+      >
+        <template v-slot:append>
+          <Search :size="20" class="text-gray-400" />
+        </template>
+      </v-text-field>
     </div>
     <v-data-table
       v-if="!loading"
@@ -65,7 +68,7 @@
     >
       <template v-slot:item.actions="{item}">
         <v-btn small icon @click.stop="openInNewTab(item)">
-          <v-icon>mdi-tab</v-icon>
+          <ExternalLink :size="18" />
         </v-btn>
       </template>
     </v-data-table>
@@ -75,8 +78,10 @@
 <script>
 import {mapActions, mapGetters} from 'vuex';
 import GENDERS from '@/utils/enums/GENDERS';
+import { ExternalLink, Search } from 'lucide-vue';
 
 export default {
+  components: { ExternalLink, Search },
   data: () => ({
     loading: true,
     clubId: -1,

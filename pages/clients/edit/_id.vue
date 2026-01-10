@@ -79,15 +79,15 @@
             </div>
             <input type="file" accept="image/*" ref="fileInput" @change="_onFileInputChange" class="hidden">
             <v-btn color="primary" @click="$refs.fileInput.click()">
-              Загрузить фото <v-icon>mdi-upload</v-icon>
+              Загрузить фото <Upload :size="18" class="ml-1" />
             </v-btn>
             <v-btn color="primary" @click="capturePhoto" v-show="isClientVideoEnabled">
-              Сфотографировать <v-icon>mdi-camera</v-icon>
+              Сфотографировать <Camera :size="18" class="ml-1" />
             </v-btn>
           </v-col>
         </v-row>
         <v-btn type="button" class="mt-4" color="primary" @click="_onSubmit">
-          Сохранить <v-icon>mdi-check</v-icon>
+          Сохранить <Check :size="18" class="ml-1" />
         </v-btn>
       </v-form>
     </t-card-page>
@@ -101,8 +101,10 @@ import {mapActions, mapGetters} from "vuex";
 import {deepClone} from "@/utils/helpers";
 import useWebcamMixin from '@/utils/mixins/useWebcamMixin';
 import userMixin from '@/mixins/userMixin';
+import { Camera, Check, Upload } from 'lucide-vue';
 
 export default {
+  components: { Camera, Check, Upload },
   data: () => ({
     genders: GENDERS,
     photoPreview: null,

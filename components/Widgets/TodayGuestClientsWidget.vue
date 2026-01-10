@@ -30,10 +30,10 @@
       >
         <template v-slot:item.actions="{item}">
           <v-btn small icon @click.stop="_openWhatsapp(item)">
-            <v-icon>mdi-whatsapp</v-icon>
+            <MessageCircle :size="18" />
           </v-btn>
           <v-btn small icon @click.stop="openInNewTab(item)">
-            <v-icon>mdi-tab</v-icon>
+            <ExternalLink :size="18" />
           </v-btn>
         </template>
       </v-data-table>
@@ -45,9 +45,11 @@
 import {mapActions} from 'vuex';
 import userMixin from '@/mixins/userMixin';
 import {openInWhatsapp} from '@/utils/clients/clientsFunctions';
+import { ExternalLink, MessageCircle } from 'lucide-vue';
 
 export default {
   mixins: [userMixin],
+  components: { ExternalLink, MessageCircle },
   data: () => ({
     loading: true,
     headers: [

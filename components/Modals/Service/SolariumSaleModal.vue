@@ -14,10 +14,10 @@
 
         <span class="text-lg font-semibold">Количество приобретаемых минут: {{ minutesTotal }} </span>
         <v-btn icon color="error" @click="decrease">
-          <v-icon>mdi-minus</v-icon>
+          <Minus :size="18" />
         </v-btn>
         <v-btn icon color="success" @click="increase">
-          <v-icon>mdi-plus</v-icon>
+          <Plus :size="18" />
         </v-btn>
       </div>
       <p
@@ -40,7 +40,7 @@
       </v-btn>
       <v-spacer />
       <v-btn text @click="_onSubmit" color="success" v-if="totalPrice > 0">
-        Продать <v-icon>mdi-check</v-icon>
+        Продать <Check :size="18" class="ml-1" />
       </v-btn>
     </template>
   </base-modal>
@@ -49,8 +49,10 @@
 <script>
 import {mapActions, mapGetters} from 'vuex';
 import userMixin from '@/mixins/userMixin';
+import { Minus, Plus, Check } from 'lucide-vue';
 
 export default {
+  components: { Minus, Plus, Check },
   mixins: [userMixin],
   props: {
     state: {

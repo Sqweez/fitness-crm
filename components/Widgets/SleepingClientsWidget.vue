@@ -29,11 +29,14 @@
       />
       <v-text-field
         v-model="searchInput"
-        append-icon="mdi-magnify"
         label="Поиск"
         single-line
         hide-details
-      ></v-text-field>
+      >
+        <template v-slot:append>
+          <Search :size="20" class="text-gray-400" />
+        </template>
+      </v-text-field>
       <v-data-table
         :search="searchInput"
         v-if="!loading"
@@ -46,10 +49,10 @@
       >
         <template v-slot:item.actions="{item}">
           <v-btn small icon @click.stop="_openWhatsapp(item)">
-            <v-icon>mdi-whatsapp</v-icon>
+            <MessageCircle :size="18" />
           </v-btn>
           <v-btn small icon @click.stop="openInNewTab(item)">
-            <v-icon>mdi-tab</v-icon>
+            <ExternalLink :size="18" />
           </v-btn>
         </template>
       </v-data-table>
@@ -61,7 +64,9 @@
 import {mapActions, mapGetters} from 'vuex';
 import moment from 'moment';
 import {openInWhatsapp} from '@/utils/clients/clientsFunctions';
+import { ExternalLink, MessageCircle, Search } from 'lucide-vue';
 export default {
+  components: { ExternalLink, MessageCircle, Search },
   data: () => ({
     loading: false,
     clubId: -1,

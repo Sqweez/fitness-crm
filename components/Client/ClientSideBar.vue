@@ -78,17 +78,11 @@
           </v-btn>
           <div class="flex flex-col gap-y-2 flex-wrap" v-if="!IS_BARTENDER">
             <v-btn  class="block w-1/2 xl:w-full" color="light-blue" @click="openWhatsapp" dark>
-              Сообщение клиенту <v-icon>mdi-whatsapp</v-icon>
+              Сообщение клиенту <MessageCircle :size="18" class="ml-1" />
             </v-btn>
             <v-btn  class="block w-1/2 xl:w-full" color="cyan" @click="$router.push(`/clients/edit/${client.id}`)" dark>
               Редактор профиля
             </v-btn>
-<!--            <v-btn  class="block w-1/2 xl:w-full" color="lime" @click="$toast.success('Это еще не работает :(')" dark>
-              Заявление
-            </v-btn>
-            <v-btn  class="block w-1/2 xl:w-full" color="deep-orange" @click="$toast.success('Это еще не работает :(')" dark>
-              Договор с клиентом
-            </v-btn>-->
             <v-btn  class="block w-1/2 xl:w-full" color="error" v-if="IS_BOSS" @click="_onClientDelete">
               Удалить клиента
             </v-btn>
@@ -112,8 +106,10 @@ import {__hardcoded, deepClone, openInNewTab} from "@/utils/helpers";
 import UserAvatar from "assets/images/logo.jpg";
 import userMixin from '@/mixins/userMixin';
 import {openInWhatsapp} from '@/utils/clients/clientsFunctions';
+import { MessageCircle } from 'lucide-vue';
 
 export default {
+  components: { MessageCircle },
   data: () => ({
     avatar: UserAvatar,
     showCardModal: false,

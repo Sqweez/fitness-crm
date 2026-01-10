@@ -59,13 +59,13 @@
                       </v-list>
                       <div class="flex flex-col gap-y-2 w-64">
                         <v-btn color="primary" v-if="!item.is_activated && $CAN_WRITE_OFF_SERVICES" @click="_onWriteOffClick(item)">
-                          Списать <v-icon>mdi-check</v-icon>
+                          Списать <Check :size="18" class="ml-1" />
                         </v-btn>
                         <v-btn color="primary" v-if="item.can_be_used && $CAN_WRITE_OFF_SERVICES" @click="_onWriteOffClick(item)">
-                          Списать <span v-if="item.already_written_off">&nbsp;повторно</span><v-icon>mdi-check</v-icon>
+                          Списать <span v-if="item.already_written_off">&nbsp;повторно</span><Check :size="18" class="ml-1" />
                         </v-btn>
                         <v-btn color="red darken-1" dark v-if="item.can_be_used && $CAN_WRITE_OFF_SERVICES" @click="_onPenaltyWriteOffClick(item)">
-                          Штрафное списание <v-icon>mdi-check</v-icon>
+                          Штрафное списание <Check :size="18" class="ml-1" />
                         </v-btn>
                         <v-btn color="indigo darken-1" dark v-if="item.can_be_prolonged && client.has_unlimited_discount" @click="_onServiceProlong(item)">
                           Пролонгация ({{ item.prolongation_price | priceFilters }})
@@ -94,10 +94,10 @@
                           Восстановить ({{ item.restore_price | priceFilters }})
                         </v-btn>
                         <v-btn color="pink darken-1" style="color:#fff;" @click="_onServiceInformationClick(item)">
-                          Информация <v-icon>mdi-information-outline</v-icon>
+                          Информация <Info :size="18" class="ml-1" />
                         </v-btn>
                         <v-btn color="orange darken-2" v-if="IS_BOSS" @click="_onEditClick(item)" dark>
-                          Редактировать <v-icon>mdi-pencil</v-icon>
+                          Редактировать <Pencil :size="18" class="ml-1" />
                         </v-btn>
                       </div>
                     </div>
@@ -155,9 +155,11 @@
 <script>
 import {mapActions, mapGetters} from "vuex";
 import userMixin from '@/mixins/userMixin';
+import { Check, Info, Pencil } from 'lucide-vue';
 
 export default {
   mixins: [userMixin],
+  components: { Check, Info, Pencil },
   data: () => ({
     panel: [0],
     tab: 0,

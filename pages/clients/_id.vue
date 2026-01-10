@@ -37,9 +37,7 @@
         fab
         x-large
       >
-        <v-icon>
-          mdi-cash
-        </v-icon>
+        <Banknote :size="24" />
       </v-btn>
     </v-row>
   </div>
@@ -49,8 +47,10 @@
 import {mapActions, mapGetters} from "vuex";
 import {deepClone} from "@/utils/helpers";
 import userMixin from '@/mixins/userMixin';
+import { Banknote } from 'lucide-vue';
 
 export default {
+  components: { Banknote },
   data: () => ({
     showBalanceModal: false,
   }),

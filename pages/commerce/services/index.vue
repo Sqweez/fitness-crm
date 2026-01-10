@@ -7,9 +7,7 @@
         dark
       >
         Добавить
-        <v-icon>
-          mdi-plus
-        </v-icon>
+        <Plus :size="18" class="ml-1" />
       </v-btn>
       <v-expansion-panels class="mt-4 mb-2">
         <v-expansion-panel>
@@ -37,11 +35,14 @@
       <v-text-field
         ref="searchInput"
         v-model="search"
-        append-icon="mdi-magnify"
         label="Поиск"
         single-line
         hide-details
-      ></v-text-field>
+      >
+        <template v-slot:append>
+          <Search :size="20" class="text-gray-400" />
+        </template>
+      </v-text-field>
       <confirmation-modal :state="showDeleteModal" @close="showDeleteModal = false" />
       <v-data-table
         :items-per-page="-1"
@@ -88,11 +89,11 @@
           </v-list>
         </template>
         <template v-slot:item.actions="{ item }">
-          <v-btn icon @click="_onDeleteClick(item.id)" color="error">
-            <v-icon>mdi-delete</v-icon>
+          <v-btn icon @click="_onDeleteClick(item.id)" class="text-red-500 hover:bg-red-50">
+            <Trash2 :size="18" />
           </v-btn>
-          <v-btn icon @click="$router.push(`/commerce/services/${item.id}/edit`)" color="success">
-            <v-icon>mdi-pencil</v-icon>
+          <v-btn icon @click="$router.push(`/commerce/services/${item.id}/edit`)" class="text-green-500 hover:bg-green-50">
+            <Pencil :size="18" />
           </v-btn>
         </template>
       </v-data-table>
@@ -103,9 +104,11 @@
 <script>
 import {mapActions, mapGetters} from 'vuex';
 import isBossMiddleware from '@/middleware/isBossMiddleware';
+import { Plus, Search, Trash2, Pencil } from 'lucide-vue';
 
 export default {
   name: 'ServiceIndexPage',
+  components: { Plus, Search, Trash2, Pencil },
   middleware: [isBossMiddleware],
   data: () => ({
     showDeleteModal: false,

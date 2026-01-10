@@ -17,7 +17,7 @@
       </v-btn>
       <v-spacer />
       <v-btn text @click="_onSubmit" color="success">
-        Списать <v-icon>mdi-check</v-icon>
+        Списать <Check :size="18" class="ml-1" />
       </v-btn>
     </template>
   </base-modal>
@@ -25,8 +25,10 @@
 
 <script>
 import {mapActions, mapGetters} from "vuex";
+import { Check } from 'lucide-vue';
 
 export default {
+  components: { Check },
   data: () => ({
     minutes: null,
   }),

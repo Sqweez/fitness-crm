@@ -1,16 +1,15 @@
 <template>
   <div>
-    <v-icon v-if="state" color="success">
-      mdi-check
-    </v-icon>
-    <v-icon v-else color="error">
-      mdi-close
-    </v-icon>
+    <Check v-if="state" class="text-green-500" :size="20" />
+    <X v-else class="text-red-500" :size="20" />
   </div>
 </template>
 
 <script>
+import { Check, X } from 'lucide-vue';
+
 export default {
+  components: { Check, X },
   props: {
     state: {
       type: Boolean,

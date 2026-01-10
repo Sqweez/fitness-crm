@@ -37,7 +37,7 @@
             color="error"
             @click.stop="removeClient(item, $event)"
           >
-            <v-icon>mdi-close</v-icon>
+            <X :size="18" />
           </v-btn>
         </template>
       </v-data-table>
@@ -48,8 +48,10 @@
 <script>
 import {mapActions} from 'vuex';
 import UserAvatar from "assets/images/logo.jpg";
+import { X } from 'lucide-vue';
 
 export default {
+  components: { X },
   data: () => ({
     avatar: UserAvatar,
     loading: true,

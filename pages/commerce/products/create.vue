@@ -46,7 +46,7 @@
             no-data-text="Нет категории"
           />
           <v-btn icon text color="success" @click="showCategoryModal = true">
-            <v-icon>mdi-plus</v-icon>
+            <Plus :size="18" />
           </v-btn>
         </div>
         <v-select
@@ -85,7 +85,7 @@
           </div>
         </div>
         <v-btn type="button" color="primary" @click="_onSubmit">
-          Создать <v-icon>mdi-check</v-icon>
+          Создать <Check :size="18" class="ml-1" />
         </v-btn>
       </v-form>
       <lazy-create-category-modal
@@ -102,9 +102,11 @@ import {mapActions, mapGetters} from 'vuex';
 import PRODUCT_TYPES from '@/utils/enums/PRODUCT_TYPES';
 import {deepClone} from '@/utils/helpers';
 import userMixin from '@/mixins/userMixin';
+import { Check, Plus } from 'lucide-vue';
 
 export default {
   mixins: [userMixin],
+  components: { Check, Plus },
   data: () => ({
     showCategoryModal: false,
     product: {

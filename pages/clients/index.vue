@@ -8,9 +8,7 @@
         dark
       >
         Добавить клиента
-        <v-icon>
-          mdi-plus
-        </v-icon>
+        <Plus :size="18" class="ml-1" />
       </v-btn>
       <v-expansion-panels class="mt-4 mb-2" v-if="false">
         <v-expansion-panel>
@@ -31,11 +29,14 @@
       <v-text-field
         ref="searchTextInput"
         v-model="searchInput"
-        append-icon="mdi-magnify"
         label="Начните что-нибудь искать 🤖"
         single-line
         hide-details
-      ></v-text-field>
+      >
+        <template v-slot:append>
+          <Search :size="20" class="text-gray-400" />
+        </template>
+      </v-text-field>
       <v-data-table
         :items-per-page="-1"
         :loading="isSearching"
@@ -56,7 +57,7 @@
         </template>
         <template v-slot:item.actions="{item}">
           <v-btn small icon @click.stop="openInNewTab(item)">
-            <v-icon>mdi-tab</v-icon>
+            <ExternalLink :size="18" />
           </v-btn>
         </template>
       </v-data-table>
@@ -67,9 +68,11 @@
 <script>
 import {mapActions, mapGetters} from 'vuex';
 import { __debounce } from '@/utils/helpers';
+import { ExternalLink, Plus, Search } from 'lucide-vue';
 
 export default {
   name: 'ClientsPage',
+  components: { ExternalLink, Plus, Search },
   data: () => ({
     searchInput: '',
     search: '',
@@ -184,7 +187,7 @@ export default {
       this.isSearching = true;
       await this.$searchClients(value);
       if (this._clients.length === 0) {
-        this.searchInput = '';
+        // this.searchInput = '';
         this.focusInput();
       }
       this.isSearching = false;

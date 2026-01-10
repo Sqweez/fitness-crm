@@ -16,7 +16,7 @@
         </v-btn>
         <v-spacer />
         <v-btn text color="success" @click="_confirm">
-          Подтвердить <v-icon>mdi-check</v-icon>
+          Подтвердить <Check :size="18" class="ml-1" />
         </v-btn>
       </template>
     </base-modal>
@@ -24,7 +24,10 @@
 </template>
 
 <script>
+import { Check } from 'lucide-vue';
+
 export default {
+  components: { Check },
   data: () => ({
     resolvePromise: undefined,
     rejectPromise: undefined,

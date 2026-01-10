@@ -20,14 +20,7 @@
             />
           </v-app>
         </div>
-        <div class="fixed bottom-24 right-6 z-50 hidden md:flex flex-col">
-          <v-btn fab outlined color="blue darken-4" small @click="scrollToTop">
-            <v-icon>mdi-arrow-up</v-icon>
-          </v-btn>
-          <v-btn fab outlined color="blue darken-4" small @click="scrollToBottom">
-            <v-icon>mdi-arrow-down</v-icon>
-          </v-btn>
-        </div>
+        <scroll-buttons />
       </main>
     </div>
   </div>
@@ -36,10 +29,12 @@
 <script>
 import userMixin from '@/mixins/userMixin';
 import Sidebar from '~/components/Navigation/SidebarV2.vue';
+import { ArrowDown, ArrowUp } from 'lucide-vue';
+import ScrollButtons from '~/components/Layout/ScrollButtons.vue';
 
 export default {
   name: 'Dashboard',
-  components: { Sidebar },
+  components: { ScrollButtons, ArrowDown, ArrowUp, Sidebar },
   mixins: [
     userMixin
   ],

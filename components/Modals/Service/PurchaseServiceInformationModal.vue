@@ -39,7 +39,7 @@
                 <template v-slot:item.additional="{ item }">
                   <v-list>
                     <t-list-item v-if="item.is_penalty" title="Штрафное">
-                      <v-icon color="success">mdi-check</v-icon>
+                      <Check :size="16" class="text-green-500" />
                     </t-list-item>
                     <t-list-item v-if="item.trainer.id" title="Тренер">
                       {{ item.trainer.name }}
@@ -79,8 +79,10 @@
 
 <script>
 import {mapActions, mapGetters} from 'vuex';
+import { Check } from 'lucide-vue';
 
 export default {
+  components: { Check },
   props: {
     state: {
       type: Boolean,

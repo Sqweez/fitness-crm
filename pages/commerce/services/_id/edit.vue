@@ -106,7 +106,7 @@
           v-model="service.description"
         />
         <v-btn color="primary" @click="_onSubmit">
-          Сохранить <v-icon>mdi-check</v-icon>
+          Сохранить <Check :size="18" class="ml-1" />
         </v-btn>
       </v-form>
     </t-card-page>
@@ -117,9 +117,11 @@
 import {mapActions, mapGetters} from "vuex";
 import {deepClone} from "@/utils/helpers";
 import isBossMiddleware from '@/middleware/isBossMiddleware';
+import { Check } from 'lucide-vue';
 
 export default {
   middleware: [isBossMiddleware],
+  components: { Check },
   data: () => ({
     validationErrors: {},
   }),
