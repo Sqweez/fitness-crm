@@ -1,98 +1,103 @@
 <template>
   <div>
-    <t-card-page no-title>
-      <div class="flex p-2 gap-2 items-center flex-column justify-start">
-        <div class="flex xl:flex-col gap-y-2 gap-x-4 justify-center items-center xl:items-start w-full">
-          <div class="w-48 h-48 overflow-hidden mx-auto">
-            <img :src="client.photo ? client.photo : avatar" :alt="client.name" class="w-full h-full object-cover object-top">
-          </div>
-          <div>
-            <v-list density="compact" flat>
-              <t-list-item title="ФИО">
-                <p class="whitespace-normal">{{ client.name }}</p>
-              </t-list-item>
-              <t-list-item title="Баланс">
-                {{ client.balance | priceFilters }}
-              </t-list-item>
-              <t-list-item  title="Кто зарегистрировал">
-                {{ client.registrar }}
-              </t-list-item>
-              <t-list-item  title="Возраст">
-                {{ client.age_type }} ({{ client.age }})
-              </t-list-item>
-              <t-list-item  title="Телефон">
-                {{ client.unmasked_phone }}
-              </t-list-item>
-            </v-list>
-            <div class="w-full bg-yellow-300 p-3">
-              <v-textarea
-                rows="8"
-                label="Заметка о клиенте"
-                v-model="client.description"
-                class="w-full"
-                @keyup.enter="_updateDescription"
-              ></v-textarea>
-            </div>
-            <v-expansion-panels v-show="!IS_BARTENDER" class="mt-4">
-              <v-expansion-panel>
-                <v-expansion-panel-header color="green lighten-2">
-                  Дополнительно
-                </v-expansion-panel-header>
-                <v-expansion-panel-content>
-                  <v-list>
-                    <t-list-item title="Пол">
-                      {{ client.gender_display }}
-                    </t-list-item>
-                    <t-list-item title="Телефон">
-                      {{ client.phone }}
-                    </t-list-item>
-                    <t-list-item title="Дата рождения">
-                      {{ client.birth_date_formatted }}
-                    </t-list-item>
-                    <t-list-item v-if="client.birth_date" title="Возраст">
-                      {{ client.age }}
-                    </t-list-item>
-                    <t-list-item  title="Сейчас в клубе">
-                      <status-icons :state="client.is_in_club" />
-                    </t-list-item>
-                    <t-list-item  title="Номер шкафчика" v-if="client.cabinet_number">
-                      {{ client.cabinet_number }}
-                    </t-list-item>
-                    <t-list-item  title="Пароль для приложения">
-                      {{ client.mobile_password }}
-                    </t-list-item>
-                  </v-list>
-                </v-expansion-panel-content>
-              </v-expansion-panel>
-            </v-expansion-panels>
-          </div>
+    <div class="client-sidebar">
+      <div class="client-sidebar__profile">
+        <div class="client-sidebar__avatar">
+          <img :src="client.photo ? client.photo : avatar" :alt="client.name" class="client-sidebar__avatar-image">
         </div>
-        <hr class="mb-2">
-        <hr class="mt-2">
-        <div class="flex xl:flex-col gap-y-2 flex-wrap">
-          <v-btn v-if="!client.in_bookmark" class="block w-1/2 xl:w-full" color="teal" @click="addToBookmark" dark>
-            В закладку гостей
-          </v-btn>
-          <v-btn v-if="client.in_bookmark" class="block w-1/2 xl:w-full" color="teal" @click="removeFromBookmark" dark>
-            Удалить из закладки гостей
-          </v-btn>
-          <div class="flex flex-col gap-y-2 flex-wrap" v-if="!IS_BARTENDER">
-            <v-btn  class="block w-1/2 xl:w-full" color="light-blue" @click="openWhatsapp" dark>
-              Сообщение клиенту <MessageCircle :size="18" class="ml-1" />
-            </v-btn>
-            <v-btn  class="block w-1/2 xl:w-full" color="cyan" @click="$router.push(`/clients/edit/${client.id}`)" dark>
-              Редактор профиля
-            </v-btn>
-            <v-btn  class="block w-1/2 xl:w-full" color="error" v-if="IS_BOSS" @click="_onClientDelete">
-              Удалить клиента
-            </v-btn>
-            <v-btn  class="block w-1/2 xl:w-full" color="indigo" dark @click="onRemakeCardClick">
-              Переоформить карту
-            </v-btn>
-          </div>
+        <div class="client-sidebar__identity">
+          <p class="client-sidebar__name">{{ client.name }}</p>
         </div>
       </div>
-    </t-card-page>
+
+      <div class="client-sidebar__section">
+        <dl class="client-sidebar__list">
+          <div class="client-sidebar__row">
+            <dt>Баланс</dt>
+            <dd>{{ client.balance | priceFilters }}</dd>
+          </div>
+          <div class="client-sidebar__row">
+            <dt>Кто зарегистрировал</dt>
+            <dd>{{ client.registrar }}</dd>
+          </div>
+          <div class="client-sidebar__row">
+            <dt>Возраст</dt>
+            <dd>{{ client.age_type }} ({{ client.age }})</dd>
+          </div>
+          <div class="client-sidebar__row">
+            <dt>Телефон</dt>
+            <dd>{{ client.unmasked_phone }}</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="client-sidebar__section client-sidebar__note">
+        <label class="client-sidebar__label">Заметка о клиенте</label>
+        <v-textarea
+          rows="6"
+          v-model="client.description"
+          class="client-sidebar__textarea"
+          @keyup.enter="_updateDescription"
+        ></v-textarea>
+      </div>
+
+      <details v-show="!IS_BARTENDER" class="client-sidebar__details">
+        <summary class="client-sidebar__summary">Дополнительно</summary>
+        <dl class="client-sidebar__details-body">
+          <div class="client-sidebar__row">
+            <dt>Пол</dt>
+            <dd>{{ client.gender_display }}</dd>
+          </div>
+          <div class="client-sidebar__row">
+            <dt>Телефон</dt>
+            <dd>{{ client.phone }}</dd>
+          </div>
+          <div class="client-sidebar__row">
+            <dt>Дата рождения</dt>
+            <dd>{{ client.birth_date_formatted }}</dd>
+          </div>
+          <div v-if="client.birth_date" class="client-sidebar__row">
+            <dt>Возраст</dt>
+            <dd>{{ client.age }}</dd>
+          </div>
+          <div class="client-sidebar__row">
+            <dt>Сейчас в клубе</dt>
+            <dd><status-icons :state="client.is_in_club" /></dd>
+          </div>
+          <div v-if="client.cabinet_number" class="client-sidebar__row">
+            <dt>Номер шкафчика</dt>
+            <dd>{{ client.cabinet_number }}</dd>
+          </div>
+          <div class="client-sidebar__row">
+            <dt>Пароль для приложения</dt>
+            <dd>{{ client.mobile_password }}</dd>
+          </div>
+        </dl>
+      </details>
+
+      <div class="client-sidebar__actions">
+        <v-btn v-if="!client.in_bookmark" block class="action-btn action-btn--secondary" @click="addToBookmark">
+          В закладку гостей
+        </v-btn>
+        <v-btn v-if="client.in_bookmark" block class="action-btn action-btn--secondary" @click="removeFromBookmark">
+          Удалить из закладки гостей
+        </v-btn>
+        <div class="client-sidebar__actions-group" v-if="!IS_BARTENDER">
+          <v-btn block class="action-btn action-btn--outline" @click="openWhatsapp">
+            Сообщение клиенту <MessageCircle :size="18" class="ml-1" />
+          </v-btn>
+          <v-btn block class="action-btn action-btn--primary" @click="$router.push(`/clients/edit/${client.id}`)">
+            Редактор профиля
+          </v-btn>
+          <v-btn block class="action-btn action-btn--destructive" v-if="IS_BOSS" @click="_onClientDelete">
+            Удалить клиента
+          </v-btn>
+          <v-btn block class="action-btn action-btn--secondary" @click="onRemakeCardClick">
+            Переоформить карту
+          </v-btn>
+        </div>
+      </div>
+    </div>
     <lazy-remake-card-modal
       :state="showCardModal"
       @close="showCardModal = false"
@@ -197,5 +202,253 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.client-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0;
+}
 
+.client-sidebar__profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 14px;
+  background: #f8fafc;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+}
+
+.client-sidebar__profile::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #0ea5e9 0%, #38bdf8 50%, #0ea5e9 100%);
+}
+
+.client-sidebar__avatar {
+  width: 168px;
+  height: 168px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.12);
+}
+
+.client-sidebar__avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.client-sidebar__identity {
+  text-align: center;
+}
+
+.client-sidebar__name {
+  font-size: 20px;
+  font-weight: 600;
+  color: #0f172a;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.client-sidebar__phone {
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.client-sidebar__section {
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 12px;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.client-sidebar__list,
+.client-sidebar__details-body {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.client-sidebar__row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 14px;
+  color: #0f172a;
+
+  dt {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #94a3b8;
+    line-height: 1.4;
+  }
+
+  dd {
+    font-weight: 500;
+    color: #0f172a;
+    margin: 0;
+    line-height: 1.4;
+    word-break: break-word;
+  }
+}
+
+.client-sidebar__note {
+  background: #f8fafc;
+}
+
+.client-sidebar__label {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-bottom: 8px;
+}
+
+.client-sidebar__textarea {
+  width: 100%;
+}
+
+.client-sidebar__details {
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 0;
+  background: #ffffff;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+
+  summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 12px 14px;
+    font-weight: 600;
+    font-size: 15px;
+    color: #0f172a;
+    background: #f8fafc;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary::after {
+    content: '▾';
+    font-size: 12px;
+    color: #64748b;
+    transition: transform 0.2s ease;
+  }
+
+  &[open] summary::after {
+    transform: rotate(180deg);
+  }
+}
+
+.client-sidebar__details-body {
+  padding: 12px;
+}
+
+.client-sidebar__actions {
+  display: grid;
+  gap: 10px;
+}
+
+.client-sidebar__actions-group {
+  display: grid;
+  gap: 10px;
+}
+
+.action-btn {
+  border: 1px solid #e2e8f0 !important;
+  background: #ffffff !important;
+  color: #0f172a !important;
+  box-shadow: none !important;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease !important;
+}
+
+.action-btn--primary {
+  background: #0f172a !important;
+  border-color: #0f172a !important;
+  color: #ffffff !important;
+
+  &:hover {
+    background: #1e293b !important;
+    border-color: #1e293b !important;
+  }
+}
+
+.action-btn--secondary {
+  background: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+
+  &:hover {
+    background: #f1f5f9 !important;
+  }
+}
+
+.action-btn--outline {
+  background: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+
+  &:hover {
+    background: #f8fafc !important;
+  }
+}
+
+.action-btn--destructive {
+  background: #ef4444 !important;
+  border-color: #ef4444 !important;
+  color: #ffffff !important;
+
+  &:hover {
+    background: #dc2626 !important;
+    border-color: #dc2626 !important;
+  }
+}
+
+:deep(.client-sidebar__note .v-input__slot) {
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 10px !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+  padding: 6px 8px !important;
+}
+
+:deep(.client-sidebar__note textarea) {
+  font-size: 14px !important;
+  line-height: 20px !important;
+  color: #0f172a !important;
+}
+
+:deep(.client-sidebar__note .v-label) {
+  display: none !important;
+}
+
+:deep(.client-sidebar__note .v-input__control) {
+  min-height: 0 !important;
+}
+
+:deep(.client-sidebar__note .v-messages) {
+  display: none !important;
+}
 </style>

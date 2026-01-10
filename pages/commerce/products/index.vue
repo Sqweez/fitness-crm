@@ -211,7 +211,7 @@ export default {
         },
         {
           value: 'barcode',
-          text: 'Штрих-код | Артикул'
+          text: 'Штрих-код'
         },
         {
           value: 'quantity',
