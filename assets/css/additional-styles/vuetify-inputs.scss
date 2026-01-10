@@ -1,0 +1,118 @@
+// =============================================================================
+// shadcn/ui-style overrides for Vuetify inputs
+// =============================================================================
+
+:root {
+  --input-bg: #ffffff;
+  --input-border: #cbd5e1;
+  --input-ring: #94a3b8;
+  --input-text: #0f172a;
+  --input-muted: #94a3b8;
+  --input-disabled-bg: #f8fafc;
+  --input-radius: 6px;
+}
+
+.v-input {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+}
+
+.v-text-field .v-input__control,
+.v-select .v-input__control,
+.v-autocomplete .v-input__control,
+.v-textarea .v-input__control {
+  min-height: 40px !important;
+}
+
+.v-text-field .v-input__slot,
+.v-select .v-input__slot,
+.v-autocomplete .v-input__slot,
+.v-textarea .v-input__slot {
+  background: var(--input-bg) !important;
+  border: 1px solid var(--input-border) !important;
+  border-radius: var(--input-radius) !important;
+  min-height: 40px !important;
+  padding: 0 12px !important;
+  box-shadow: none !important;
+  align-items: center !important;
+}
+
+.v-text-field .v-input__slot::before,
+.v-text-field .v-input__slot::after,
+.v-textarea .v-input__slot::before,
+.v-textarea .v-input__slot::after,
+.v-select .v-input__slot::before,
+.v-select .v-input__slot::after,
+.v-autocomplete .v-input__slot::before,
+.v-autocomplete .v-input__slot::after {
+  display: none !important;
+}
+
+.v-text-field input,
+.v-textarea textarea,
+.v-select .v-select__selection,
+.v-autocomplete .v-select__selection {
+  font-size: 16px !important;
+  line-height: 24px !important;
+  color: var(--input-text) !important;
+}
+
+.v-input input::placeholder,
+.v-input textarea::placeholder {
+  color: var(--input-muted) !important;
+}
+
+.v-label {
+  font-size: 14px !important;
+  line-height: 20px !important;
+  color: var(--input-text) !important;
+}
+
+.v-label--active {
+  color: var(--input-text) !important;
+}
+
+.v-input--is-focused .v-input__slot {
+  border-color: var(--input-border) !important;
+  box-shadow: 0 0 0 2px var(--input-ring) !important;
+}
+
+.v-input--is-disabled .v-input__slot {
+  background: var(--input-disabled-bg) !important;
+  color: var(--input-muted) !important;
+  opacity: 0.6 !important;
+}
+
+.v-input--is-disabled input,
+.v-input--is-disabled textarea,
+.v-input--is-disabled .v-select__selection {
+  color: var(--input-muted) !important;
+}
+
+.v-input__append-inner,
+.v-input__prepend-inner {
+  color: var(--input-muted) !important;
+}
+
+.v-input__append-inner .v-icon,
+.v-input__prepend-inner .v-icon {
+  color: var(--input-muted) !important;
+}
+
+.v-text-field--outlined .v-input__slot,
+.v-text-field--solo .v-input__slot {
+  border-color: var(--input-border) !important;
+}
+
+.v-text-field--dense .v-input__control,
+.v-text-field--dense .v-input__slot,
+.v-input--dense .v-input__slot {
+  min-height: 36px !important;
+}
+
+.v-text-field--dense input,
+.v-text-field--dense textarea,
+.v-input--dense input,
+.v-input--dense textarea {
+  font-size: 14px !important;
+  line-height: 20px !important;
+}
