@@ -1,6 +1,6 @@
 <template>
   <transition name="fade" appear>
-    <div v-if="state" class="z-40 fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center flex-col">
+    <div v-if="state" class="z-60 fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center flex-col">
       <div class="loader-2 center">
         <span />
       </div>
