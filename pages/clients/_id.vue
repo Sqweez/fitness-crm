@@ -48,9 +48,11 @@ import {mapActions, mapGetters} from "vuex";
 import {deepClone} from "@/utils/helpers";
 import userMixin from '@/mixins/userMixin';
 import { Banknote } from 'lucide-vue';
+import ClientSessionV1 from '~/components/Client/ClientSessionV1.vue';
+import ClientSessionV2 from '~/components/Client/ClientSessionV2.vue';
 
 export default {
-  components: { Banknote },
+  components: { ClientSessionV2, ClientSessionV1, Banknote },
   data: () => ({
     showBalanceModal: false,
   }),
