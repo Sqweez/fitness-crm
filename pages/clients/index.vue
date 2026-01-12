@@ -187,7 +187,7 @@ export default {
       this.isSearching = true;
       await this.$searchClients(value);
       if (this._clients.length === 0) {
-        // this.searchInput = '';
+        this.searchInput = '';
         this.focusInput();
       }
       this.isSearching = false;
