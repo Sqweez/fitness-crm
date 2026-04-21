@@ -173,10 +173,10 @@ export default {
     isPenalty: false,
     currentService: {},
     tabs: [
-      {
-        title: 'Все',
-        value: 0,
-      },
+      // {
+      //   title: 'Все',
+      //   value: 0,
+      // },
       {
         title: 'Активные',
         value: 1,
@@ -207,8 +207,8 @@ export default {
       return this.programs.filter(p => {
         const value = this.tabs[idx].value;
         switch (value) {
-          case 0:
-            return p;
+          // case 0:
+          //   return p;
           case 1:
             return !p.is_stopped && p.can_be_used || !p.is_activated;
           case 2:
