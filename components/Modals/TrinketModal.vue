@@ -8,9 +8,15 @@
     >
       <template #default>
         <div class="p-4">
-          <form @submit.prevent="doLoginViaCode" class="h-0 w-0 opacity-0">
-            <input type="password" v-model="code"  ref="passInputRef" >
-          </form>
+          <div class="h-0 w-0 opacity-0">
+            <input
+              type="text"
+              v-model="code"
+              ref="passInputRef"
+              autocomplete="off"
+              @keydown.enter.prevent="doLoginViaCode"
+            >
+          </div>
           <h4 class="text-center font-medium">
             Приложите ключ
           </h4>
