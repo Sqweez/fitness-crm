@@ -176,7 +176,7 @@ export default {
           show: this.IS_BOSS,
           children: [
             { to: '/statistics/common', label: 'Общие данные', icon: ChartPie },
-            { to: '/statistics/economy-v2', label: 'Экономика', icon: Coins },
+            { to: '/statistics/economy', label: 'Экономика', icon: Coins },
             { to: '/statistics/shop', label: 'Магазин/Бар', icon: ShoppingBasket },
             { to: '/statistics/price', label: 'Прайс', icon: Dumbbell },
             { to: '/statistics/unlimited-ending', label: 'Заканчивающиеся безлимиты', icon: Hourglass }

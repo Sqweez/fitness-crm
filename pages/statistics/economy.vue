@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-y-6">
-    <lazy-economy-date-stats />
+    <lazy-economy-v2-date-stats />
     <lazy-economy-client-balance-stats />
     <lazy-economy-common-stats />
   </div>
@@ -13,7 +13,3 @@ export default {
   middleware: [isBossMiddleware],
 }
 </script>
-
-<style scoped lang="scss">
-
-</style>
