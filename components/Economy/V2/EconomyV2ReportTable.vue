@@ -1,6 +1,6 @@
 <template>
   <div>
-    <slot name="totals" :totals="totals" />
+    <slot v-if="loaded" name="totals" :totals="totals" />
     <v-text-field
       v-model="search"
       label="Поиск по клиенту"
@@ -18,7 +18,7 @@
       :loading="loading"
       :options.sync="options"
       :server-items-length="total"
-      :footer-props="{ 'items-per-page-options': [25, 50, 100] }"
+      :footer-props="{ 'items-per-page-options': [10, 25, 50, 100] }"
       disable-sort
       @click:row="(row) => $emit('click:row', row)"
     >
@@ -54,20 +54,25 @@ export default {
     items: [],
     total: 0,
     totals: {},
+    loaded: false,
     loading: false,
     requestId: 0,
     options: {
       page: 1,
-      itemsPerPage: 50,
+      itemsPerPage: 10,
     },
   }),
   computed: {
+    // the table re-emits equal option objects, so watch the value instead of the reference
+    pageKey () {
+      return `${this.options.page}:${this.options.itemsPerPage}`;
+    },
     itemSlots () {
       return Object.keys(this.$scopedSlots).filter(name => name.startsWith('item.'));
     },
   },
   watch: {
-    options: 'load',
+    pageKey: 'load',
     params: 'reload',
     search () {
       this.debouncedReload();
@@ -75,6 +80,9 @@ export default {
   },
   created () {
     this.debouncedReload = __debounce(this.reload, 400);
+  },
+  mounted () {
+    this.load();
   },
   methods: {
     reload () {
@@ -103,6 +111,7 @@ export default {
         this.items = data.data;
         this.total = data.meta.total;
         this.totals = data.totals;
+        this.loaded = true;
       } finally {
         if (requestId === this.requestId) {
           this.loading = false;
