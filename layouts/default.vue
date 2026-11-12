@@ -28,7 +28,7 @@
 
 <script>
 import userMixin from '@/mixins/userMixin';
-import Sidebar from '~/components/Navigation/SidebarV2.vue';
+import Sidebar from '~/components/Navigation/Sidebar.vue';
 import { ArrowDown, ArrowUp } from 'lucide-vue';
 import ScrollButtons from '~/components/Layout/ScrollButtons.vue';
 

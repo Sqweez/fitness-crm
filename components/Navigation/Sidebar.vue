@@ -1,641 +1,526 @@
 <template>
-  <!-- Deprecated: use SidebarV2.vue -->
-  <div v-if="IS_BOSS">
+  <div class="sidebar-v2">
     <!-- Sidebar backdrop (mobile only) -->
-    <div class="fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-40 lg:hidden lg:z-auto transition-opacity duration-200" :class="sidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'" aria-hidden="true"></div>
+    <div
+      class="sidebar-backdrop"
+      :class="{ 'sidebar-backdrop--visible': sidebarOpen }"
+      @click="$emit('close-sidebar')"
+    ></div>
 
     <!-- Sidebar -->
-    <div
-      id="sidebar"
-      ref="sidebar"
-      class="
-        flex
-        flex-col
-        font-body
-        absolute
-        z-40
-        left-0
-        top-0
-        lg:static
-        lg:left-auto
-        lg:top-auto
-        lg:translate-x-0
-        transform
-        h-screen
-        overflow-y-scroll
-        lg:overflow-y-auto
-        no-scrollbar
-        w-64
-        2xl:!w-64
-        shrink-0
-        sidebar-shell
-        p-4
-        transition-all
-        duration-200
-        ease-in-out"
-      :class="sidebarOpen ? 'translate-x-0' : '-translate-x-64'"
-      style="flex: inherit"
+    <aside
+      class="sidebar-container"
+      :class="{ 'sidebar-container--open': sidebarOpen }"
     >
-
-      <!-- Sidebar header -->
-      <div class="flex justify-between mb-10 pr-3 sm:px-2" style="flex: inherit">
-        <!-- Close button -->
-        <button
-          ref="trigger"
-          class="lg:hidden text-slate-500 hover:text-blue-600"
-          @click.stop="$emit('close-sidebar')"
-          aria-controls="sidebar"
-          :aria-expanded="sidebarOpen"
-        >
-          <span class="sr-only">Close sidebar</span>
-          <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M10.7 18.7l1.4-1.4L7.8 13H20v-2H7.8l4.3-4.3-1.4-1.4L4 12z" />
-          </svg>
-        </button>
-        <!-- Logo -->
-        <router-link class="flex items-center gap-x-2" to="/">
-          <div class="flex items-center gap-x-3">
-            <div class="w-8 h-8 overflow-hidden rounded-full border border-slate-200">
-              <img src="~/assets/images/logo.jpg" alt="Logo" class="w-full h-full object-cover">
-            </div>
-            <p class="text-slate-800 uppercase font-display text-xs tracking-widest">CRM</p>
-          </div>
-        </router-link>
-      </div>
-
-      <!-- Links -->
-      <div class="space-y-8">
-        <!-- Pages group -->
-        <div>
-          <ul class="mt-3">
-            <!-- Dashboard -->
-            <!-- Главная -->
-            <nuxt-link to="/" custom v-slot="{ href, navigate, isExactActive }">
-              <li class="mb-1 last:mb-0">
-                <a class="sidebar-link group truncate" :class="isExactActive && 'sidebar-link--active'" :href="href" @click="navigate">
-                  <div class="flex items-center gap-3">
-                    <span class="sidebar-icon-pill" :class="isExactActive && 'sidebar-icon-pill--active'">
-                      <svg class="h-5 w-5" viewBox="0 0 24 24">
-                        <path class="fill-current text-slate-400" :class="isExactActive && '!text-blue-600'" d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0z" />
-                        <path class="fill-current text-slate-500" :class="isExactActive && 'text-blue-600'" d="M12 3c-4.963 0-9 4.037-9 9s4.037 9 9 9 9-4.037 9-9-4.037-9-9-9z" />
-                        <path class="fill-current text-slate-400" :class="isExactActive && 'text-blue-400'" d="M12 15c-1.654 0-3-1.346-3-3 0-.462.113-.894.3-1.285L6 6l4.714 3.301A2.973 2.973 0 0112 9c1.654 0 3 1.346 3 3s-1.346 3-3 3z" />
-                      </svg>
-                    </span>
-                    <span class="text-sm font-medium lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Главная</span>
-                  </div>
-                </a>
-              </li>
-            </nuxt-link>
-            <!-- Клиенты -->
-            <nuxt-link to="/clients" custom v-slot="{ href, navigate, isExactActive }">
-              <li class="mb-1 last:mb-0">
-                <a class="sidebar-link group truncate" :class="isExactActive && 'sidebar-link--active'" :href="href" @click="navigate">
-                  <div class="flex items-center gap-3">
-                    <span class="sidebar-icon-pill" :class="currentRoute.fullPath.includes('clients') && 'sidebar-icon-pill--active'">
-                      <svg class="h-5 w-5" viewBox="0 0 24 24">
-                        <path class="fill-current text-slate-500" :class="currentRoute.fullPath.includes('clients') && 'text-blue-600'" d="M18.974 8H22a2 2 0 012 2v6h-2v5a1 1 0 01-1 1h-2a1 1 0 01-1-1v-5h-2v-6a2 2 0 012-2h.974zM20 7a2 2 0 11-.001-3.999A2 2 0 0120 7zM2.974 8H6a2 2 0 012 2v6H6v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5H0v-6a2 2 0 012-2h.974zM4 7a2 2 0 11-.001-3.999A2 2 0 014 7z" />
-                        <path class="fill-current text-slate-400" :class="currentRoute.fullPath.includes('clients') && 'text-blue-500'" d="M12 6a3 3 0 110-6 3 3 0 010 6zm2 18h-4a1 1 0 01-1-1v-6H6v-6a3 3 0 013-3h6a3 3 0 013 3v6h-3v6a1 1 0 01-1 1z" />
-                      </svg>
-                    </span>
-                    <span class="text-sm font-medium lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Клиенты</span>
-                  </div>
-                </a>
-              </li>
-            </nuxt-link>
-            <!-- Пользователи -->
-            <nuxt-link to="/users" custom v-slot="{ href, navigate, isExactActive }" v-if="IS_BOSS">
-              <li class="mb-1 last:mb-0">
-                <a class="sidebar-link group truncate" :class="isExactActive && 'sidebar-link--active'" :href="href" @click="navigate">
-                  <div class="flex items-center gap-3">
-                    <span class="sidebar-icon-pill" :class="currentRoute.fullPath.includes('users') && 'sidebar-icon-pill--active'">
-                      <svg class="h-5 w-5" viewBox="0 0 24 24">
-                        <path class="fill-current text-slate-500" :class="currentRoute.fullPath.includes('users') && 'text-blue-600'" d="M18.974 8H22a2 2 0 012 2v6h-2v5a1 1 0 01-1 1h-2a1 1 0 01-1-1v-5h-2v-6a2 2 0 012-2h.974zM20 7a2 2 0 11-.001-3.999A2 2 0 0120 7zM2.974 8H6a2 2 0 012 2v6H6v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5H0v-6a2 2 0 012-2h.974zM4 7a2 2 0 11-.001-3.999A2 2 0 014 7z" />
-                        <path class="fill-current text-slate-400" :class="currentRoute.fullPath.includes('users') && 'text-blue-500'" d="M12 6a3 3 0 110-6 3 3 0 010 6zm2 18h-4a1 1 0 01-1-1v-6H6v-6a3 3 0 013-3h6a3 3 0 013 3v6h-3v6a1 1 0 01-1 1z" />
-                      </svg>
-                    </span>
-                    <span class="text-sm font-medium lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Сотрудники</span>
-                  </div>
-                </a>
-              </li>
-            </nuxt-link>
-            <!-- Коммерция -->
-            <SidebarLinkGroup v-slot="parentLink" :activeCondition="currentRoute.fullPath.includes('commerce')" v-if="IS_BOSS && false">
-              <a class="block text-slate-700 hover:text-blue-600 truncate transition duration-150" :class="currentRoute.fullPath.includes('commerce') && 'hover:text-blue-600'" href="#0" @click.prevent="sidebarExpanded ? parentLink.handleClick() : sidebarExpanded = true">
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center">
-                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                      <path class="fill-current text-slate-400" :class="currentRoute.fullPath.includes('commerce') && 'text-blue-500'" d="M13 15l11-7L11.504.136a1 1 0 00-1.019.007L0 7l13 8z" />
-                      <path class="fill-current text-slate-600" :class="currentRoute.fullPath.includes('commerce') && '!text-blue-600'" d="M13 15L0 7v9c0 .355.189.685.496.864L13 24v-9z" />
-                      <path class="fill-current text-slate-500" :class="currentRoute.fullPath.includes('commerce') && 'text-blue-600'" d="M13 15.047V24l10.573-7.181A.999.999 0 0024 16V8l-11 7.047z" />
-                    </svg>
-                    <span class="text-sm font-medium ml-3  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 ">Коммерция</span>
-                  </div>
-                  <!-- Icon -->
-                  <div class="flex shrink-0 ml-2">
-                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400 transition-ease-in-out transition-all" :class="parentLink.expanded && 'transform rotate-180'" viewBox="0 0 12 12">
-                      <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
-                    </svg>
-                  </div>
-                </div>
-              </a>
-              <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                <ul class="sidebar-sub-list pl-9 mt-1" :class="!parentLink.expanded && 'hidden'">
-                  <router-link to="/commerce/services" custom v-slot="{ href, navigate }">
-                    <li class="mb-1 last:mb-0">
-                      <a class="sidebar-sub-link truncate" :class="currentRoute.fullPath.includes('statistics/common') && 'sidebar-sub-link--active'" :href="href" @click="navigate">
-                        <span class="text-sm font-medium  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Прайс-лист</span>
-                      </a>
-                    </li>
-                  </router-link>
-                  <router-link to="/commerce/products" custom v-slot="{ href, navigate }">
-                    <li class="mb-1 last:mb-0">
-                      <a class="sidebar-sub-link truncate" :class="currentRoute.fullPath.includes('statistics/economy') && 'sidebar-sub-link--active'" :href="href" @click="navigate">
-                        <span class="text-sm font-medium  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Товары</span>
-                      </a>
-                    </li>
-                  </router-link>
-                </ul>
-              </div>
-            </SidebarLinkGroup>
-            <router-link to="/commerce/services" custom v-slot="{ href, navigate }" v-if="IS_BOSS">
-              <li class="mb-1 last:mb-0">
-                <a class="sidebar-link group truncate" :href="href" @click="navigate">
-                  <div class="flex items-center gap-3">
-                    <span class="sidebar-icon-pill" :class="currentRoute.fullPath.includes('commerce/services') && 'sidebar-icon-pill--active'">
-                      <svg class="h-5 w-5" viewBox="0 0 24 24">
-                        <path class="fill-current text-slate-400" :class="currentRoute.fullPath.includes('commerce/services') && 'text-blue-500'" d="M13 15l11-7L11.504.136a1 1 0 00-1.019.007L0 7l13 8z" />
-                        <path class="fill-current text-slate-600" :class="currentRoute.fullPath.includes('commerce/services') && '!text-blue-600'" d="M13 15L0 7v9c0 .355.189.685.496.864L13 24v-9z" />
-                        <path class="fill-current text-slate-500" :class="currentRoute.fullPath.includes('commerce/services') && 'text-blue-600'" d="M13 15.047V24l10.573-7.181A.999.999 0 0024 16V8l-11 7.047z" />
-                      </svg>
-                    </span>
-                    <span class="text-sm font-medium lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Прайс</span>
-                  </div>
-                </a>
-              </li>
-            </router-link>
-            <router-link to="/commerce/products" custom v-slot="{ href, navigate }" v-if="IS_BOSS">
-              <li class="mb-1 last:mb-0">
-                <a class="sidebar-link group truncate" :href="href" @click="navigate">
-                  <div class="flex items-center gap-3">
-                    <span class="sidebar-icon-pill" :class="currentRoute.fullPath.includes('commerce/products') && 'sidebar-icon-pill--active'">
-                      <svg class="h-5 w-5" viewBox="0 0 24 24">
-                        <path class="fill-current text-slate-400" :class="currentRoute.fullPath.includes('commerce/products') && 'text-blue-500'" d="M13 15l11-7L11.504.136a1 1 0 00-1.019.007L0 7l13 8z" />
-                        <path class="fill-current text-slate-600" :class="currentRoute.fullPath.includes('commerce/products') && '!text-blue-600'" d="M13 15L0 7v9c0 .355.189.685.496.864L13 24v-9z" />
-                        <path class="fill-current text-slate-500" :class="currentRoute.fullPath.includes('commerce/products') && 'text-blue-600'" d="M13 15.047V24l10.573-7.181A.999.999 0 0024 16V8l-11 7.047z" />
-                      </svg>
-                    </span>
-                    <span class="text-sm font-medium lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Магазин</span>
-                  </div>
-                </a>
-              </li>
-            </router-link>
-            <!-- Аналитика -->
-            <SidebarLinkGroup v-slot="parentLink" :activeCondition="currentRoute.fullPath.includes('statistics')" v-if="IS_BOSS">
-              <li class="mb-1 last:mb-0">
-                <a class="sidebar-link group truncate" :class="currentRoute.fullPath.includes('statistics') && 'sidebar-link--active'" href="#0" @click.prevent="sidebarExpanded ? parentLink.handleClick() : sidebarExpanded = true">
-                  <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                      <span class="sidebar-icon-pill" :class="currentRoute.fullPath.includes('statistics') && 'sidebar-icon-pill--active'">
-                        <svg class="h-5 w-5" viewBox="0 0 24 24">
-                          <path class="fill-current text-slate-500" d="M0 20h24v2H0z" />
-                          <path class="fill-current text-slate-400" d="M4 18h2a1 1 0 001-1V8a1 1 0 00-1-1H4a1 1 0 00-1 1v9a1 1 0 001 1zM11 18h2a1 1 0 001-1V3a1 1 0 00-1-1h-2a1 1 0 00-1 1v14a1 1 0 001 1zM17 12v5a1 1 0 001 1h2a1 1 0 001-1v-5a1 1 0 00-1-1h-2a1 1 0 00-1 1z" />
-                        </svg>
-                      </span>
-                      <span class="text-sm font-medium lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Статистика</span>
-                    </div>
-                    <!-- Icon -->
-                    <div class="flex shrink-0 ml-2">
-                      <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400 transition-ease-in-out transition-all" :class="parentLink.expanded && 'transform rotate-180'" viewBox="0 0 12 12">
-                        <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
-                      </svg>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                <ul class="sidebar-sub-list pl-9 mt-1" :class="!parentLink.expanded && 'hidden'">
-                  <router-link to="/statistics/common" custom v-slot="{ href, navigate }">
-                    <li class="mb-1 last:mb-0">
-                      <a class="sidebar-sub-link truncate" :class="currentRoute.fullPath.includes('statistics/shop') && 'sidebar-sub-link--active'" :href="href" @click="navigate">
-                        <span class="text-sm font-medium  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Общие данные</span>
-                      </a>
-                    </li>
-                  </router-link>
-                </ul>
-              </div>
-              <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                <ul class="sidebar-sub-list pl-9 mt-1" :class="!parentLink.expanded && 'hidden'">
-                  <router-link to="/statistics/economy" custom v-slot="{ href, navigate }">
-                    <li class="mb-1 last:mb-0">
-                      <a class="sidebar-sub-link truncate" :class="currentRoute.fullPath.includes('statistics/price') && 'sidebar-sub-link--active'" :href="href" @click="navigate">
-                        <span class="text-sm font-medium  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Экономика</span>
-                      </a>
-                    </li>
-                  </router-link>
-                </ul>
-              </div>
-              <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                <ul class="sidebar-sub-list pl-9 mt-1" :class="!parentLink.expanded && 'hidden'">
-                  <router-link to="/statistics/shop" custom v-slot="{ href, navigate }">
-                    <li class="mb-1 last:mb-0">
-                      <a class="sidebar-sub-link truncate" :class="currentRoute.fullPath.includes('statistics/unlimited-ending') && 'sidebar-sub-link--active'" :href="href" @click="navigate">
-                        <span class="text-sm font-medium  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Магазин/Бар</span>
-                      </a>
-                    </li>
-                  </router-link>
-                </ul>
-              </div>
-              <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                <ul class="sidebar-sub-list pl-9 mt-1" :class="!parentLink.expanded && 'hidden'">
-                  <router-link to="/statistics/price" custom v-slot="{ href, navigate }">
-                    <li class="mb-1 last:mb-0">
-                      <a class="sidebar-sub-link truncate" :class="currentRoute.fullPath.includes('requests/clients/penalty') && 'sidebar-sub-link--active'" :href="href" @click="navigate">
-                        <span class="text-sm font-medium  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Прайс</span>
-                      </a>
-                    </li>
-                  </router-link>
-                </ul>
-              </div>
-              <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                <ul class="sidebar-sub-list pl-9 mt-1" :class="!parentLink.expanded && 'hidden'">
-                  <router-link to="/statistics/unlimited-ending" custom v-slot="{ href, navigate }">
-                    <li class="mb-1 last:mb-0">
-                      <a class="sidebar-sub-link truncate" :class="currentRoute.fullPath.includes('requests/clients/restored') && 'sidebar-sub-link--active'" :href="href" @click="navigate">
-                        <span class="text-sm font-medium  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Заканчивающиеся безлимиты</span>
-                      </a>
-                    </li>
-                  </router-link>
-                </ul>
-              </div>
-            </SidebarLinkGroup>
-            <!-- Запросы -->
-            <SidebarLinkGroup v-slot="parentLink" :activeCondition="currentRoute.fullPath.includes('requests')" v-if="IS_BOSS">
-              <li class="mb-1 last:mb-0">
-                <a class="sidebar-link group truncate" :class="currentRoute.fullPath.includes('requests') && 'sidebar-link--active'" href="#0" @click.prevent="sidebarExpanded ? parentLink.handleClick() : sidebarExpanded = true">
-                  <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                      <span class="sidebar-icon-pill" :class="currentRoute.fullPath.includes('requests') && 'sidebar-icon-pill--active'">
-                        <svg class="h-5 w-5" viewBox="0 0 24 24">
-                          <path class="fill-current text-slate-500" :class="currentRoute.fullPath.includes('requests') && 'text-blue-600'" d="M19.714 14.7l-7.007 7.007-1.414-1.414 7.007-7.007c-.195-.4-.298-.84-.3-1.286a3 3 0 113 3 2.969 2.969 0 01-1.286-.3z" />
-                          <path class="fill-current text-slate-400" :class="currentRoute.fullPath.includes('requests') && 'text-blue-500'" d="M10.714 18.3c.4-.195.84-.298 1.286-.3a3 3 0 11-3 3c.002-.446.105-.885.3-1.286l-6.007-6.007 1.414-1.414 6.007 6.007z" />
-                          <path class="fill-current text-slate-500" :class="currentRoute.fullPath.includes('requests') && 'text-blue-600'" d="M5.7 10.714c.195.4.298.84.3 1.286a3 3 0 11-3-3c.446.002.885.105 1.286.3l7.007-7.007 1.414 1.414L5.7 10.714z" />
-                          <path class="fill-current text-slate-400" :class="currentRoute.fullPath.includes('requests') && 'text-blue-500'" d="M19.707 9.292a3.012 3.012 0 00-1.415 1.415L13.286 5.7c-.4.195-.84.298-1.286.3a3 3 0 113-3 2.969 2.969 0 01-.3 1.286l5.007 5.006z" />
-                        </svg>
-                      </span>
-                      <span class="text-sm font-medium lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Запросы</span>
-                    </div>
-                    <!-- Icon -->
-                    <div class="flex shrink-0 ml-2">
-                      <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400 transition-ease-in-out transition-all" :class="parentLink.expanded && 'transform rotate-180'" viewBox="0 0 12 12">
-                        <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
-                      </svg>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                <ul class="sidebar-sub-list pl-9 mt-1" :class="!parentLink.expanded && 'hidden'">
-                  <router-link to="/requests/clients/penalty" custom v-slot="{ href, navigate }">
-                    <li class="mb-1 last:mb-0">
-                      <a class="sidebar-sub-link truncate" :href="href" @click="navigate">
-                        <span class="text-sm font-medium  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Штрафные тренировки</span>
-                      </a>
-                    </li>
-                  </router-link>
-                </ul>
-              </div>
-              <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                <ul class="sidebar-sub-list pl-9 mt-1" :class="!parentLink.expanded && 'hidden'">
-                  <router-link to="/requests/clients/restored" custom v-slot="{ href, navigate }">
-                    <li class="mb-1 last:mb-0">
-                      <a class="sidebar-sub-link truncate" :href="href" @click="navigate">
-                        <span class="text-sm font-medium  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Восстановления</span>
-                      </a>
-                    </li>
-                  </router-link>
-                </ul>
-              </div>
-            </SidebarLinkGroup>
-            <!-- E-Commerce  -->
-            <SidebarLinkGroup v-if="false" v-slot="parentLink" :activeCondition="currentRoute.fullPath.includes('ecommerce')">
-              <a class="block text-slate-700 hover:text-blue-600 truncate transition duration-150" :class="currentRoute.fullPath.includes('ecommerce') && 'hover:text-blue-600'" href="#0" @click.prevent="sidebarExpanded ? parentLink.handleClick() : sidebarExpanded = true">
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center">
-                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                      <path class="fill-current text-slate-400" :class="currentRoute.fullPath.includes('ecommerce') && 'text-blue-500'" d="M13 15l11-7L11.504.136a1 1 0 00-1.019.007L0 7l13 8z" />
-                      <path class="fill-current text-slate-600" :class="currentRoute.fullPath.includes('ecommerce') && '!text-blue-600'" d="M13 15L0 7v9c0 .355.189.685.496.864L13 24v-9z" />
-                      <path class="fill-current text-slate-500" :class="currentRoute.fullPath.includes('ecommerce') && 'text-blue-600'" d="M13 15.047V24l10.573-7.181A.999.999 0 0024 16V8l-11 7.047z" />
-                    </svg>
-                    <span class="text-sm font-medium ml-3  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">E-Commerce </span>
-                  </div>
-                  <!-- Icon -->
-                  <div class="flex shrink-0 ml-2">
-                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400" :class="parentLink.expanded && 'transform rotate-180'" viewBox="0 0 12 12">
-                      <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
-                    </svg>
-                  </div>
-                </div>
-              </a>
-              <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                <ul class="sidebar-sub-list pl-9 mt-1" :class="!parentLink.expanded && 'hidden'">
-                  <router-link to="/" custom v-slot="{ href, navigate }">
-                    <li class="mb-1 last:mb-0">
-                      <a class="sidebar-sub-link truncate" :href="href" @click="navigate">
-                        <span class="text-sm font-medium  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Customers</span>
-                      </a>
-                    </li>
-                  </router-link>
-                  <router-link to="/" custom v-slot="{ href, navigate }">
-                    <li class="mb-1 last:mb-0">
-                      <a class="sidebar-sub-link truncate" :href="href" @click="navigate">
-                        <span class="text-sm font-medium  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Orders</span>
-                      </a>
-                    </li>
-                  </router-link>
-                  <router-link to="/" custom v-slot="{ href, navigate }">
-                    <li class="mb-1 last:mb-0">
-                      <a class="sidebar-sub-link truncate" :href="href" @click="navigate">
-                        <span class="text-sm font-medium  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Invoices</span>
-                      </a>
-                    </li>
-                  </router-link>
-                  <router-link to="/" custom v-slot="{ href, navigate }">
-                    <li class="mb-1 last:mb-0">
-                      <a class="sidebar-sub-link truncate" :href="href" @click="navigate">
-                        <span class="text-sm font-medium  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Shop</span>
-                      </a>
-                    </li>
-                  </router-link>
-                  <router-link to="/" custom v-slot="{ href, navigate }">
-                    <li class="mb-1 last:mb-0">
-                      <a class="sidebar-sub-link truncate" :href="href" @click="navigate">
-                        <span class="text-sm font-medium  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Shop 2</span>
-                      </a>
-                    </li>
-                  </router-link>
-                  <router-link to="/" custom v-slot="{ href, navigate }">
-                    <li class="mb-1 last:mb-0">
-                      <a class="sidebar-sub-link truncate" :href="href" @click="navigate">
-                        <span class="text-sm font-medium  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Single Product</span>
-                      </a>
-                    </li>
-                  </router-link>
-                  <router-link to="/" custom v-slot="{ href, navigate }">
-                    <li class="mb-1 last:mb-0">
-                      <a class="sidebar-sub-link truncate" :href="href" @click="navigate">
-                        <span class="text-sm font-medium  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Cart</span>
-                      </a>
-                    </li>
-                  </router-link>
-                  <router-link to="/" custom v-slot="{ href, navigate }">
-                    <li class="mb-1 last:mb-0">
-                      <a class="sidebar-sub-link truncate" :href="href" @click="navigate">
-                        <span class="text-sm font-medium  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Cart 2</span>
-                      </a>
-                    </li>
-                  </router-link>
-                  <router-link to="/" custom v-slot="{ href, navigate }">
-                    <li class="mb-1 last:mb-0">
-                      <a class="sidebar-sub-link truncate" :href="href" @click="navigate">
-                        <span class="text-sm font-medium  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Pay</span>
-                      </a>
-                    </li>
-                  </router-link>
-                </ul>
-              </div>
-            </SidebarLinkGroup>
-            <!-- Campaigns -->
-            <router-link v-if="false" to="/" custom v-slot="{ href, navigate }">
-              <li class="px-3 py-2.5 rounded-xl mb-1 last:mb-0 hover:bg-slate-100 transition-colors">
-                <a class="block text-slate-700 hover:text-blue-600 truncate transition duration-150" :href="href" @click="navigate">
-                  <div class="flex items-center">
-                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                      <path class="fill-current text-slate-500" d="M20 7a.75.75 0 01-.75-.75 1.5 1.5 0 00-1.5-1.5.75.75 0 110-1.5 1.5 1.5 0 001.5-1.5.75.75 0 111.5 0 1.5 1.5 0 001.5 1.5.75.75 0 110 1.5 1.5 1.5 0 00-1.5 1.5A.75.75 0 0120 7zM4 23a.75.75 0 01-.75-.75 1.5 1.5 0 00-1.5-1.5.75.75 0 110-1.5 1.5 1.5 0 001.5-1.5.75.75 0 111.5 0 1.5 1.5 0 001.5 1.5.75.75 0 110 1.5 1.5 1.5 0 00-1.5 1.5A.75.75 0 014 23z" />
-                      <path class="fill-current text-slate-400" d="M17 23a1 1 0 01-1-1 4 4 0 00-4-4 1 1 0 010-2 4 4 0 004-4 1 1 0 012 0 4 4 0 004 4 1 1 0 010 2 4 4 0 00-4 4 1 1 0 01-1 1zM7 13a1 1 0 01-1-1 4 4 0 00-4-4 1 1 0 110-2 4 4 0 004-4 1 1 0 112 0 4 4 0 004 4 1 1 0 010 2 4 4 0 00-4 4 1 1 0 01-1 1z" />
-                    </svg>
-                    <span class="text-sm font-medium ml-3  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Campaigns</span>
-                  </div>
-                </a>
-              </li>
-            </router-link>
-            <!-- Team -->
-            <SidebarLinkGroup v-if="false" v-slot="parentLink" :activeCondition="currentRoute.fullPath.includes('team')">
-              <a class="block text-slate-700 hover:text-blue-600 truncate transition duration-150" :class="currentRoute.fullPath.includes('team') && 'hover:text-blue-600'" href="#0" @click.prevent="sidebarExpanded ? parentLink.handleClick() : sidebarExpanded = true">
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center">
-                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                      <path class="fill-current text-slate-500" :class="currentRoute.fullPath.includes('team') && 'text-blue-600'" d="M18.974 8H22a2 2 0 012 2v6h-2v5a1 1 0 01-1 1h-2a1 1 0 01-1-1v-5h-2v-6a2 2 0 012-2h.974zM20 7a2 2 0 11-.001-3.999A2 2 0 0120 7zM2.974 8H6a2 2 0 012 2v6H6v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5H0v-6a2 2 0 012-2h.974zM4 7a2 2 0 11-.001-3.999A2 2 0 014 7z" />
-                      <path class="fill-current text-slate-400" :class="currentRoute.fullPath.includes('team') && 'text-blue-500'" d="M12 6a3 3 0 110-6 3 3 0 010 6zm2 18h-4a1 1 0 01-1-1v-6H6v-6a3 3 0 013-3h6a3 3 0 013 3v6h-3v6a1 1 0 01-1 1z" />
-                    </svg>
-                    <span class="text-sm font-medium ml-3  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Team</span>
-                  </div>
-                  <!-- Icon -->
-                  <div class="flex shrink-0 ml-2">
-                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400" :class="parentLink.expanded && 'transform rotate-180'" viewBox="0 0 12 12">
-                      <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
-                    </svg>
-                  </div>
-                </div>
-              </a>
-              <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                <ul class="sidebar-sub-list pl-9 mt-1" :class="!parentLink.expanded && 'hidden'">
-                  <router-link to="/" custom v-slot="{ href, navigate }">
-                    <li class="mb-1 last:mb-0">
-                      <a class="sidebar-sub-link truncate" :href="href" @click="navigate">
-                        <span class="text-sm font-medium  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Team - Tabs</span>
-                      </a>
-                    </li>
-                  </router-link>
-                  <router-link to="/" custom v-slot="{ href, navigate }">
-                    <li class="mb-1 last:mb-0">
-                      <a class="sidebar-sub-link truncate" :href="href" @click="navigate">
-                        <span class="text-sm font-medium  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Team - Tiles</span>
-                      </a>
-                    </li>
-                  </router-link>
-                  <router-link to="/" custom v-slot="{ href, navigate }">
-                    <li class="mb-1 last:mb-0">
-                      <a class="sidebar-sub-link truncate" :href="href" @click="navigate">
-                        <span class="text-sm font-medium  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Profile</span>
-                      </a>
-                    </li>
-                  </router-link>
-                </ul>
-              </div>
-            </SidebarLinkGroup>
-            <!-- Messages -->
-            <router-link v-if="false" to="/" custom v-slot="{ href, navigate }">
-              <li class="px-3 py-2.5 rounded-xl mb-1 last:mb-0 hover:bg-slate-100 transition-colors">
-                <a class="block text-slate-700 hover:text-blue-600 truncate transition duration-150" :href="href" @click="navigate">
-                  <div class="flex items-center">
-                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                      <path class="fill-current text-slate-500" d="M14.5 7c4.695 0 8.5 3.184 8.5 7.111 0 1.597-.638 3.067-1.7 4.253V23l-4.108-2.148a10 10 0 01-2.692.37c-4.695 0-8.5-3.184-8.5-7.11C6 10.183 9.805 7 14.5 7z" />
-                      <path class="fill-current text-slate-400" d="M11 1C5.477 1 1 4.582 1 9c0 1.797.75 3.45 2 4.785V19l4.833-2.416C8.829 16.85 9.892 17 11 17c5.523 0 10-3.582 10-8s-4.477-8-10-8z" />
-                    </svg>
-                    <span class="text-sm font-medium ml-3  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Messages</span>
-                  </div>
-                </a>
-              </li>
-            </router-link>
-            <!-- Tasks -->
-            <router-link v-if="false" to="/" custom v-slot="{ href, navigate }">
-              <li class="px-3 py-2.5 rounded-xl mb-1 last:mb-0 hover:bg-slate-100 transition-colors">
-                <a class="block text-slate-700 hover:text-blue-600 truncate transition duration-150" :href="href" @click="navigate">
-                  <div class="flex items-center">
-                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                      <path class="fill-current text-slate-500" d="M8 1v2H3v19h18V3h-5V1h7v23H1V1z" />
-                      <path class="fill-current text-slate-500" d="M1 1h22v23H1z" />
-                      <path class="fill-current text-slate-400" d="M15 10.586L16.414 12 11 17.414 7.586 14 9 12.586l2 2zM5 0h14v4H5z" />
-                    </svg>
-                    <span class="text-sm font-medium ml-3  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Tasks</span>
-                  </div>
-                </a>
-              </li>
-            </router-link>
-            <!-- Inbox -->
-            <router-link v-if="false" to="/" custom v-slot="{ href, navigate }">
-              <li class="px-3 py-2.5 rounded-xl mb-1 last:mb-0 hover:bg-slate-100 transition-colors">
-                <a class="block text-slate-700 hover:text-blue-600 truncate transition duration-150" :href="href" @click="navigate">
-                  <div class="flex items-center">
-                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                      <path class="fill-current text-slate-500" d="M16 13v4H8v-4H0l3-9h18l3 9h-8Z" />
-                      <path class="fill-current text-slate-400" d="m23.72 12 .229.686A.984.984 0 0 1 24 13v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1v-8c0-.107.017-.213.051-.314L.28 12H8v4h8v-4H23.72ZM13 0v7h3l-4 5-4-5h3V0h2Z" />
-                    </svg>
-                    <span class="text-sm font-medium ml-3  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Inbox</span>
-                  </div>
-                </a>
-              </li>
-            </router-link>
-            <!-- Calendar -->
-            <router-link v-if="false" to="/" custom v-slot="{ href, navigate }">
-              <li class="px-3 py-2.5 rounded-xl mb-1 last:mb-0 hover:bg-slate-100 transition-colors">
-                <a class="block text-slate-700 hover:text-blue-600 truncate transition duration-150" :href="href" @click="navigate">
-                  <div class="flex items-center">
-                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                      <path class="fill-current text-slate-500" d="M1 3h22v20H1z" />
-                      <path class="fill-current text-slate-400" d="M21 3h2v4H1V3h2V1h4v2h10V1h4v2Z" />
-                    </svg>
-                    <span class="text-sm font-medium ml-3  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Calendar</span>
-                  </div>
-                </a>
-              </li>
-            </router-link>
-            <!-- Settings -->
-            <!-- Utility -->
-            <SidebarLinkGroup v-if="false" v-slot="parentLink" :activeCondition="currentRoute.fullPath.includes('utility')">
-              <a class="block text-slate-700 hover:text-blue-600 truncate transition duration-150" :class="currentRoute.fullPath.includes('utility') && 'hover:text-blue-600'" href="#0" @click.prevent="sidebarExpanded ? parentLink.handleClick() : sidebarExpanded = true">
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center">
-                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                      <circle class="fill-current text-slate-400" :class="currentRoute.fullPath.includes('utility') && 'text-blue-500'" cx="18.5" cy="5.5" r="4.5" />
-                      <circle class="fill-current text-slate-500" :class="currentRoute.fullPath.includes('utility') && 'text-blue-600'" cx="5.5" cy="5.5" r="4.5" />
-                      <circle class="fill-current text-slate-500" :class="currentRoute.fullPath.includes('utility') && 'text-blue-600'" cx="18.5" cy="18.5" r="4.5" />
-                      <circle class="fill-current text-slate-400" :class="currentRoute.fullPath.includes('utility') && 'text-blue-500'" cx="5.5" cy="18.5" r="4.5" />
-                    </svg>
-                    <span class="text-sm font-medium ml-3  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Utility</span>
-                  </div>
-                  <!-- Icon -->
-                  <div class="flex shrink-0 ml-2">
-                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400" :class="parentLink.expanded && 'transform rotate-180'" viewBox="0 0 12 12">
-                      <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
-                    </svg>
-                  </div>
-                </div>
-              </a>
-              <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                <ul class="sidebar-sub-list pl-9 mt-1" :class="!parentLink.expanded && 'hidden'">
-                  <router-link to="/" custom v-slot="{ href, navigate }">
-                    <li class="mb-1 last:mb-0">
-                      <a class="sidebar-sub-link truncate" :href="href" @click="navigate">
-                        <span class="text-sm font-medium  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Changelog</span>
-                      </a>
-                    </li>
-                  </router-link>
-                  <router-link to="/" custom v-slot="{ href, navigate }">
-                    <li class="mb-1 last:mb-0">
-                      <a class="sidebar-sub-link truncate" :href="href" @click="navigate">
-                        <span class="text-sm font-medium  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Roadmap</span>
-                      </a>
-                    </li>
-                  </router-link>
-                  <router-link to="/" custom v-slot="{ href, navigate }">
-                    <li class="mb-1 last:mb-0">
-                      <a class="sidebar-sub-link truncate" :href="href" @click="navigate">
-                        <span class="text-sm font-medium  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">FAQs</span>
-                      </a>
-                    </li>
-                  </router-link>
-                  <router-link to="/" custom v-slot="{ href, navigate }">
-                    <li class="mb-1 last:mb-0">
-                      <a class="sidebar-sub-link truncate" :href="href" @click="navigate">
-                        <span class="text-sm font-medium  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Empty State</span>
-                      </a>
-                    </li>
-                  </router-link>
-                  <router-link to="/" custom v-slot="{ href, navigate }">
-                    <li class="mb-1 last:mb-0">
-                      <a class="sidebar-sub-link truncate" :href="href" @click="navigate">
-                        <span class="text-sm font-medium  lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">404</span>
-                      </a>
-                    </li>
-                  </router-link>
-                </ul>
-              </div>
-            </SidebarLinkGroup>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Expand / collapse button -->
-      <div class="pt-3 hidden lg:inline-flex 2xl:hidden justify-end mt-auto" v-if="false">
-        <div class="px-3 py-2">
-          <button @click.prevent="sidebarExpanded = !sidebarExpanded">
-            <span class="sr-only">Expand / collapse sidebar</span>
-            <svg class="w-6 h-6 fill-current sidebar-expanded:rotate-180" viewBox="0 0 24 24">
-              <path class="text-slate-400" d="M19.586 11l-5-5L16 4.586 23.414 12 16 19.414 14.586 18l5-5H7v-2z" />
-              <path class="text-slate-500" d="M3 23H1V1h2z" />
+      <!-- Top Content -->
+      <div class="sidebar-top">
+        <!-- Logo section -->
+        <div class="sidebar-logo">
+          <router-link to="/" class="sidebar-logo__link">
+            <span class="sidebar-logo__text">Fit CRM</span>
+          </router-link>
+          <button class="sidebar-slider" @click="toggleSidebar">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6.25 7.5L3.75 10L6.25 12.5" stroke="#AFAFAF" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+              <path d="M13.75 7.5L16.25 10L13.75 12.5" stroke="#AFAFAF" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
             </svg>
           </button>
         </div>
+
+        <!-- Main Container -->
+        <div class="sidebar-main">
+          <template v-for="(group, index) in menuGroups">
+            <nav v-if="!group.title" :key="`menu-${index}`" class="sidebar-menu">
+              <router-link
+                v-for="item in group.children"
+                :key="item.to"
+                :to="item.to"
+                custom
+                v-slot="{ navigate, isActive, isExactActive }"
+              >
+                <button
+                  class="sidebar-menu-item"
+                  :class="{ 'sidebar-menu-item--active': isMenuItemActive(item, isActive, isExactActive) }"
+                  @click="navigate"
+                >
+                  <span class="sidebar-menu-item__content">
+                    <component :is="item.icon" class="sidebar-menu-item__icon" :size="20" />
+                    <span class="sidebar-menu-item__label">{{ item.label }}</span>
+                  </span>
+                </button>
+              </router-link>
+            </nav>
+            <div v-else :key="`section-${index}`" class="sidebar-section">
+              <div class="sidebar-section__header">{{ group.title }}</div>
+              <nav class="sidebar-menu sidebar-menu--section">
+                <router-link
+                  v-for="item in group.children"
+                  :key="item.to"
+                  :to="item.to"
+                  custom
+                  v-slot="{ navigate, isActive, isExactActive }"
+                >
+                  <button
+                    class="sidebar-menu-item"
+                    :class="{ 'sidebar-menu-item--active': isMenuItemActive(item, isActive, isExactActive) }"
+                    @click="navigate"
+                  >
+                    <span class="sidebar-menu-item__content">
+                      <component :is="item.icon" class="sidebar-menu-item__icon" :size="20" />
+                      <span class="sidebar-menu-item__label">{{ item.label }}</span>
+                    </span>
+                  </button>
+                </router-link>
+              </nav>
+            </div>
+            <div v-if="index < menuGroups.length - 1" :key="`sep-${index}`" class="sidebar-separator"></div>
+          </template>
+        </div>
       </div>
 
-    </div>
+      <!-- Footer -->
+      <div class="sidebar-footer" v-if="false">
+        <div class="sidebar-footer__content">
+          <div class="sidebar-footer__avatar">
+            <span>{{ userInitial }}</span>
+          </div>
+          <span class="sidebar-footer__name">{{ userName }}</span>
+        </div>
+        <button class="sidebar-footer__toggle">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.5 6.25L10 3.75L12.5 6.25" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M7.5 13.75L10 16.25L12.5 13.75" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </aside>
   </div>
 </template>
 
 <script>
-import SidebarLinkGroup from './SidebarLinkGroup.vue'
+import {
+  ChartPie,
+  Coins,
+  Dumbbell,
+  Hourglass,
+  House,
+  RotateCcw,
+  ShoppingBasket,
+  Store,
+  TriangleAlert,
+  UserCog,
+  Users
+} from 'lucide-vue';
 import userMixin from '@/mixins/userMixin';
+import { canManageTrainers } from '@/utils/trainers';
 
-// Deprecated: use SidebarV2.vue
 export default {
   name: 'Sidebar',
-  props: ['sidebarOpen'],
-  mixins: [userMixin],
-  data: () => ({
-    storedSidebarExpanded: localStorage.getItem('sidebar-expanded'),
-    sidebarExpanded: false,
-  }),
-  computed: {
-    currentRoute () {
-      return this.$route;
-    }
-  },
-  beforeRouteLeave(to, from) {
-    this.$emit('close-sidebar');
-  },
-  watch: {
-    sidebarExpanded (value) {
-      localStorage.setItem('sidebar-expanded', value)
-      if (value) {
-        document.querySelector('body').classList.add('sidebar-expanded')
-      } else {
-        document.querySelector('body').classList.remove('sidebar-expanded')
-      }
-    }
-  },
   components: {
-    SidebarLinkGroup,
+    ChartPie,
+    Coins,
+    Dumbbell,
+    Hourglass,
+    House,
+    RotateCcw,
+    ShoppingBasket,
+    Store,
+    TriangleAlert,
+    UserCog,
+    Users
   },
-}
+  mixins: [userMixin],
+  props: {
+    sidebarOpen: {
+      type: Boolean,
+      default: false
+    }
+  },
+  computed: {
+    currentRoute() {
+      return this.$route;
+    },
+    userName() {
+      return this.$auth?.user?.name || 'User';
+    },
+    userInitial() {
+      return this.userName.charAt(0).toUpperCase();
+    },
+    isClientsActive() {
+      return this.currentRoute.path.startsWith('/clients');
+    },
+    isUsersActive() {
+      return this.currentRoute.path.startsWith('/users');
+    },
+    isServicesActive() {
+      return this.currentRoute.path.startsWith('/commerce/services');
+    },
+    isProductsActive() {
+      return this.currentRoute.path.startsWith('/commerce/products');
+    },
+    menuGroups() {
+      const groups = [
+        {
+          title: null,
+          children: [
+            { to: '/', label: 'Главная', icon: House, exact: true },
+            { to: '/clients', label: 'Клиенты', icon: Users, forceActive: this.isClientsActive },
+            { to: '/users', label: 'Сотрудники', icon: UserCog, forceActive: this.isUsersActive, show: this.IS_BOSS },
+            { to: '/commerce/services', label: 'Прайс', icon: Dumbbell, forceActive: this.isServicesActive, show: this.IS_BOSS },
+            { to: '/commerce/products', label: 'Магазин', icon: Store, forceActive: this.isProductsActive, show: this.IS_BOSS }
+          ]
+        },
+        {
+          title: 'Мобильное приложение',
+          show: canManageTrainers(this.$user),
+          children: [
+            { to: '/mobile/trainers', label: 'Тренеры', icon: Dumbbell }
+          ]
+        },
+        {
+          title: 'СТАТИСТИКА',
+          show: this.IS_BOSS,
+          children: [
+            { to: '/statistics/common', label: 'Общие данные', icon: ChartPie },
+            { to: '/statistics/economy', label: 'Экономика', icon: Coins },
+            { to: '/statistics/shop', label: 'Магазин/Бар', icon: ShoppingBasket },
+            { to: '/statistics/price', label: 'Прайс', icon: Dumbbell },
+            { to: '/statistics/unlimited-ending', label: 'Заканчивающиеся безлимиты', icon: Hourglass }
+          ]
+        },
+        {
+          title: 'ЗАПРОСЫ',
+          show: this.IS_BOSS,
+          children: [
+            { to: '/requests/clients/penalty', label: 'Штрафные тренировки', icon: TriangleAlert },
+            { to: '/requests/clients/restored', label: 'Восстановления', icon: RotateCcw }
+          ]
+        }
+      ];
+
+      return groups
+        .filter((group) => group.show !== false)
+        .map((group) => ({
+          ...group,
+          children: group.children.filter((item) => item.show !== false)
+        }))
+        .filter((group) => group.children.length);
+    }
+  },
+  methods: {
+    toggleSidebar() {
+      this.$emit('close-sidebar');
+    },
+    isMenuItemActive(item, isActive, isExactActive) {
+      const baseActive = item.exact ? isExactActive : isActive;
+      return Boolean(item.forceActive || baseActive);
+    }
+  }
+};
 </script>
+
+<style scoped>
+.sidebar-v2 {
+  --sidebar-width: 270px;
+  --sidebar-bg: #f9f9f9;
+  --border-color: #e4e4e4;
+  --text-primary: #000000;
+  --text-secondary: #727272;
+  --bg-tertiary: #f2f2f2;
+  --bg-selected: #f2f2f2;
+}
+
+/* Backdrop */
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.2);
+  backdrop-filter: blur(4px);
+  z-index: 40;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease;
+}
+
+.sidebar-backdrop--visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (min-width: 1024px) {
+  .sidebar-backdrop {
+    display: none;
+  }
+}
+
+/* Sidebar Container */
+.sidebar-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 50;
+  width: var(--sidebar-width);
+  height: 100%;
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border-color);
+  transform: translateX(-100%);
+  transition: transform 200ms ease;
+}
+
+.sidebar-container--open {
+  transform: translateX(0);
+}
+
+@media (min-width: 1024px) {
+  .sidebar-container {
+    position: relative;
+    transform: translateX(0);
+    flex-shrink: 0;
+  }
+}
+
+/* Top Content */
+.sidebar-top {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  width: 100%;
+  overflow-y: auto;
+}
+
+/* Logo Section - height: 64px, padding: 16px 28px, gap: 10px */
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 64px;
+  padding: 16px 28px;
+  border-bottom: 1px solid var(--border-color);
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.sidebar-logo__link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.sidebar-logo__text {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.4;
+  color: var(--text-primary);
+}
+
+/* Slider button - position: absolute, left: 234px, top: 18px, size: 28px */
+.sidebar-slider {
+  position: absolute;
+  left: 234px;
+  top: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: var(--bg-tertiary);
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.sidebar-slider:hover {
+  background: #e8e8e8;
+}
+
+/* Main Container - gap: 20px */
+.sidebar-main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  width: 100%;
+}
+
+/* Menu - gap: 4px, padding: 0 16px */
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 0 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.sidebar-menu--section {
+  padding: 0;
+}
+
+/* Menu Item - height: 36px, padding: 8px, border-radius: 4px */
+.sidebar-menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 36px;
+  padding: 8px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 150ms ease;
+  box-sizing: border-box;
+}
+
+.sidebar-menu-item:hover {
+  background: var(--bg-selected);
+}
+
+.sidebar-menu-item--active {
+  background: var(--bg-selected);
+}
+
+/* Menu Item Content - gap: 12px */
+.sidebar-menu-item__content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1 0 0;
+  min-width: 1px;
+  min-height: 1px;
+}
+
+/* Icon - size: 20px, color: #727272 */
+.sidebar-menu-item__icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: var(--text-secondary);
+}
+
+/* Label - Inter Medium, 14px, line-height: 1.5, color: #727272 (inactive) / black (active) */
+.sidebar-menu-item__label {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-menu-item--active .sidebar-menu-item__label {
+  color: var(--text-primary);
+}
+
+/* Separator - height: 1px */
+.sidebar-separator {
+  width: 100%;
+  height: 1px;
+  background: var(--border-color);
+}
+
+/* Section - gap: 5px, padding: 0 16px */
+.sidebar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  padding: 0 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Section Header - Inter Medium, 12px, line-height: 1.4, padding: 4px 8px */
+.sidebar-section__header {
+  padding: 4px 8px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--text-secondary);
+}
+
+/* Footer - padding: 20px 16px, border-top */
+.sidebar-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 16px;
+  border-top: 1px solid var(--border-color);
+  width: 100%;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+/* Footer Content - gap: 12px */
+.sidebar-footer__content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Avatar - size: 32px, border-radius: 4px */
+.sidebar-footer__avatar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: var(--bg-tertiary);
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+/* Avatar Text - Inter Medium, 14px */
+.sidebar-footer__avatar span {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: normal;
+  color: var(--text-primary);
+}
+
+/* Footer Name - Inter Medium, 16px, line-height: 1.5 */
+.sidebar-footer__name {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+
+/* Footer Toggle - size: 20px */
+.sidebar-footer__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  color: var(--text-primary);
+}
+
+.sidebar-footer__toggle:hover {
+  opacity: 0.7;
+}
+</style>
