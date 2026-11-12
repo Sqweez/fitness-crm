@@ -1,11 +1,4 @@
 <template>
-  <base-modal
-    :state="true"
-    :title="trainer ? 'Редактирование тренера' : 'Добавление тренера'"
-    :max-width="600"
-    :persistent="saving"
-    @close="$emit('close')"
-  >
     <v-form ref="form" :disabled="saving" @submit.prevent="save">
       <v-text-field
         v-model.trim="form.first_name"
@@ -64,15 +57,13 @@
         Удалить фото
       </v-btn>
       <p v-if="photoRemoved" class="text-sm text-slate-500 mt-2">Фото будет удалено после сохранения.</p>
+      <div class="flex flex-wrap gap-3 mt-6">
+        <v-btn color="primary" type="submit" :loading="saving" :disabled="saving">
+          Сохранить <Check :size="18" class="ml-1" />
+        </v-btn>
+        <v-btn text :disabled="saving" to="/mobile/trainers">Отмена</v-btn>
+      </div>
     </v-form>
-    <template #actions>
-      <v-btn text :disabled="saving" @click="$emit('close')">Отмена</v-btn>
-      <v-spacer />
-      <v-btn color="primary" :loading="saving" :disabled="saving" @click="save">
-        Сохранить <Check :size="18" class="ml-1" />
-      </v-btn>
-    </template>
-  </base-modal>
 </template>
 
 <script>

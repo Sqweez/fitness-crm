@@ -1,7 +1,7 @@
 <template>
   <div>
     <t-card-page title="Тренеры">
-      <v-btn color="primary" :disabled="loading || !!editingId || !!deletingId" @click="openCreate">
+      <v-btn color="primary" :disabled="loading || !!deletingId" to="/mobile/trainers/create">
         Добавить тренера <Plus :size="18" class="ml-1" />
       </v-btn>
       <v-alert v-if="loadFailed" type="error" text class="mt-4">
@@ -34,16 +34,15 @@
             <v-btn
               icon
               :aria-label="`Редактировать: ${item.first_name} ${item.last_name}`"
-              :loading="editingId === item.id"
-              :disabled="!!editingId || !!deletingId"
+              :disabled="!!deletingId"
               class="text-green-500 hover:bg-green-50"
-              @click="openEdit(item.id)"
+              :to="`/mobile/trainers/${item.id}/edit`"
             ><Pencil :size="18" /></v-btn>
             <v-btn
               icon
               :aria-label="`Удалить: ${item.first_name} ${item.last_name}`"
               :loading="deletingId === item.id"
-              :disabled="!!editingId || !!deletingId"
+              :disabled="!!deletingId"
               class="text-red-500 hover:bg-red-50"
               @click="deleteTrainer(item)"
             ><Trash2 :size="18" /></v-btn>
@@ -51,7 +50,6 @@
         </template>
       </v-data-table>
     </t-card-page>
-    <trainer-form-modal v-if="formOpen" :trainer="selectedTrainer" @close="formOpen = false" @saved="formOpen = false" />
   </div>
 </template>
 
@@ -67,9 +65,6 @@ export default {
   data: () => ({
     loading: true,
     loadFailed: false,
-    formOpen: false,
-    selectedTrainer: null,
-    editingId: null,
     deletingId: null,
     headers: [
       { text: 'Фото', value: 'photo_url' },
@@ -97,19 +92,6 @@ export default {
         this.loadFailed = true;
       } finally {
         this.loading = false;
-      }
-    },
-    openCreate () {
-      this.selectedTrainer = null;
-      this.formOpen = true;
-    },
-    async openEdit (id) {
-      this.editingId = id;
-      try {
-        this.selectedTrainer = await this.$store.dispatch('trainers/getTrainer', id);
-        this.formOpen = true;
-      } finally {
-        this.editingId = null;
       }
     },
     async deleteTrainer (trainer) {
