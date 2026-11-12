@@ -103,13 +103,21 @@ export default {
 
   auth: {
     watchLoggedIn: true,
+    resetOnError: error => error.response?.status === 401,
     redirect: {
       logout: '/login',
     },
     strategies: {
-      'laravelJWT': {
-        provider: 'laravelJWT',
-        url: process.env.VUE_APP_API_HOST,
+      'dashboard': {
+        scheme: 'local',
+        token: {
+          property: 'access_token',
+          type: 'Bearer',
+          maxAge: false
+        },
+        user: {
+          property: false
+        },
         endpoints: {
           login: {
             url: '/auth/login',
@@ -124,9 +132,6 @@ export default {
           user: {
             url: '/auth/me',
             method: 'get'
-          },
-          token: {
-            maxAge: 60 * 60 * 8
           }
         }
       }
