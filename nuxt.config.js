@@ -39,8 +39,18 @@ export default {
     '@/plugins/User',
     '@/plugins/loaderPlugin',
     '@/plugins/vConfirmation',
-    '@/plugins/fileService'
+    '@/plugins/fileService',
+    '@/plugins/echo.client'
   ],
+
+  publicRuntimeConfig: {
+    reverb: {
+      key: process.env.VUE_APP_REVERB_APP_KEY,
+      host: process.env.VUE_APP_REVERB_HOST,
+      port: Number(process.env.VUE_APP_REVERB_PORT),
+      scheme: process.env.VUE_APP_REVERB_SCHEME,
+    },
+  },
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: [
