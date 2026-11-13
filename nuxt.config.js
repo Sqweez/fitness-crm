@@ -149,7 +149,14 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    transpile: ['lucide-vue']
+    transpile: ['lucide-vue'],
+    postcss: {
+      plugins: {
+        // Added by @nuxtjs/tailwindcss; its old value parser crashes the production build
+        // on color-mix()/oklch() inside var(), and every target browser supports custom properties
+        'postcss-custom-properties': false
+      }
+    }
   },
 
   vuetify: {

@@ -91,3 +91,6 @@ sw.*
 *.swp
 /CLAUDE.md
 /AGENTS.md
+
+# Local Netlify folder
+.netlify
