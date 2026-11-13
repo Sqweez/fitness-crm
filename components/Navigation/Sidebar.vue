@@ -108,6 +108,7 @@ import {
   Hourglass,
   House,
   RotateCcw,
+  Settings,
   ShoppingBasket,
   Store,
   TriangleAlert,
@@ -127,6 +128,7 @@ export default {
     Hourglass,
     House,
     RotateCcw,
+    Settings,
     ShoppingBasket,
     Store,
     TriangleAlert,
@@ -179,7 +181,8 @@ export default {
           show: canManageTrainers(this.$user),
           children: [
             { to: '/mobile/trainers', label: 'Тренеры', icon: Dumbbell },
-            { to: '/mobile/club', label: 'О клубе', icon: Building2 }
+            { to: '/mobile/club', label: 'О клубе', icon: Building2 },
+            { to: '/mobile/config', label: 'Настройки приложения', icon: Settings }
           ]
         },
         {
