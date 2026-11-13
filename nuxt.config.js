@@ -23,6 +23,8 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    // MDI icon font from node_modules instead of the CDN (icons rendered as boxes until the CDN loaded)
+    '@mdi/font/css/materialdesignicons.min.css',
     '~/assets/css/style.scss'
   ],
 
@@ -151,6 +153,10 @@ export default {
   },
 
   vuetify: {
+    defaultAssets: {
+      font: { family: 'Roboto' },
+      icons: false
+    },
     lang: {
       locales: { ru },
       current: 'ru'

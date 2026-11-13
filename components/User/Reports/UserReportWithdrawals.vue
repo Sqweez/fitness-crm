@@ -3,9 +3,9 @@
     <v-expansion-panels>
       <v-expansion-panel>
         <v-expansion-panel-header color="indigo darken-2">
-          <h5 class="text-white"><b>
+          <h3 class="text-white"><b>
             История фин. операций (списания)
-          </b></h5>
+          </b></h3>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-text-field

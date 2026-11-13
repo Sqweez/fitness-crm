@@ -2,8 +2,8 @@
   <div>
     <v-expansion-panels class="mt-2" v-model="opened" multiple>
       <v-expansion-panel>
-        <v-expansion-panel-header color="red darken-2">
-          <h5 class="text-white"><b>Бар</b></h5>
+        <v-expansion-panel-header color="teal darken-1">
+          <h3 class="text-white"><b>Бар</b></h3>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-text-field
@@ -35,7 +35,7 @@
               {{ item.quantity }} шт.
             </template>
             <template v-slot:item.actions="{ item }">
-              <v-btn @click="_onSubmit(item)" color="success" :disabled="!client">
+              <v-btn @click="_onSubmit(item)" color="success" outlined :disabled="!client">
                 Купить
               </v-btn>
             </template>

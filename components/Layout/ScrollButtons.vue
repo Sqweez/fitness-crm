@@ -104,23 +104,17 @@ export default {
 </script>
 
 <style scoped lang="scss">
+// Quiet utility controls: they float over content and must not compete with it
 .scroll-btn {
-  border: 1px solid rgba(255, 255, 255, 0.16) !important;
-  color: #ffffff !important;
-  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.25) !important;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease !important;
+  background-color: var(--surface) !important;
+  border: 1px solid var(--line) !important;
+  color: var(--text-muted) !important;
+  box-shadow: 0 2px 8px oklch(24% 0.006 150 / 0.12) !important;
+  transition: color 0.15s ease, background-color 0.15s ease !important;
 
   &:hover {
-    transform: translateY(-1px);
-    filter: brightness(1.05);
+    background-color: var(--surface-sunken) !important;
+    color: var(--text) !important;
   }
-}
-
-.scroll-btn--up {
-  background-color: #1d4ed8 !important;
-}
-
-.scroll-btn--down {
-  background-color: #0ea5e9 !important;
 }
 </style>

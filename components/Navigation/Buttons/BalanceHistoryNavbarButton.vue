@@ -1,6 +1,7 @@
 <template>
   <div title="История пополнений">
     <button
+      aria-label="История пополнений"
       @click="$router.push('/economy/history/balance')"
       ref="trigger"
       class="w-8 h-8 flex items-center justify-center bg-gray-100 hover:bg-gray-200 transition duration-150 rounded-full"

@@ -4,7 +4,7 @@
     <v-expansion-panels class="mt-4 mb-2" v-model="panel" multiple>
       <v-expansion-panel>
         <v-expansion-panel-header color="orange darken-2">
-          <h5 class="text-white"><b>Солярий</b></h5>
+          <h3 class="text-white"><b>Солярий</b></h3>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <div class="p-4">

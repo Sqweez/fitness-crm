@@ -3,7 +3,7 @@
     <v-expansion-panels v-model="panel" multiple>
       <v-expansion-panel>
         <v-expansion-panel-header color="yellow darken-3">
-          <h5 class="text-white"><b>Текущая сессия</b></h5>
+          <h3 class="text-white"><b>Текущая сессия</b></h3>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <div class="p-4">

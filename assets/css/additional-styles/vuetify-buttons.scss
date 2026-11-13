@@ -5,13 +5,13 @@
 // CSS Variables
 :root {
   // Primary/Success - flat green
-  --btn-primary: #22C55E;
-  --btn-primary-hover: #16A34A;
+  --btn-primary: #15803D; // green-700, white text 5.0:1
+  --btn-primary-hover: #166534;
   --btn-primary-foreground: #FFFFFF;
 
   // Destructive/Error
-  --btn-destructive: #EF4444;
-  --btn-destructive-hover: #DC2626;
+  --btn-destructive: #DC2626; // red-600, white text 4.8:1
+  --btn-destructive-hover: #B91C1C;
 
   // UI colors (from shadcn)
   --btn-border: #E2E8F0;
@@ -80,8 +80,8 @@
 // =============================================================================
 // Primary color (color="primary") - green
 // =============================================================================
-.v-btn.primary,
-.v-btn.primary--text:not(.v-btn--text):not(.v-btn--outlined) {
+.v-application .v-btn.primary,
+.v-application .v-btn.primary--text:not(.v-btn--text):not(.v-btn--outlined) {
   background-color: var(--btn-primary) !important;
   color: var(--btn-primary-foreground) !important;
   border-color: transparent !important;
@@ -94,8 +94,8 @@
 // =============================================================================
 // Success color (color="success") - same green
 // =============================================================================
-.v-btn.success,
-.v-btn.success--text:not(.v-btn--text):not(.v-btn--outlined) {
+.v-application .v-btn.success,
+.v-application .v-btn.success--text:not(.v-btn--text):not(.v-btn--outlined) {
   background-color: var(--btn-primary) !important;
   color: var(--btn-primary-foreground) !important;
   border-color: transparent !important;
@@ -108,8 +108,8 @@
 // =============================================================================
 // Error/Destructive color (color="error")
 // =============================================================================
-.v-btn.error,
-.v-btn.error--text:not(.v-btn--text):not(.v-btn--outlined) {
+.v-application .v-btn.error,
+.v-application .v-btn.error--text:not(.v-btn--text):not(.v-btn--outlined) {
   background-color: var(--btn-destructive) !important;
   color: var(--btn-primary-foreground) !important;
   border-color: transparent !important;
@@ -186,6 +186,15 @@
   &.error--text {
     border-color: var(--btn-destructive) !important;
     color: var(--btn-destructive) !important;
+  }
+
+  &.primary--text:hover:not(.v-btn--disabled),
+  &.success--text:hover:not(.v-btn--disabled) {
+    background-color: color-mix(in oklab, var(--btn-primary) 8%, transparent) !important;
+  }
+
+  &.error--text:hover:not(.v-btn--disabled) {
+    background-color: color-mix(in oklab, var(--btn-destructive) 8%, transparent) !important;
   }
 }
 
@@ -337,101 +346,101 @@
 // =============================================================================
 // Additional colors - flat versions
 // =============================================================================
-.v-btn.indigo,
-.v-btn.indigo.darken-1,
-.v-btn.indigo.darken-2 {
-  background-color: #6366F1 !important;
+.v-application .v-btn.indigo,
+.v-application .v-btn.indigo.darken-1,
+.v-application .v-btn.indigo.darken-2 {
+  background-color: #4338CA !important;
   color: #fff !important;
 
   &:hover:not(.v-btn--disabled) {
-    background-color: #4F46E5 !important;
+    background-color: #3730A3 !important;
   }
 }
 
-.v-btn.teal,
-.v-btn.teal.darken-1,
-.v-btn.teal.darken-2 {
-  background-color: #14B8A6 !important;
+.v-application .v-btn.teal,
+.v-application .v-btn.teal.darken-1,
+.v-application .v-btn.teal.darken-2 {
+  background-color: #0F766E !important;
   color: #fff !important;
 
   &:hover:not(.v-btn--disabled) {
-    background-color: #0D9488 !important;
+    background-color: #115E59 !important;
   }
 }
 
-.v-btn.cyan,
-.v-btn.cyan.darken-1,
-.v-btn.cyan.darken-2 {
-  background-color: #06B6D4 !important;
+.v-application .v-btn.cyan,
+.v-application .v-btn.cyan.darken-1,
+.v-application .v-btn.cyan.darken-2 {
+  background-color: #0E7490 !important;
   color: #fff !important;
 
   &:hover:not(.v-btn--disabled) {
-    background-color: #0891B2 !important;
+    background-color: #155E75 !important;
   }
 }
 
-.v-btn.orange,
-.v-btn.orange.darken-1,
-.v-btn.orange.darken-2,
-.v-btn.deep-orange {
-  background-color: #F97316 !important;
+.v-application .v-btn.orange,
+.v-application .v-btn.orange.darken-1,
+.v-application .v-btn.orange.darken-2,
+.v-application .v-btn.deep-orange {
+  background-color: #C2410C !important;
   color: #fff !important;
 
   &:hover:not(.v-btn--disabled) {
-    background-color: #EA580C !important;
+    background-color: #9A3412 !important;
   }
 }
 
-.v-btn.purple,
-.v-btn.purple.darken-1,
-.v-btn.purple.darken-2 {
-  background-color: #A855F7 !important;
+.v-application .v-btn.purple,
+.v-application .v-btn.purple.darken-1,
+.v-application .v-btn.purple.darken-2 {
+  background-color: #7E22CE !important;
   color: #fff !important;
 
   &:hover:not(.v-btn--disabled) {
-    background-color: #9333EA !important;
+    background-color: #6B21A8 !important;
   }
 }
 
-.v-btn.pink,
-.v-btn.pink.darken-1,
-.v-btn.pink.darken-2 {
-  background-color: #EC4899 !important;
+.v-application .v-btn.pink,
+.v-application .v-btn.pink.darken-1,
+.v-application .v-btn.pink.darken-2 {
+  background-color: #BE185D !important;
   color: #fff !important;
 
   &:hover:not(.v-btn--disabled) {
-    background-color: #DB2777 !important;
+    background-color: #9D174D !important;
   }
 }
 
-.v-btn.blue,
-.v-btn.blue.darken-1,
-.v-btn.blue.darken-2,
-.v-btn.blue.darken-3,
-.v-btn.blue.darken-4 {
-  background-color: #3B82F6 !important;
+.v-application .v-btn.blue,
+.v-application .v-btn.blue.darken-1,
+.v-application .v-btn.blue.darken-2,
+.v-application .v-btn.blue.darken-3,
+.v-application .v-btn.blue.darken-4 {
+  background-color: #1D4ED8 !important;
   color: #fff !important;
 
   &:hover:not(.v-btn--disabled) {
-    background-color: #2563EB !important;
+    background-color: #1E40AF !important;
   }
 }
 
-.v-btn.light-blue,
-.v-btn.light-blue.darken-1,
-.v-btn.light-blue.darken-2 {
-  background-color: #0EA5E9 !important;
+.v-application .v-btn.light-blue,
+.v-application .v-btn.light-blue.darken-1,
+.v-application .v-btn.light-blue.darken-2 {
+  background-color: #0369A1 !important;
   color: #fff !important;
 
   &:hover:not(.v-btn--disabled) {
-    background-color: #0284C7 !important;
+    background-color: #075985 !important;
   }
 }
 
-.v-btn.red,
-.v-btn.red.darken-1,
-.v-btn.red.darken-2 {
-  background-color: #EF4444 !important;
+.v-application .v-btn.red,
+.v-application .v-btn.red.darken-1,
+.v-application .v-btn.red.darken-2 {
+  background-color: #DC2626 !important;
   color: #fff !important;
 
   &:hover:not(.v-btn--disabled) {

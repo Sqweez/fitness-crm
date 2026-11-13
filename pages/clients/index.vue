@@ -12,8 +12,8 @@
       </v-btn>
       <v-expansion-panels class="mt-4 mb-2" v-if="false">
         <v-expansion-panel>
-          <v-expansion-panel-header color="blue darken-1">
-            <h5 class="text-white"><b>Фильтры:</b></h5>
+          <v-expansion-panel-header>
+            <h3 class="text-white"><b>Фильтры</b></h3>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-select

@@ -3,7 +3,7 @@
     <v-expansion-panels class="mt-2">
       <v-expansion-panel>
         <v-expansion-panel-header color="indigo darken-2">
-          <h5 class="text-white"><b>История клиента</b></h5>
+          <h3 class="text-white"><b>История клиента</b></h3>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <t-date-picker
@@ -11,8 +11,7 @@
             v-model="dates"
           />
           <v-btn
-            color="indigo darken-2"
-            dark
+            color="primary"
             class="mb-2"
             @click="onSubmit"
           >

@@ -101,7 +101,9 @@
 
 <script>
 import {
+  BicepsFlexed,
   Building2,
+  ChartColumn,
   ChartPie,
   Coins,
   Dumbbell,
@@ -121,7 +123,9 @@ import { canManageTrainers } from '@/utils/trainers';
 export default {
   name: 'Sidebar',
   components: {
+    BicepsFlexed,
     Building2,
+    ChartColumn,
     ChartPie,
     Coins,
     Dumbbell,
@@ -180,24 +184,24 @@ export default {
           title: 'Мобильное приложение',
           show: canManageTrainers(this.$user),
           children: [
-            { to: '/mobile/trainers', label: 'Тренеры', icon: Dumbbell },
+            { to: '/mobile/trainers', label: 'Тренеры', icon: BicepsFlexed },
             { to: '/mobile/club', label: 'О клубе', icon: Building2 },
             { to: '/mobile/config', label: 'Настройки приложения', icon: Settings }
           ]
         },
         {
-          title: 'СТАТИСТИКА',
+          title: 'Статистика',
           show: this.IS_BOSS,
           children: [
             { to: '/statistics/common', label: 'Общие данные', icon: ChartPie },
             { to: '/statistics/economy', label: 'Экономика', icon: Coins },
             { to: '/statistics/shop', label: 'Магазин/Бар', icon: ShoppingBasket },
-            { to: '/statistics/price', label: 'Прайс', icon: Dumbbell },
-            { to: '/statistics/unlimited-ending', label: 'Заканчивающиеся безлимиты', icon: Hourglass }
+            { to: '/statistics/price', label: 'Продажи прайса', icon: ChartColumn },
+            { to: '/statistics/unlimited-ending', label: 'Истекающие безлимиты', icon: Hourglass }
           ]
         },
         {
-          title: 'ЗАПРОСЫ',
+          title: 'Запросы',
           show: this.IS_BOSS,
           children: [
             { to: '/requests/clients/penalty', label: 'Штрафные тренировки', icon: TriangleAlert },
@@ -324,7 +328,7 @@ export default {
 }
 
 .sidebar-logo__text {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-ui);
   font-weight: 500;
   font-size: 20px;
   line-height: 1.4;
@@ -428,7 +432,7 @@ export default {
 
 /* Label - Inter Medium, 14px, line-height: 1.5, color: #727272 (inactive) / black (active) */
 .sidebar-menu-item__label {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-ui);
   font-weight: 500;
   font-size: 14px;
   line-height: 1.5;
@@ -463,7 +467,7 @@ export default {
 /* Section Header - Inter Medium, 12px, line-height: 1.4, padding: 4px 8px */
 .sidebar-section__header {
   padding: 4px 8px;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-ui);
   font-weight: 500;
   font-size: 12px;
   line-height: 1.4;
@@ -504,7 +508,7 @@ export default {
 
 /* Avatar Text - Inter Medium, 14px */
 .sidebar-footer__avatar span {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-ui);
   font-weight: 500;
   font-size: 14px;
   line-height: normal;
@@ -513,7 +517,7 @@ export default {
 
 /* Footer Name - Inter Medium, 16px, line-height: 1.5 */
 .sidebar-footer__name {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-ui);
   font-weight: 500;
   font-size: 16px;
   line-height: 1.5;

@@ -23,6 +23,7 @@ $section-colors: (
   '.green.darken-1': #43A047,
   '.green:not(.darken-1)': #4CAF50,
   '.purple': #9C27B0,
+  '.teal.darken-1': #00897B,
   '[style*="26c6da"]': #26C6DA,
 );
 
@@ -96,6 +97,11 @@ $section-colors: (
   .v-expansion-panel-header__icon .v-icon {
     color: inherit !important;
     opacity: 0.6;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--section, var(--text-muted));
+    outline-offset: -2px;
   }
 }
 

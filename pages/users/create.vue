@@ -1,12 +1,11 @@
 <template>
-  <div class="min-h-[calc(100vh-140px)] bg-gradient-to-br from-slate-50 via-white to-slate-100">
+  <div>
     <t-card-page title="Добавление сотрудника">
       <v-form ref="form" class="w-full mx-auto">
         <div class="space-y-6">
-          <div class="rounded-2xl bg-white/80 shadow-sm p-3">
+          <div>
             <div class="mb-4">
-              <div class="text-xs uppercase tracking-[0.2em] text-slate-500">Основные данные</div>
-              <div class="text-base font-semibold text-slate-800">Профиль сотрудника</div>
+              <h3 class="text-base font-semibold" style="color: var(--text)">Профиль сотрудника</h3>
             </div>
             <v-row class="px-1">
               <v-col cols="4">
@@ -152,22 +151,21 @@
             </v-row>
           </div>
 
-          <div class="rounded-2xl bg-white/80 shadow-sm p-3">
+          <div class="pt-6 border-t" style="border-color: var(--line-soft)">
             <div class="mb-4 flex items-center justify-between">
               <div>
-                <div class="text-xs uppercase tracking-[0.2em] text-slate-500">Фото</div>
-                <div class="text-base font-semibold text-slate-800">Портрет сотрудника</div>
+                <h3 class="text-base font-semibold" style="color: var(--text)">Портрет сотрудника</h3>
               </div>
-              <div class="text-xs text-slate-500">Загрузите или сделайте фото</div>
+              <div class="text-xs" style="color: var(--text-muted)">Загрузите или сделайте фото</div>
             </div>
             <div class="flex flex-wrap items-center gap-4">
-              <div class="w-96 h-96 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50" v-show="isClientVideoEnabled">
+              <div class="w-96 h-96 overflow-hidden rounded-lg border" style="border-color: var(--line); background: var(--surface-sunken)" v-show="isClientVideoEnabled">
                 <video autoplay class="w-full h-full object-cover" ref="webcam"/>
               </div>
-              <div class="w-96 h-96 overflow-hidden rounded-2xl border border-slate-200 bg-white" v-if="photoPreview">
+              <div class="w-96 h-96 overflow-hidden rounded-lg border" style="border-color: var(--line); background: var(--surface)" v-if="photoPreview">
                 <img :src="photoPreview" class="w-full h-full object-contain object-center">
               </div>
-              <div class="flex-1 min-w-[220px] text-sm text-slate-600">
+              <div class="flex-1 min-w-[220px] text-sm" style="color: var(--text-muted)">
                 Фото используется в профиле сотрудника и помогает быстрее находить его в списках.
               </div>
               <canvas ref="canvas" width="384" height="384" v-show="false"></canvas>
@@ -183,8 +181,8 @@
             </div>
           </div>
 
-          <div class="flex items-center justify-between bg-white/80 shadow-sm px-3 py-2.5">
-            <div class="text-sm text-slate-600">
+          <div class="flex items-center justify-between pt-4 border-t" style="border-color: var(--line-soft)">
+            <div class="text-sm" style="color: var(--text-muted)">
               Проверьте данные перед созданием.
             </div>
             <v-btn type="button" color="primary" @click="onSubmit">

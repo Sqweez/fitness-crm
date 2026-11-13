@@ -326,7 +326,7 @@ export default {
   font-size: 12px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #94a3b8;
+  color: #64748b;
   margin-bottom: 8px;
 }
 
@@ -421,13 +421,13 @@ export default {
 }
 
 .action-btn--destructive {
-  background: #ef4444 !important;
-  border-color: #ef4444 !important;
+  background: #dc2626 !important;
+  border-color: #dc2626 !important;
   color: #ffffff !important;
 
   &:hover {
-    background: #dc2626 !important;
-    border-color: #dc2626 !important;
+    background: #b91c1c !important;
+    border-color: #b91c1c !important;
   }
 }
 

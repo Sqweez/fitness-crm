@@ -2,6 +2,7 @@
 <div class="relative inline-flex" v-click-outside="() => {dropdownOpen = false}">
   <button
     title="Клиенты"
+    aria-label="Клиенты"
     ref="trigger"
     class="w-8 h-8 flex items-center justify-center bg-gray-100 hover:bg-gray-200 transition duration-150 rounded-full"
     :class="{ 'bg-gray-200': dropdownOpen }"

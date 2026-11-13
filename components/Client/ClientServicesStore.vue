@@ -3,13 +3,13 @@
     <v-expansion-panels v-model="panel" multiple>
       <v-expansion-panel >
         <v-expansion-panel-header color="lime darken-2">
-          <h5 class="text-white"><b>Прайс-лист:</b></h5>
+          <h3 class="text-white"><b>Прайс-лист</b></h3>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-expansion-panels class="mt-4 mb-2">
             <v-expansion-panel>
               <v-expansion-panel-header>
-                <h5><b>Фильтры:</b></h5>
+                <h4><b>Фильтры</b></h4>
               </v-expansion-panel-header>
               <v-expansion-panel-content>
                 <v-select
@@ -79,7 +79,7 @@
               </v-list>
             </template>
             <template v-slot:item.actions="{ item }">
-              <v-btn @click="_onSubmit(item)" color="success">
+              <v-btn @click="_onSubmit(item)" color="success" outlined>
                 Купить
               </v-btn>
             </template>

@@ -3,7 +3,7 @@
     <v-expansion-panels v-model="panel" multiple>
       <v-expansion-panel>
         <v-expansion-panel-header color="blue darken-2">
-          <h5 class="text-white"><b>Купленные программы</b></h5>
+          <h3 class="text-white"><b>Купленные программы</b></h3>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-tabs v-model="tab" color="blue darken-2" class="mb-4">
@@ -25,9 +25,9 @@
               <v-expansion-panels v-else>
                 <v-expansion-panel v-for="item of filteredPrograms" :key="item.id" class="my-2">
                   <v-expansion-panel-header :color="getColor(item)">
-                    <h5 class="text-white">
+                    <h4 class="text-white">
                       <b>{{ item.name }} ({{ item.club.name }})</b>
-                    </h5>
+                    </h4>
                   </v-expansion-panel-header>
                   <v-expansion-panel-content>
                     <div class="flex gap-x-2 items-center justify-start">
@@ -64,39 +64,37 @@
                         <v-btn color="primary" v-if="item.can_be_used && $CAN_WRITE_OFF_SERVICES" @click="_onWriteOffClick(item)">
                           Списать <span v-if="item.already_written_off">&nbsp;повторно</span><Check :size="18" class="ml-1" />
                         </v-btn>
-                        <v-btn color="red darken-1" dark v-if="item.can_be_used && $CAN_WRITE_OFF_SERVICES" @click="_onPenaltyWriteOffClick(item)">
+                        <v-btn color="error" outlined v-if="item.can_be_used && $CAN_WRITE_OFF_SERVICES" @click="_onPenaltyWriteOffClick(item)">
                           Штрафное списание <Check :size="18" class="ml-1" />
                         </v-btn>
-                        <v-btn color="indigo darken-1" dark v-if="item.can_be_prolonged && client.has_unlimited_discount" @click="_onServiceProlong(item)">
+                        <v-btn outlined v-if="item.can_be_prolonged && client.has_unlimited_discount" @click="_onServiceProlong(item)">
                           Пролонгация ({{ item.prolongation_price | priceFilters }})
                         </v-btn>
                         <v-btn
-                          color="cyan darken-2"
-                          dark
+                          outlined
                           v-if="item.can_be_used && !item.is_stopped"
                           @click="currentService = {...item}; showStopCardModal = true;"
                         >
                           Заморозить карту
                         </v-btn>
                         <v-btn
-                          color="cyan darken-2"
-                          dark
+                          outlined
                           v-if="item.is_stopped && IS_BOSS"
                           @click="currentService = {...item}; showUnStopCardModal = true;"
                         >
                           Разморозить карту
                         </v-btn>
                         <v-btn
-                          color="cyan lighten-1" dark
+                          outlined
                           v-if="item.can_be_restored"
                           @click="_onRestoreClick(item)"
                         >
                           Восстановить ({{ item.restore_price | priceFilters }})
                         </v-btn>
-                        <v-btn color="pink darken-1" style="color:#fff;" @click="_onServiceInformationClick(item)">
+                        <v-btn outlined @click="_onServiceInformationClick(item)">
                           Информация <Info :size="18" class="ml-1" />
                         </v-btn>
-                        <v-btn color="orange darken-2" v-if="IS_BOSS" @click="_onEditClick(item)" dark>
+                        <v-btn outlined v-if="IS_BOSS" @click="_onEditClick(item)">
                           Редактировать <Pencil :size="18" class="ml-1" />
                         </v-btn>
                       </div>

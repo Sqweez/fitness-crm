@@ -10,8 +10,8 @@
     <div v-else>
       <v-expansion-panels light v-if="isBoss">
         <v-expansion-panel>
-          <v-expansion-panel-header color="#26c6da">
-            <h5 class="text-white"><b>Фильтры:</b></h5>
+          <v-expansion-panel-header>
+            <h3 class="text-white"><b>Фильтры</b></h3>
           </v-expansion-panel-header>
           <v-expansion-panel-content class="py-2">
             <v-select

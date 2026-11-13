@@ -3,9 +3,9 @@
     <v-expansion-panels>
       <v-expansion-panel>
         <v-expansion-panel-header color="yellow darken-4">
-          <h5 class="text-white"><b>
+          <h3 class="text-white"><b>
             История списания солярия
-          </b></h5>
+          </b></h3>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-text-field

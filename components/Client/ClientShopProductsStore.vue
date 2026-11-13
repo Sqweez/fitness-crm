@@ -9,7 +9,7 @@
     <v-expansion-panels>
       <v-expansion-panel @click="onPanelOpen">
         <v-expansion-panel-header color="deep-orange darken-1">
-          <h5 class="text-white"><b>Магазин</b></h5>
+          <h3 class="text-white"><b>Магазин</b></h3>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-select
@@ -48,7 +48,7 @@
               {{ item.quantity }} шт.
             </template>
             <template v-slot:item.actions="{ item }">
-              <v-btn @click="_onSubmit(item)" color="success" :disabled="!client">
+              <v-btn @click="_onSubmit(item)" color="success" outlined :disabled="!client">
                 Купить
               </v-btn>
             </template>

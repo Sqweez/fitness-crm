@@ -17,7 +17,7 @@
       <v-expansion-panels class="mt-4 mb-2">
         <v-expansion-panel>
           <v-expansion-panel-header>
-            <h5><b>Фильтры:</b></h5>
+            <h3><b>Фильтры</b></h3>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-select
