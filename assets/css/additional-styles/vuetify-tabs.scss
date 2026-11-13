@@ -1,0 +1,63 @@
+// =============================================================================
+// Vuetify v-tabs as a segmented control on design tokens.
+// Active tab is a raised white chip, same language as the active sidebar item.
+// =============================================================================
+
+.v-application .v-tabs {
+  > .v-tabs-bar {
+    height: auto !important;
+    background-color: transparent !important;
+  }
+
+  .v-tabs-bar__content {
+    flex: 0 0 auto !important;
+    gap: 2px;
+    padding: 3px;
+    background-color: var(--surface-sunken);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius-panel);
+  }
+
+  // Material underline slider
+  .v-tabs-slider-wrapper {
+    display: none !important;
+  }
+
+  .v-tab {
+    height: 32px !important;
+    min-width: 0 !important;
+    padding: 0 14px !important;
+    border-radius: var(--radius-control);
+    color: var(--text-muted) !important;
+    font-family: var(--font-ui) !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+    transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+
+    // Material hover overlay and ripple
+    &:before,
+    .v-ripple__container {
+      display: none !important;
+    }
+
+    &:hover {
+      color: var(--text) !important;
+    }
+
+    &:focus-visible {
+      box-shadow: 0 0 0 3px var(--focus-ring);
+    }
+  }
+
+  .v-tab--active {
+    background-color: var(--surface);
+    color: var(--text) !important;
+    box-shadow: 0 0 0 1px var(--line), 0 1px 2px oklch(24% 0.006 150 / 0.06);
+  }
+}
+
+.v-application .v-tabs-items {
+  background-color: transparent !important;
+}

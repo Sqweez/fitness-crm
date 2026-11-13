@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="client-sidebar">
+      <div class="client-sidebar__card">
       <div class="client-sidebar__profile">
         <div class="client-sidebar__avatar">
           <img :src="client.photo ? client.photo : avatar" :alt="client.name" class="client-sidebar__avatar-image">
@@ -12,7 +13,7 @@
 
       <div class="client-sidebar__section">
         <dl class="client-sidebar__list">
-          <div class="client-sidebar__row">
+          <div class="client-sidebar__row client-sidebar__row--balance" :class="{ 'client-sidebar__row--negative': client.balance < 0 }">
             <dt>Баланс</dt>
             <dd>{{ client.balance | priceFilters }}</dd>
           </div>
@@ -74,6 +75,7 @@
           </div>
         </dl>
       </details>
+      </div>
 
       <div class="client-sidebar__actions">
         <v-btn v-if="!client.in_bookmark" block class="action-btn action-btn--secondary" @click="addToBookmark">
@@ -209,38 +211,33 @@ export default {
   padding: 0;
 }
 
+// One card for profile, facts, note and details; sections split by hairlines
+.client-sidebar__card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-page);
+  overflow: hidden;
+
+  > * + * {
+    border-top: 1px solid var(--line-soft);
+  }
+}
+
 .client-sidebar__profile {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  position: relative;
-  overflow: hidden;
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
-  padding: 14px;
-  background: #f8fafc;
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
-}
-
-.client-sidebar__profile::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: linear-gradient(90deg, #0ea5e9 0%, #38bdf8 50%, #0ea5e9 100%);
+  gap: 12px;
+  padding: 20px 16px 16px;
 }
 
 .client-sidebar__avatar {
   width: 168px;
   height: 168px;
-  border-radius: 18px;
+  border-radius: var(--radius-panel);
   overflow: hidden;
-  border: 1px solid #e2e8f0;
-  background: #ffffff;
-  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.12);
+  border: 1px solid var(--line);
+  background: var(--surface-sunken);
 }
 
 .client-sidebar__avatar-image {
@@ -255,32 +252,28 @@ export default {
 }
 
 .client-sidebar__name {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
-  color: #0f172a;
-  line-height: 1.4;
+  color: var(--text);
+  line-height: 1.35;
   word-break: break-word;
 }
 
 .client-sidebar__phone {
   font-size: 14px;
-  color: #64748b;
+  color: var(--text-muted);
   line-height: 1.4;
   word-break: break-word;
 }
 
 .client-sidebar__section {
-  border: 1px solid #e2e8f0;
-  border-radius: 14px;
-  padding: 12px;
-  background: #ffffff;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  padding: 14px 16px;
 }
 
 .client-sidebar__list,
 .client-sidebar__details-body {
   display: grid;
-  gap: 8px;
+  gap: 10px;
   margin: 0;
 }
 
@@ -289,23 +282,39 @@ export default {
   flex-direction: column;
   gap: 2px;
   font-size: 14px;
-  color: #0f172a;
+  color: var(--text);
 
   dt {
-    font-size: 12px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #94a3b8;
+    font-size: 13px;
+    color: var(--text-muted);
     line-height: 1.4;
   }
 
   dd {
     font-weight: 500;
-    color: #0f172a;
+    color: var(--text);
     margin: 0;
     line-height: 1.4;
     word-break: break-word;
   }
+}
+
+// Balance is the figure the front desk acts on: sell, top up, check debt
+.client-sidebar__row--balance {
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line-soft);
+
+  dd {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.client-sidebar__row--negative dd {
+  color: var(--danger);
 }
 
 .client-sidebar__note {
@@ -326,24 +335,20 @@ export default {
 }
 
 .client-sidebar__details {
-  border: 1px solid #e2e8f0;
-  border-radius: 14px;
-  padding: 0;
-  background: #ffffff;
-  overflow: hidden;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
-
   summary {
     list-style: none;
     cursor: pointer;
-    padding: 12px 14px;
+    padding: 12px 16px;
     font-weight: 600;
-    font-size: 15px;
-    color: #0f172a;
-    background: #f8fafc;
+    font-size: 14px;
+    color: var(--text);
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    &:hover {
+      background: var(--surface-sunken);
+    }
   }
 
   summary::-webkit-details-marker {
@@ -353,7 +358,7 @@ export default {
   summary::after {
     content: '▾';
     font-size: 12px;
-    color: #64748b;
+    color: var(--text-faint);
     transition: transform 0.2s ease;
   }
 
@@ -363,17 +368,17 @@ export default {
 }
 
 .client-sidebar__details-body {
-  padding: 12px;
+  padding: 4px 16px 14px;
 }
 
 .client-sidebar__actions {
   display: grid;
-  gap: 10px;
+  gap: 8px;
 }
 
 .client-sidebar__actions-group {
   display: grid;
-  gap: 10px;
+  gap: 8px;
 }
 
 .action-btn {

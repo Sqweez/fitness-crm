@@ -15,7 +15,7 @@
   --input-error: var(--danger);
   --input-radius: var(--radius-control);
   --input-height: 40px;
-  --input-label-gap: 26px;
+  --input-label-gap: 24px;
 }
 
 // =============================================================================
@@ -140,7 +140,6 @@
 // Label above the box (fields with a label, except single-line)
 // =============================================================================
 .v-input.v-text-field:not(.v-text-field--single-line):not(.v-text-field--outlined):not(.v-text-field--solo):not(.v-text-field--filled):has(.v-label) {
-  margin-top: 8px !important;
   padding-top: var(--input-label-gap) !important;
 
   .v-text-field__slot,
@@ -227,4 +226,21 @@
       font-size: 14px !important;
     }
   }
+}
+
+// =============================================================================
+// Fields inside grid columns: v-col padding already spaces the rows, so the
+// empty reserve for messages is dropped (it shows up again with an error/hint)
+// =============================================================================
+.col > .v-input.v-text-field > .v-input__control > .v-text-field__details:not(:has(.v-messages__message)) {
+  min-height: 0 !important;
+  margin-bottom: 0 !important;
+
+  .v-messages {
+    min-height: 0 !important;
+  }
+}
+
+.col > .v-input.v-text-field:has(> .v-input__control > .v-text-field__details:not(:has(.v-messages__message))) > .v-input__control > .v-input__slot {
+  margin-bottom: 0 !important;
 }
