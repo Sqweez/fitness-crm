@@ -23,15 +23,14 @@ CRM-система для управления фитнес-клубами и с
 
 ## Запуск
 
-Локальный запуск осуществляется через Docker.
+Требуется Node.js 22+ (версия в `.nvmrc`).
 
 ```bash
-# Запуск контейнера
-docker-compose up --build
-
-# Синхронизация node_modules после установки в контейнере
-npm run sync:modules
+npm install
+npm run dev
 ```
+
+Webpack 4 использует устаревший хэш `md4`, поэтому npm-скрипты запускаются с `NODE_OPTIONS=--openssl-legacy-provider`.
 
 Приложение будет доступно на `http://localhost:3000`
 

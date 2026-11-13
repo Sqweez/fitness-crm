@@ -7,11 +7,10 @@
     "./node_modules/vuetify/dist/json/web-types.json"
   ],
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build --dotenv .env.production",
-    "start": "nuxt start",
-    "generate": "nuxt generate",
-    "sync:modules": "docker cp $(docker-compose ps -q app):/app/node_modules ./"
+    "dev": "NODE_OPTIONS=--openssl-legacy-provider nuxt",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider nuxt build --dotenv .env.production",
+    "start": "NODE_OPTIONS=--openssl-legacy-provider nuxt start",
+    "generate": "NODE_OPTIONS=--openssl-legacy-provider nuxt generate"
   },
   "dependencies": {
     "@nuxtjs/auth-next": "^5.0.0-1648802546.c9880dc",
@@ -48,6 +47,6 @@
     "sass-loader": "^10.2.1"
   },
   "engines": {
-    "node": "14.x"
+    "node": ">=22"
   }
 }
