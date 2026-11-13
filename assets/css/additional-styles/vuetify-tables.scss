@@ -1,0 +1,120 @@
+// =============================================================================
+// shadcn/ui style overrides for Vuetify v-data-table / v-simple-table
+// =============================================================================
+
+:root {
+  --table-bg: #FFFFFF;
+  --table-border: #E2E8F0;
+  --table-divider: #F1F5F9;
+  --table-head-bg: #F8FAFC;
+  --table-head-text: #64748B;
+  --table-text: #0F172A;
+  --table-muted: #64748B;
+  --table-row-hover: #F8FAFC;
+  --table-radius: 12px;
+}
+
+// =============================================================================
+// Container
+// =============================================================================
+.v-data-table.theme--light {
+  background-color: var(--table-bg) !important;
+  border: 1px solid var(--table-border) !important;
+  border-radius: var(--table-radius) !important;
+  overflow: hidden;
+  color: var(--table-text) !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+
+  > .v-data-table__wrapper > table {
+    // Header
+    > thead > tr > th {
+      height: 40px !important;
+      padding: 0 16px !important;
+      background-color: var(--table-head-bg) !important;
+      color: var(--table-head-text) !important;
+      font-size: 12px !important;
+      font-weight: 500 !important;
+      border-bottom: 1px solid var(--table-border) !important;
+      white-space: nowrap;
+
+      &.sortable:hover,
+      &.active {
+        color: var(--table-text) !important;
+      }
+
+      .v-data-table-header__icon {
+        color: inherit !important;
+      }
+    }
+
+    // Loading bar row
+    > thead > tr.v-data-table__progress > th {
+      height: auto !important;
+      padding: 0 !important;
+      border-bottom: none !important;
+    }
+
+    // Body
+    > tbody > tr > td:not(.v-data-table__mobile-row) {
+      height: 52px !important;
+      padding: 0 16px !important;
+      font-size: 14px !important;
+    }
+
+    > tbody > tr:not(:last-child) > td:not(.v-data-table__mobile-row),
+    > tbody > tr:not(:last-child) > th {
+      border-bottom: 1px solid var(--table-divider) !important;
+    }
+
+    > tbody > tr:hover:not(.v-data-table__expanded__content):not(.v-data-table__empty-wrapper) {
+      background-color: var(--table-row-hover) !important;
+    }
+
+    // Empty state
+    > tbody > tr.v-data-table__empty-wrapper > td {
+      height: 96px !important;
+      color: var(--table-muted) !important;
+    }
+  }
+}
+
+// =============================================================================
+// Footer (pagination)
+// =============================================================================
+.v-data-table.theme--light .v-data-footer {
+  padding: 6px 12px !important;
+  border-top: 1px solid var(--table-border) !important;
+  color: var(--table-muted) !important;
+  font-size: 13px !important;
+
+  .v-data-footer__select {
+    .v-input__slot:before,
+    .v-input__slot:after {
+      display: none !important;
+    }
+
+    .v-select__selections {
+      color: var(--table-text) !important;
+      font-size: 13px !important;
+    }
+  }
+
+  .v-data-footer__icons-before .v-btn,
+  .v-data-footer__icons-after .v-btn {
+    min-width: 28px !important;
+    width: 28px !important;
+    height: 28px !important;
+    margin: 0 2px !important;
+    border: 1px solid var(--table-border) !important;
+    color: var(--table-text) !important;
+
+    &.v-btn--disabled {
+      opacity: 0.4 !important;
+    }
+
+    .v-icon {
+      font-size: 18px !important;
+    }
+  }
+}
