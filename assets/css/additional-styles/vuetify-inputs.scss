@@ -1,0 +1,228 @@
+// =============================================================================
+// shadcn/ui style overrides for Vuetify text fields
+// (v-text-field, v-select, v-autocomplete, v-combobox, v-textarea, v-file-input)
+// =============================================================================
+
+:root {
+  --input-bg: #FFFFFF;
+  --input-border: #E2E8F0;
+  --input-border-focus: #94A3B8;
+  --input-ring: rgba(148, 163, 184, 0.25);
+  --input-text: #0F172A;
+  --input-placeholder: #94A3B8;
+  --input-muted: #64748B;
+  --input-disabled-bg: #F8FAFC;
+  --input-error: #EF4444;
+  --input-radius: 6px;
+  --input-height: 40px;
+  --input-label-gap: 26px;
+}
+
+// =============================================================================
+// Base field
+// =============================================================================
+.v-input.v-text-field:not(.v-text-field--outlined):not(.v-text-field--solo):not(.v-text-field--filled) {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  font-size: 14px !important;
+  -webkit-font-smoothing: antialiased;
+
+  > .v-input__control > .v-input__slot {
+    position: relative;
+    min-height: var(--input-height) !important;
+    padding: 0 12px !important;
+    background-color: var(--input-bg) !important;
+    border: 1px solid var(--input-border) !important;
+    border-radius: var(--input-radius) !important;
+    align-items: center !important;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+    // Remove Material underline
+    &:before,
+    &:after {
+      display: none !important;
+    }
+  }
+
+  input,
+  textarea {
+    color: var(--input-text) !important;
+    caret-color: var(--input-text) !important;
+    background-color: transparent !important;
+    font-size: 14px !important;
+
+    &::placeholder {
+      color: var(--input-placeholder) !important;
+    }
+  }
+
+  .v-select__selections {
+    color: var(--input-text) !important;
+    font-size: 14px !important;
+    min-height: calc(var(--input-height) - 2px) !important;
+    padding: 0 !important;
+  }
+
+  // Chips in multiple selects let the box grow
+  &.v-select--chips > .v-input__control > .v-input__slot,
+  &.v-select--is-multi > .v-input__control > .v-input__slot {
+    height: auto !important;
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+  }
+
+  // Icons inside and outside the box
+  .v-input__prepend-inner,
+  .v-input__append-inner {
+    margin-top: 0 !important;
+    align-self: center !important;
+    color: var(--input-placeholder) !important;
+
+    .v-icon {
+      color: var(--input-placeholder) !important;
+    }
+  }
+
+  > .v-input__prepend-outer,
+  > .v-input__append-outer {
+    margin-top: 8px !important;
+  }
+
+  // Label: plain caption above the box
+  .v-label {
+    color: var(--input-text) !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    line-height: 20px !important;
+  }
+
+  // Messages / hints (spacing stays Vuetify default)
+  .v-messages {
+    color: var(--input-muted) !important;
+    font-size: 12px !important;
+  }
+
+  // Focus
+  &.v-input--is-focused > .v-input__control > .v-input__slot {
+    border-color: var(--input-border-focus) !important;
+    box-shadow: 0 0 0 3px var(--input-ring) !important;
+  }
+
+  // Error
+  &.error--text > .v-input__control > .v-input__slot {
+    border-color: var(--input-error) !important;
+  }
+
+  &.error--text.v-input--is-focused > .v-input__control > .v-input__slot {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
+  }
+
+  .v-messages.error--text {
+    color: var(--input-error) !important;
+    caret-color: var(--input-error) !important;
+  }
+
+  // Disabled (readonly stays white: it is used for date picker activators)
+  &.v-input--is-disabled > .v-input__control > .v-input__slot {
+    background-color: var(--input-disabled-bg) !important;
+  }
+
+  &.v-input--is-disabled {
+    input,
+    textarea,
+    .v-select__selections,
+    .v-label {
+      color: var(--input-muted) !important;
+    }
+  }
+}
+
+// =============================================================================
+// Label above the box (fields with a label, except single-line)
+// =============================================================================
+.v-input.v-text-field:not(.v-text-field--single-line):not(.v-text-field--outlined):not(.v-text-field--solo):not(.v-text-field--filled):has(.v-label) {
+  margin-top: 8px !important;
+  padding-top: var(--input-label-gap) !important;
+
+  .v-text-field__slot,
+  .v-select__slot {
+    position: static !important;
+  }
+
+  .v-label {
+    position: absolute !important;
+    top: calc(-1 * var(--input-label-gap) - 1px) !important;
+    left: -1px !important;
+    right: auto !important;
+    max-width: none !important;
+    height: 20px !important;
+    transform: none !important;
+    pointer-events: auto;
+  }
+}
+
+// =============================================================================
+// Single-line: label stays inside the box as a placeholder
+// =============================================================================
+.v-input.v-text-field.v-text-field--single-line:not(.v-text-field--outlined):not(.v-text-field--solo):not(.v-text-field--filled) {
+  .v-label {
+    color: var(--input-placeholder) !important;
+    font-weight: 400 !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+  }
+}
+
+// =============================================================================
+// Textarea
+// =============================================================================
+.v-input.v-textarea:not(.v-text-field--outlined):not(.v-text-field--solo):not(.v-text-field--filled) {
+  > .v-input__control > .v-input__slot {
+    align-items: stretch !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+  }
+
+  textarea {
+    margin-top: 0 !important;
+    padding: 0 !important;
+    line-height: 20px !important;
+  }
+}
+
+// =============================================================================
+// Select dropdown menu
+// =============================================================================
+.v-menu__content:has(> .v-select-list) {
+  border: 1px solid var(--input-border);
+  border-radius: 8px !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.02) !important;
+
+  .v-select-list {
+    padding: 4px !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  }
+
+  .v-list-item {
+    min-height: 36px !important;
+    border-radius: 4px;
+    color: var(--input-text) !important;
+
+    &:before {
+      display: none !important;
+    }
+
+    &:hover,
+    &.v-list-item--highlighted {
+      background-color: #F1F5F9 !important;
+    }
+
+    &.v-list-item--active {
+      background-color: #F1F5F9 !important;
+      font-weight: 500;
+    }
+
+    .v-list-item__title {
+      font-size: 14px !important;
+    }
+  }
+}

@@ -79,6 +79,11 @@
   }
 }
 
+// Search field with hide-details placed right above a table
+.v-input--hide-details + .v-data-table {
+  margin-top: 12px;
+}
+
 // =============================================================================
 // Footer (pagination)
 // =============================================================================
