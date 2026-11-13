@@ -1,8 +1,8 @@
 <template>
   <div v-if="CLIENT_LOADED">
-    <h2 class="font-medium text-xl mb-4">
-      Профиль клиента {{ client.name }} <span class="text-sm">({{ client.club.name }})</span>
-    </h2>
+    <h1 class="font-medium text-xl mb-4">
+      Профиль клиента <span class="text-sm">({{ client.club.name }})</span>
+    </h1>
     <v-row>
       <v-col lg="3" cols="12">
         <client-side-bar />

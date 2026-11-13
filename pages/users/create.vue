@@ -109,19 +109,6 @@
               </v-col>
               <v-col cols="12">
                 <div class="flex items-center justify-between gap-x-4">
-                  <div class="flex-1 flex items-center gap-x-3" v-if="false">
-                    <v-checkbox label="Автогенерация логина" v-model="generateLoginAutomatically"/>
-                    <v-text-field
-                      label="Логин"
-                      v-model="user.login"
-                      hint="Если оставить пустым, будет сгенерирован из телефона"
-                      persistent-hint
-                      v-show="!generateLoginAutomatically"
-                      :disabled="generateLoginAutomatically"
-                      :error="!!validationErrors.login"
-                      :error-messages="validationErrors.login"
-                    />
-                  </div>
                   <div class="flex-1 flex items-center gap-x-3">
                     <v-checkbox label="Автогенерация пароля" v-model="generatePasswordAutomatically"/>
                     <v-text-field
@@ -206,7 +193,6 @@ import { Camera, Check, Upload } from 'lucide-vue';
 export default {
   components: { Camera, Check, Upload },
   data: () => ({
-    generateLoginAutomatically: false,
     generatePasswordAutomatically: false,
     firstname: '',
     lastname: '',

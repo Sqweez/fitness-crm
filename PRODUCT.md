@@ -10,7 +10,7 @@ Fitness club front-desk administrators. They work at the reception counter in a 
 
 ## Product Purpose
 
-Passera CRM runs day-to-day operations of fitness clubs and club networks: clients, memberships and services, visits, keys, bar and shop, finances, staff. Success is an administrator who never hunts for information: the client card and lists answer "who, what is active, what is owed" in one look.
+Fit CRM runs day-to-day operations of fitness clubs and club networks: clients, memberships and services, visits, keys, bar and shop, finances, staff. Success is an administrator who never hunts for information: the client card and lists answer "who, what is active, what is owed" in one look.
 
 ## Brand Personality
 
