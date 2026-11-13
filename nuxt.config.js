@@ -68,6 +68,13 @@ export default {
     cssPath: '~/assets/css/style.scss',
     exposeConfig: false,
   },
+  hooks: {
+    // @nuxtjs/tailwindcss v4 injects Tailwind 2 defaults; Tailwind 3 uses `content` from tailwind.config.js
+    'tailwindcss:config' (config) {
+      delete config.purge;
+      delete config.variants;
+    },
+  },
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [

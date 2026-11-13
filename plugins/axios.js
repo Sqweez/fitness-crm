@@ -2,36 +2,8 @@ import ResponseFunctions from "@/utils/api/responseFunctions";
 
 export default function ({ $axios, $toast, $auth }) {
 
-  $axios.onRequest(config => {
-    config.metadata = { 'request-startTime': new Date().getTime() }
-    return config;
-  })
-
   $axios.onResponse(response => {
-    const start = response.config.metadata['request-startTime']
-    const end = new Date().getTime()
-    const duration = end - start
-    response.metadata = {
-      requestStartTime: start,
-      requestEndTime: end,
-      requestDuration: duration
-    }
-    if (
-      true
-      /*process.env.DEBUG_MODE !== undefined &&
-      process.env.DEBUG_MODE &&
-      process.client*/
-    ) {
-      // eslint-disable-next-line no-console
-      console.groupCollapsed('API response url: api/' + response.config.url)
-      // eslint-disable-next-line no-console
-      console.log(response)
-      // eslint-disable-next-line no-console
-      //console.trace()
-      // eslint-disable-next-line no-console
-      console.groupEnd()
-      _onSuccess(response)
-    }
+    _onSuccess(response)
   })
 
   function _onSuccess(response) {

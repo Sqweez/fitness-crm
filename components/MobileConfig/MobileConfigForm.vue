@@ -122,15 +122,6 @@
       <TriangleAlert :size="16" /> Ссылка не заполнена
     </p>
 
-    <h3 class="text-lg font-medium mt-8 mb-1">Подключение к сокетам</h3>
-    <p class="text-sm text-slate-500 mb-3">Задаётся в конфигурации сервера</p>
-    <dl class="grid grid-cols-[auto_1fr] gap-x-6 gap-y-1 text-sm">
-      <template v-for="field in ['key', 'host', 'port', 'scheme']">
-        <dt :key="`${field}-label`" class="text-slate-500">{{ field }}</dt>
-        <dd :key="field" class="font-mono break-all">{{ config.realtime[field] }}</dd>
-      </template>
-    </dl>
-
     <div class="flex flex-wrap gap-3 mt-8">
       <v-btn color="primary" type="submit" :loading="saving" :disabled="saving">
         Сохранить <Check :size="18" class="ml-1" />

@@ -18,7 +18,7 @@ module.exports = {
     'font-body',
     'font-display',
     { pattern: /text-(blue|slate)-(400|500|600|700|800)/ },
-    { pattern: /hover:text-blue-600/ },
+    { pattern: /^text-blue-600$/, variants: ['hover'] },
   ],
   theme: {
     extend: {

@@ -58,6 +58,7 @@ import userMixin from '@/mixins/userMixin';
 export default {
   components: { CupSoda },
   mixins: [userMixin],
+  props: ['align'],
   data: () => ({
     dropdownOpen: false
   }),

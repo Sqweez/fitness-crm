@@ -63,6 +63,7 @@ import userMixin from '@/mixins/userMixin';
 export default {
   components: { ShoppingBasket },
   mixins: [userMixin],
+  props: ['align'],
   data: () => ({
     dropdownOpen: false
   }),

@@ -65,6 +65,7 @@ import userMixin from '@/mixins/userMixin';
 export default {
   components: { Users },
   mixins: [userMixin],
+  props: ['align'],
   data: () => ({
     dropdownOpen: false
   }),
