@@ -5,6 +5,8 @@
       fab
       small
       class="scroll-btn scroll-btn--up"
+      aria-label="Наверх"
+      title="Наверх"
       @click="scrollToTop"
     >
       <ArrowUp :size="18" />
@@ -14,6 +16,8 @@
       fab
       small
       class="scroll-btn scroll-btn--down"
+      aria-label="Вниз"
+      title="Вниз"
       @click="scrollToBottom"
     >
       <ArrowDown :size="18" />

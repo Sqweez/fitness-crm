@@ -8,7 +8,7 @@
               <h3 class="text-base font-semibold" style="color: var(--text)">Профиль клиента</h3>
             </div>
             <v-row class="px-1">
-              <v-col cols="4">
+              <v-col cols="12" md="4">
                 <v-text-field
                   ref="lastname"
                   label="Фамилия"
@@ -19,7 +19,7 @@
                   :error-messages="validationErrors.name"
                 />
               </v-col>
-              <v-col cols="4">
+              <v-col cols="12" md="4">
                 <v-text-field
                   label="Имя"
                   ref="firstname"
@@ -30,7 +30,7 @@
                   :error-messages="validationErrors.name"
                 />
               </v-col>
-              <v-col cols="4">
+              <v-col cols="12" md="4">
                 <v-text-field
                   label="Отчество"
                   ref="patronymic"
@@ -41,7 +41,7 @@
                   :error-messages="validationErrors.name"
                 />
               </v-col>
-              <v-col cols="6">
+              <v-col cols="12" md="6">
                 <v-text-field
                   ref="phone"
                   v-model="client.phone"
@@ -57,7 +57,7 @@
                   :error-messages="validationErrors.phone"
                 />
               </v-col>
-              <v-col cols="6">
+              <v-col cols="12" md="6">
                 <v-text-field
                   ref="birth_date"
                   label="Дата рождения"
@@ -74,7 +74,7 @@
                   :error-messages="validationErrors.birth_date"
                 />
               </v-col>
-              <v-col cols="6">
+              <v-col cols="12" md="6">
                 <v-select
                   label="Клуб"
                   v-model="client.club_id"
@@ -85,7 +85,7 @@
                   :disabled="!IS_BOSS"
                 />
               </v-col>
-              <v-col cols="6">
+              <v-col cols="12" md="6">
                 <v-text-field
                   v-if="!IS_BOSS"
                   ref="pass"
@@ -108,7 +108,7 @@
                   :error-messages="validationErrors.pass"
                 />
               </v-col>
-              <v-col cols="6" v-show="!isWomenClubChosen">
+              <v-col cols="12" md="6" v-show="!isWomenClubChosen">
                 <v-select
                   label="Пол"
                   v-model="client.gender"

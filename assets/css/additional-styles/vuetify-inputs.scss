@@ -6,7 +6,7 @@
 :root {
   --input-bg: var(--surface);
   --input-border: var(--line);
-  --input-border-focus: oklch(72% 0.006 150);
+  --input-border-focus: oklch(45% 0.006 150); // neutral, >= 3:1 on white
   --input-ring: oklch(91% 0.004 150 / 0.7);
   --input-text: var(--text);
   --input-placeholder: var(--text-faint);

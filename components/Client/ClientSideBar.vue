@@ -33,12 +33,15 @@
       </div>
 
       <div class="client-sidebar__section client-sidebar__note">
-        <label class="client-sidebar__label">Заметка о клиенте</label>
+        <label class="client-sidebar__label" for="client-note">Заметка о клиенте</label>
         <v-textarea
+          id="client-note"
           rows="6"
           v-model="client.description"
           class="client-sidebar__textarea"
-          @keyup.enter="_updateDescription"
+          @blur="_onNoteBlur"
+          @keydown.ctrl.enter="_updateDescription"
+          @keydown.meta.enter="_updateDescription"
         ></v-textarea>
       </div>
 
@@ -91,12 +94,14 @@
           <v-btn block class="action-btn action-btn--primary" @click="$router.push(`/clients/edit/${client.id}`)">
             Редактор профиля
           </v-btn>
-          <v-btn block class="action-btn action-btn--destructive" v-if="IS_BOSS" @click="_onClientDelete">
-            Удалить клиента
-          </v-btn>
           <v-btn block class="action-btn action-btn--secondary" @click="onRemakeCardClick">
             Переоформить карту
           </v-btn>
+          <div v-if="IS_BOSS" class="client-sidebar__danger">
+            <v-btn block class="action-btn action-btn--destructive" @click="_onClientDelete">
+              Удалить клиента
+            </v-btn>
+          </div>
         </div>
       </div>
     </div>
@@ -180,6 +185,11 @@ export default {
         in_bookmark: false,
       })
       this.$loader.disable();
+    },
+    _onNoteBlur () {
+      if (this.client.description !== this._client.description) {
+        this._updateDescription();
+      }
     },
     async _updateDescription () {
       this.$loader.enable('Идет обновление...');
@@ -379,6 +389,13 @@ export default {
 .client-sidebar__actions-group {
   display: grid;
   gap: 8px;
+}
+
+// Irreversible action kept apart from everyday ones
+.client-sidebar__danger {
+  margin-top: 8px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
 }
 
 .action-btn {

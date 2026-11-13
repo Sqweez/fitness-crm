@@ -29,6 +29,8 @@
       <v-btn
         v-if="$CAN_TOP_UP_ACCOUNT"
         @click="showBalanceModal = true;"
+        aria-label="Пополнить баланс"
+        title="Пополнить баланс"
         elevation="2"
         color="success"
         fixed

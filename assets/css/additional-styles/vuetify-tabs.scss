@@ -13,8 +13,8 @@
     flex: 0 0 auto !important;
     gap: 2px;
     padding: 3px;
-    background-color: var(--surface-sunken);
-    border: 1px solid var(--line-soft);
+    background-color: var(--surface-selected);
+    border: 1px solid var(--line);
     border-radius: var(--radius-panel);
   }
 
@@ -47,14 +47,16 @@
     }
 
     &:focus-visible {
-      box-shadow: 0 0 0 3px var(--focus-ring);
+      outline: 2px solid var(--focus-ring);
+      outline-offset: 2px;
     }
   }
 
   .v-tab--active {
     background-color: var(--surface);
     color: var(--text) !important;
-    box-shadow: 0 0 0 1px var(--line), 0 1px 2px oklch(24% 0.006 150 / 0.06);
+    font-weight: 600 !important;
+    box-shadow: 0 0 0 1px var(--line), 0 1px 3px oklch(24% 0.006 150 / 0.12);
   }
 }
 

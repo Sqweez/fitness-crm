@@ -60,7 +60,8 @@ $minus-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' v
 
   // Keyboard focus
   &.v-input--is-focused .v-input--selection-controls__input .v-icon {
-    box-shadow: 0 0 0 3px var(--focus-ring);
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
   }
 
   // Error

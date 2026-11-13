@@ -19,7 +19,7 @@
           <router-link to="/" class="sidebar-logo__link">
             <span class="sidebar-logo__text">Fit CRM</span>
           </router-link>
-          <button class="sidebar-slider" @click="toggleSidebar">
+          <button class="sidebar-slider" aria-label="Свернуть или развернуть меню" title="Свернуть или развернуть меню" @click="toggleSidebar">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M6.25 7.5L3.75 10L6.25 12.5" stroke="#AFAFAF" stroke-width="1.5" stroke-linecap="round"
                     stroke-linejoin="round" />

@@ -24,7 +24,7 @@
   --accent: oklch(72.3% 0.192 149.6);      // #22C55E
   --accent-hover: oklch(62.7% 0.17 149.2); // #16A34A
   --danger: oklch(63.7% 0.208 25.3);       // #EF4444
-  --focus-ring: oklch(72.3% 0.192 149.6 / 0.25);
+  --focus-ring: oklch(50% 0.13 150);       // opaque, >= 3:1 on surfaces
 
   // Shape
   --radius-control: 6px;                   // buttons, inputs
