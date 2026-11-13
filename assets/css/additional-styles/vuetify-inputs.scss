@@ -4,16 +4,16 @@
 // =============================================================================
 
 :root {
-  --input-bg: #FFFFFF;
-  --input-border: #E2E8F0;
-  --input-border-focus: #94A3B8;
-  --input-ring: rgba(148, 163, 184, 0.25);
-  --input-text: #0F172A;
-  --input-placeholder: #94A3B8;
-  --input-muted: #64748B;
-  --input-disabled-bg: #F8FAFC;
-  --input-error: #EF4444;
-  --input-radius: 6px;
+  --input-bg: var(--surface);
+  --input-border: var(--line);
+  --input-border-focus: oklch(72% 0.006 150);
+  --input-ring: oklch(91% 0.004 150 / 0.7);
+  --input-text: var(--text);
+  --input-placeholder: var(--text-faint);
+  --input-muted: var(--text-muted);
+  --input-disabled-bg: var(--surface-sunken);
+  --input-error: var(--danger);
+  --input-radius: var(--radius-control);
   --input-height: 40px;
   --input-label-gap: 26px;
 }
@@ -22,7 +22,7 @@
 // Base field
 // =============================================================================
 .v-input.v-text-field:not(.v-text-field--outlined):not(.v-text-field--solo):not(.v-text-field--filled) {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  font-family: var(--font-ui) !important;
   font-size: 14px !important;
   -webkit-font-smoothing: antialiased;
 
@@ -113,7 +113,7 @@
   }
 
   &.error--text.v-input--is-focused > .v-input__control > .v-input__slot {
-    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--danger) 15%, transparent) !important;
   }
 
   .v-messages.error--text {
@@ -193,13 +193,15 @@
 // Select dropdown menu
 // =============================================================================
 .v-menu__content:has(> .v-select-list) {
+  background-color: var(--surface) !important;
   border: 1px solid var(--input-border);
-  border-radius: 8px !important;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.02) !important;
+  border-radius: var(--radius-panel) !important;
+  box-shadow: 0 4px 12px -2px oklch(24% 0.006 150 / 0.10) !important;
 
   .v-select-list {
     padding: 4px !important;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+    background-color: var(--surface) !important;
+    font-family: var(--font-ui) !important;
   }
 
   .v-list-item {
@@ -213,11 +215,11 @@
 
     &:hover,
     &.v-list-item--highlighted {
-      background-color: #F1F5F9 !important;
+      background-color: var(--surface-sunken) !important;
     }
 
     &.v-list-item--active {
-      background-color: #F1F5F9 !important;
+      background-color: var(--surface-selected) !important;
       font-weight: 500;
     }
 

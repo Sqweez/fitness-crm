@@ -1,0 +1,111 @@
+// =============================================================================
+// Vuetify v-expansion-panels on design tokens.
+// The header `color` prop is kept as section wayfinding: each known Vuetify
+// color class maps to --section, from which the header wash, border, text and
+// marker dot are derived. Panels without a color stay neutral.
+// =============================================================================
+
+$section-colors: (
+  '.indigo.darken-2': #303F9F,
+  '.deep-orange.darken-1': #F4511E,
+  '.blue.darken-2': #1976D2,
+  '.blue.darken-1': #1E88E5,
+  '.blue.lighten-2': #64B5F6,
+  '.blue-grey.lighten-2': #90A4AE,
+  '.yellow.darken-4': #F57F17,
+  '.yellow.darken-3': #F9A825,
+  '.yellow.darken-1': #FDD835,
+  '.red.darken-2': #D32F2F,
+  '.red.lighten-1': #EF5350,
+  '.pink.darken-2': #C2185B,
+  '.orange.darken-2': #F57C00,
+  '.lime.darken-2': #AFB42B,
+  '.green.darken-1': #43A047,
+  '.green:not(.darken-1)': #4CAF50,
+  '.purple': #9C27B0,
+  '[style*="26c6da"]': #26C6DA,
+);
+
+.v-expansion-panels {
+  gap: 8px;
+}
+
+.v-expansion-panels > .v-expansion-panel {
+  // Reset so nested neutral panels don't inherit the parent's section color
+  --section: initial;
+  --dot-space: 0px;
+  --section-line: color-mix(in oklab, var(--section, var(--line)) 35%, var(--line));
+  --section-ink: color-mix(in oklab, var(--section, var(--text)) 35%, var(--text));
+
+  margin: 0 !important;
+  background-color: var(--surface) !important;
+  border: 1px solid var(--section-line) !important;
+  border-radius: var(--radius-panel) !important;
+  overflow: hidden;
+
+  // Material shadow and dividers between panels
+  &:before {
+    box-shadow: none !important;
+  }
+
+  &:after {
+    display: none !important;
+  }
+
+  @each $selector, $color in $section-colors {
+    &:has(> .v-expansion-panel-header#{$selector}) {
+      --section: #{$color};
+      --dot-space: 20px;
+    }
+  }
+}
+
+// =============================================================================
+// Header
+// =============================================================================
+.v-application .v-expansion-panels > .v-expansion-panel > .v-expansion-panel-header {
+  min-height: 48px !important;
+  padding: 0 16px 0 calc(16px + var(--dot-space)) !important;
+  background-color: color-mix(in oklab, var(--section, var(--surface)) 16%, var(--surface)) !important;
+  border-color: var(--section-line) !important;
+  color: var(--section-ink) !important;
+  font-family: var(--font-ui) !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  -webkit-font-smoothing: antialiased;
+
+  // Section marker
+  &:after {
+    content: '';
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    margin-top: -5px;
+    border-radius: 50%;
+    background-color: var(--section, transparent);
+  }
+
+  // Header content was written for saturated backgrounds
+  .text-white,
+  .white--text {
+    color: inherit !important;
+  }
+
+  .v-expansion-panel-header__icon .v-icon {
+    color: inherit !important;
+    opacity: 0.6;
+  }
+}
+
+.v-application .v-expansion-panels > .v-expansion-panel--active > .v-expansion-panel-header {
+  border-bottom: 1px solid var(--section-line) !important;
+}
+
+// =============================================================================
+// Content
+// =============================================================================
+.v-expansion-panels > .v-expansion-panel > .v-expansion-panel-content > .v-expansion-panel-content__wrap {
+  padding-top: 16px !important;
+}

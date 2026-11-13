@@ -10,9 +10,12 @@
 @import 'additional-styles/toggle-switch.scss';
 @import 'additional-styles/flatpickr.scss';
 @import 'additional-styles/theme.scss';
+@import 'additional-styles/tokens.scss';
 @import 'additional-styles/vuetify-buttons.scss';
 @import 'additional-styles/vuetify-tables.scss';
 @import 'additional-styles/vuetify-inputs.scss';
+@import 'additional-styles/vuetify-expansion-panels.scss';
+@import 'additional-styles/vuetify-selection-controls.scss';
 @tailwind utilities;
 @import "reset";
 
@@ -33,6 +36,11 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+// Let the page background (layouts/default.vue) show through v-app
+.theme--light.v-application {
+  background: transparent !important;
 }
 
 hr {

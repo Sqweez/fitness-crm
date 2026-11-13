@@ -230,19 +230,20 @@ export default {
 <style scoped>
 .sidebar-v2 {
   --sidebar-width: 270px;
-  --sidebar-bg: #f9f9f9;
-  --border-color: #e4e4e4;
-  --text-primary: #000000;
-  --text-secondary: #727272;
-  --bg-tertiary: #f2f2f2;
-  --bg-selected: #f2f2f2;
+  --sidebar-bg: var(--surface-sunken);
+  --border-color: var(--line);
+  --text-primary: var(--text);
+  --text-secondary: var(--text-muted);
+  --bg-tertiary: var(--surface-selected);
+  --bg-hover: color-mix(in oklab, var(--surface-selected) 60%, var(--surface-sunken));
+  --bg-selected: var(--surface);
 }
 
 /* Backdrop */
 .sidebar-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.2);
+  background: oklch(24% 0.006 150 / 0.2);
   backdrop-filter: blur(4px);
   z-index: 40;
   opacity: 0;
@@ -348,7 +349,7 @@ export default {
 }
 
 .sidebar-slider:hover {
-  background: #e8e8e8;
+  background: var(--line);
 }
 
 /* Main Container - gap: 20px */
@@ -392,11 +393,19 @@ export default {
 }
 
 .sidebar-menu-item:hover {
-  background: var(--bg-selected);
+  background: var(--bg-hover);
 }
 
-.sidebar-menu-item--active {
+/* Active item: raised white chip, so it reads differently from hover */
+.sidebar-menu-item--active,
+.sidebar-menu-item--active:hover {
   background: var(--bg-selected);
+  box-shadow: 0 0 0 1px var(--border-color);
+}
+
+/* Darker green: --accent is below 3:1 contrast on white */
+.sidebar-menu-item--active .sidebar-menu-item__icon {
+  color: var(--accent-hover);
 }
 
 /* Menu Item Content - gap: 12px */

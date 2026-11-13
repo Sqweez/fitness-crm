@@ -1,6 +1,6 @@
 <template>
   <article class="t-card-page" v-bind="$attrs">
-    <header v-if="!noTitle" class="t-card-page__header">
+    <header v-if="!noTitle && title" class="t-card-page__header">
       <h1 class="t-card-page__title">{{ title }}</h1>
     </header>
     <div class="t-card-page__body">
@@ -33,15 +33,14 @@ export default {
   flex-direction: column;
   gap: 16px;
   padding: 16px;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-page);
 }
 
 .t-card-page__header {
   padding-bottom: 12px;
-  border-bottom: 1px solid #f1f5f9;
+  border-bottom: 1px solid var(--line-soft);
 }
 
 .t-card-page__title {
@@ -49,11 +48,11 @@ export default {
   font-size: 20px;
   font-weight: 600;
   line-height: 1.3;
-  color: #0f172a;
+  color: var(--text);
 }
 
 .t-card-page__body {
-  color: #0f172a;
+  color: var(--text);
 }
 
 @media (min-width: 640px) {

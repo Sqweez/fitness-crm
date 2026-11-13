@@ -6,7 +6,7 @@
     <sidebar :sidebarOpen="sidebarOpen" @close-sidebar="sidebarOpen = false" />
     <select-club-modal :state="showSelectClubModal" @close="showSelectClubModal = false;"/>
     <!-- Content area -->
-    <div class="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden" id="app-container">
+    <div class="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden" id="app-container" style="background-color: var(--surface-page)">
 
       <!-- Site header -->
       <Header :sidebarOpen="sidebarOpen" @toggle-sidebar="sidebarOpen = !sidebarOpen" />

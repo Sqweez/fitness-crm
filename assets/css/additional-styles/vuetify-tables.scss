@@ -1,46 +1,31 @@
 // =============================================================================
-// shadcn/ui style overrides for Vuetify v-data-table / v-simple-table
+// Vuetify v-data-table / v-simple-table on design tokens.
+// Tables always sit inside a page card or a panel, so they get no frame of
+// their own: structure comes from hairline row dividers only.
 // =============================================================================
 
-:root {
-  --table-bg: #FFFFFF;
-  --table-border: #E2E8F0;
-  --table-divider: #F1F5F9;
-  --table-head-bg: #F8FAFC;
-  --table-head-text: #64748B;
-  --table-text: #0F172A;
-  --table-muted: #64748B;
-  --table-row-hover: #F8FAFC;
-  --table-radius: 12px;
-}
-
-// =============================================================================
-// Container
-// =============================================================================
 .v-data-table.theme--light {
-  background-color: var(--table-bg) !important;
-  border: 1px solid var(--table-border) !important;
-  border-radius: var(--table-radius) !important;
-  overflow: hidden;
-  color: var(--table-text) !important;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  background-color: transparent !important;
+  border-radius: 0 !important;
+  color: var(--text) !important;
+  font-family: var(--font-ui) !important;
   -webkit-font-smoothing: antialiased;
 
   > .v-data-table__wrapper > table {
     // Header
     > thead > tr > th {
       height: 40px !important;
-      padding: 0 16px !important;
-      background-color: var(--table-head-bg) !important;
-      color: var(--table-head-text) !important;
-      font-size: 12px !important;
+      padding: 0 12px !important;
+      background-color: transparent !important;
+      color: var(--text-muted) !important;
+      font-size: 13px !important;
       font-weight: 500 !important;
-      border-bottom: 1px solid var(--table-border) !important;
+      border-bottom: 1px solid var(--line) !important;
       white-space: nowrap;
 
       &.sortable:hover,
       &.active {
-        color: var(--table-text) !important;
+        color: var(--text) !important;
       }
 
       .v-data-table-header__icon {
@@ -57,24 +42,25 @@
 
     // Body
     > tbody > tr > td:not(.v-data-table__mobile-row) {
-      height: 52px !important;
-      padding: 0 16px !important;
+      height: 44px !important;
+      padding: 0 12px !important;
       font-size: 14px !important;
+      font-variant-numeric: tabular-nums;
     }
 
     > tbody > tr:not(:last-child) > td:not(.v-data-table__mobile-row),
     > tbody > tr:not(:last-child) > th {
-      border-bottom: 1px solid var(--table-divider) !important;
+      border-bottom: 1px solid var(--line-soft) !important;
     }
 
     > tbody > tr:hover:not(.v-data-table__expanded__content):not(.v-data-table__empty-wrapper) {
-      background-color: var(--table-row-hover) !important;
+      background-color: var(--surface-sunken) !important;
     }
 
     // Empty state
     > tbody > tr.v-data-table__empty-wrapper > td {
-      height: 96px !important;
-      color: var(--table-muted) !important;
+      height: 88px !important;
+      color: var(--text-muted) !important;
     }
   }
 }
@@ -88,21 +74,14 @@
 // Footer (pagination)
 // =============================================================================
 .v-data-table.theme--light .v-data-footer {
-  padding: 6px 12px !important;
-  border-top: 1px solid var(--table-border) !important;
-  color: var(--table-muted) !important;
+  padding: 8px 0 0 !important;
+  border-top: 1px solid var(--line) !important;
+  color: var(--text-muted) !important;
   font-size: 13px !important;
 
-  .v-data-footer__select {
-    .v-input__slot:before,
-    .v-input__slot:after {
-      display: none !important;
-    }
-
-    .v-select__selections {
-      color: var(--table-text) !important;
-      font-size: 13px !important;
-    }
+  .v-data-footer__select .v-select__selections {
+    color: var(--text) !important;
+    font-size: 13px !important;
   }
 
   .v-data-footer__icons-before .v-btn,
@@ -111,8 +90,8 @@
     width: 28px !important;
     height: 28px !important;
     margin: 0 2px !important;
-    border: 1px solid var(--table-border) !important;
-    color: var(--table-text) !important;
+    border: 1px solid var(--line) !important;
+    color: var(--text) !important;
 
     &.v-btn--disabled {
       opacity: 0.4 !important;
