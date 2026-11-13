@@ -101,6 +101,7 @@
 
 <script>
 import {
+  Building2,
   ChartPie,
   Coins,
   Dumbbell,
@@ -119,6 +120,7 @@ import { canManageTrainers } from '@/utils/trainers';
 export default {
   name: 'Sidebar',
   components: {
+    Building2,
     ChartPie,
     Coins,
     Dumbbell,
@@ -176,7 +178,8 @@ export default {
           title: 'Мобильное приложение',
           show: canManageTrainers(this.$user),
           children: [
-            { to: '/mobile/trainers', label: 'Тренеры', icon: Dumbbell }
+            { to: '/mobile/trainers', label: 'Тренеры', icon: Dumbbell },
+            { to: '/mobile/club', label: 'О клубе', icon: Building2 }
           ]
         },
         {
