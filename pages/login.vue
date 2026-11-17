@@ -54,7 +54,6 @@
 </template>
 
 <script>
-import {__hardcoded} from '@/utils/helpers';
 import { Lock, User } from 'lucide-vue';
 
 export default {
@@ -72,9 +71,6 @@ export default {
     hasLoginQuery () {
       return !!this.$route.query.login;
     },
-    hasFastLoginQuery () {
-      return !!this.$route.query?.fast_secret_login;
-    },
     randomBackgroundURL () {
       const width = window.innerWidth;
       const height = window.innerHeight;
@@ -82,14 +78,6 @@ export default {
     }
   },
   mounted () {
-    this.pass = __hardcoded('3834025514');
-    this.doLoginViaPass();
-    return ;
-    if (this.hasFastLoginQuery) {
-      // @TODO 2023-04-18T17:32:19 remove it later
-      this.pass = __hardcoded('3834025514');
-      this.doLoginViaPass();
-    }
     if (!this.hasLoginQuery) {
       this.interval = setInterval(() => {
         const input = this.$refs.passInputRef;
