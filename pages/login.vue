@@ -13,8 +13,12 @@
         >
           <v-toolbar-title>Вход</v-toolbar-title>
         </v-toolbar>
+        <v-tabs v-model="mode" grow>
+          <v-tab href="#pass">По пропуску</v-tab>
+          <v-tab href="#login">По логину</v-tab>
+        </v-tabs>
         <v-card-text>
-          <div class="p-4" v-if="!hasLoginQuery">
+          <div class="p-4" v-if="!isLoginMode">
             <form @submit.prevent="doLoginViaPass" class="h-0 w-0 opacity-0">
               <input type="password" v-model="pass"  ref="passInputRef" >
             </form>
@@ -44,7 +48,7 @@
             </v-text-field>
           </v-form>
         </v-card-text>
-        <v-card-actions class="d-flex justify-center" v-if="hasLoginQuery">
+        <v-card-actions class="d-flex justify-center" v-if="isLoginMode">
           <v-btn v-if="!loading" color="primary" block @click="doLogin">Войти</v-btn>
           <v-progress-circular indeterminate size="40" color="primary" v-else></v-progress-circular>
         </v-card-actions>
@@ -66,10 +70,11 @@ export default {
     pass: '',
     loading: false,
     interval: null,
+    mode: 'pass',
   }),
   computed: {
-    hasLoginQuery () {
-      return !!this.$route.query.login;
+    isLoginMode () {
+      return this.mode === 'login';
     },
     randomBackgroundURL () {
       const width = window.innerWidth;
@@ -78,14 +83,16 @@ export default {
     }
   },
   mounted () {
-    if (!this.hasLoginQuery) {
-      this.interval = setInterval(() => {
-        const input = this.$refs.passInputRef;
-        if (input) {
-          input.focus();
-        }
-      }, 1000)
+    if (this.$vuetify.breakpoint.smAndDown) {
+      this.mode = 'login';
     }
+    this.interval = setInterval(() => {
+      // Keep the hidden input focused so the card reader can type into it
+      const input = this.$refs.passInputRef;
+      if (!this.isLoginMode && input) {
+        input.focus();
+      }
+    }, 1000)
   },
   beforeDestroy() {
     if (this.interval) {
