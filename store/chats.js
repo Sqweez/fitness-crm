@@ -86,6 +86,8 @@ export const mutations = {
   upsertMessage (state, message) {
     const rest = state.messages.filter(item => item.id !== message.id);
     state.messages = [...rest, message].sort(byId);
+    // The saved message replaces its local "sending" copy, whichever channel (HTTP or socket) delivers it first
+    state.pending = state.pending.filter(item => item.client_message_id !== message.client_message_id);
   },
   setClientLastRead (state, messageId) {
     state.clientLastReadMessageId = messageId;
