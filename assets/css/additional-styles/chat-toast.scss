@@ -1,0 +1,40 @@
+// Compact card for "new chat message" toasts (store/chats.js notify).
+// Toasts are mounted outside the page, so the container styles must be global.
+.Vue-Toastification__toast.chat-toast {
+  width: 380px;
+  max-width: calc(100vw - 32px);
+  min-width: 0;
+  min-height: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent-hover);
+  border-radius: var(--radius-panel);
+  background: var(--surface);
+  box-shadow: 0 8px 24px oklch(24% 0.006 150 / 0.12);
+  font-family: var(--font-ui);
+  cursor: pointer;
+
+  // Close instantly on click or the cross. The library sets an inline 750ms animation-duration,
+  // and Vue waits for it before removing the node even without an animation, hence !important
+  &.Vue-Toastification__bounce-leave-active {
+    animation: none;
+    animation-duration: 0s !important;
+    transition-duration: 0s !important;
+  }
+
+  // Lets a long client name shrink with an ellipsis instead of pushing the close button out
+  .Vue-Toastification__toast-component-body {
+    min-width: 0;
+  }
+
+  .Vue-Toastification__close-button {
+    align-self: flex-start;
+    color: var(--text-faint);
+    opacity: 1;
+  }
+
+  .Vue-Toastification__progress-bar {
+    background-color: var(--accent);
+    opacity: 0.5;
+  }
+}

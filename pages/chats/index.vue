@@ -1,5 +1,6 @@
 <template>
   <t-card-page title="Чаты">
+    <chat-push-toggle />
     <div class="chats" :class="{ 'chats--dialog-open': activeChatId }">
       <chat-list class="chats__list" :active-chat-id="activeChatId" @select="selectChat" />
       <chat-dialog v-if="activeChatId" :key="activeChatId" class="chats__dialog" @back="selectChat(null)" />
@@ -44,7 +45,7 @@ export default {
 .chats {
   display: grid;
   grid-template-columns: 1fr;
-  height: calc(100vh - 220px);
+  height: calc(100vh - 290px);
   min-height: 480px;
   border: 1px solid var(--line);
   border-radius: var(--radius-panel);

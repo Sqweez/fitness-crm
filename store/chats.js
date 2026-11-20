@@ -1,4 +1,6 @@
+import ChatToast from '@/components/Chats/ChatToast';
 import { playChatSound } from '@/utils/chatSound';
+import { isWebPushSupported, registerServiceWorker, subscribeToPush, subscriptionPayload } from '@/utils/webPush';
 
 const PAGE_LIMIT = 30;
 
@@ -7,6 +9,7 @@ const byId = (a, b) => Number(a.id) - Number(b.id);
 // Socket bookkeeping lives outside of the state: it is not reactive data
 let subscribedChannels = [];
 let onConnected = null;
+let onServiceWorkerMessage = null;
 
 export const state = () => ({
   chats: [],
@@ -18,6 +21,8 @@ export const state = () => ({
   clientLastReadMessageId: null,
   // Outgoing messages not yet confirmed by the server: { chat_id, client_message_id, text, failed }
   pending: [],
+  // Web Push state in this browser: null (not checked yet), 'unsupported', 'denied', 'off', 'on'
+  push: null,
 });
 
 export const getters = {
@@ -36,6 +41,7 @@ export const mutations = {
       messagesNextCursor: null,
       clientLastReadMessageId: null,
       pending: [],
+      push: null,
     });
   },
   setChats (state, { items, next_cursor }) {
@@ -93,6 +99,9 @@ export const mutations = {
   removePending (state, clientMessageId) {
     state.pending = state.pending.filter(item => item.client_message_id !== clientMessageId);
   },
+  setPush (state, push) {
+    state.push = push;
+  },
 };
 
 export const actions = {
@@ -116,12 +125,65 @@ export const actions = {
     connection.bind('connected', onConnected);
 
     dispatch('fetchUnread');
+    dispatch('initPush');
   },
   disconnect ({ commit }) {
     subscribedChannels.forEach(name => this.$echo.leave(name));
     subscribedChannels = [];
     this.$echo.connector.pusher.connection.unbind('connected', onConnected);
+    if (onServiceWorkerMessage) {
+      navigator.serviceWorker.removeEventListener('message', onServiceWorkerMessage);
+      onServiceWorkerMessage = null;
+    }
     commit('reset');
+  },
+  async initPush ({ commit }) {
+    if (!isWebPushSupported()) {
+      commit('setPush', 'unsupported');
+      return;
+    }
+    // Click on a system notification while an admin tab exists: sw.js asks that tab to route
+    onServiceWorkerMessage = event => {
+      if (event.data.type === 'chat.open') {
+        this.$router.push(event.data.url);
+      }
+    };
+    navigator.serviceWorker.addEventListener('message', onServiceWorkerMessage);
+
+    const registration = await registerServiceWorker();
+    const subscription = await registration.pushManager.getSubscription();
+    if (Notification.permission === 'denied') {
+      commit('setPush', 'denied');
+    } else if (subscription && Notification.permission === 'granted') {
+      // Re-send on every start: the backend drops subscriptions the push service has revoked
+      await this.$axios.$post('v1/web-push/subscriptions', subscriptionPayload(subscription));
+      commit('setPush', 'on');
+    } else {
+      commit('setPush', 'off');
+    }
+  },
+  async enablePush ({ commit }) {
+    const permission = await Notification.requestPermission();
+    if (permission !== 'granted') {
+      commit('setPush', permission === 'denied' ? 'denied' : 'off');
+      return;
+    }
+    const { data } = await this.$axios.$get('v1/web-push/config');
+    const registration = await navigator.serviceWorker.ready;
+    const subscription = await registration.pushManager.getSubscription()
+      || await subscribeToPush(registration, data.public_key);
+    await this.$axios.$post('v1/web-push/subscriptions', subscriptionPayload(subscription));
+    commit('setPush', 'on');
+  },
+  // Also called before logout, so the next staff member on this browser has to opt in themselves
+  async disablePush ({ commit }) {
+    const registration = await navigator.serviceWorker.ready;
+    const subscription = await registration.pushManager.getSubscription();
+    if (subscription) {
+      await this.$axios.$delete('v1/web-push/subscriptions', { data: { endpoint: subscription.endpoint } });
+      await subscription.unsubscribe();
+    }
+    commit('setPush', 'off');
   },
   async resync ({ state, dispatch }) {
     await Promise.all([
@@ -222,10 +284,15 @@ export const actions = {
     }
     await dispatch('fetchUnread');
   },
-  notify (context, { chat_id, client, message }) {
+  notify ({ state }, { chat_id, client, message }) {
     playChatSound();
-    const text = message.text.length > 120 ? `${message.text.slice(0, 120)}…` : message.text;
-    this.$toast.info(`${client.name}: ${text}`, {
+    // With Web Push on, a hidden tab leaves the alert to the system notification from sw.js
+    if (document.visibilityState !== 'visible' && state.push === 'on') {
+      return;
+    }
+    this.$toast({ component: ChatToast, props: { name: client.name, text: message.text } }, {
+      toastClassName: 'chat-toast',
+      icon: false,
       timeout: 10000,
       onClick: () => this.$router.push({ path: '/chats', query: { chat: chat_id } }),
     });

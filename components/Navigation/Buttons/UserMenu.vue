@@ -50,7 +50,7 @@
             <a
               class="font-medium text-sm text-indigo-500 hover:text-indigo-600 flex items-center py-1 px-3"
               href="#"
-              @click.prevent="$auth.logout()"
+              @click.prevent="logout"
             >
               Выход
             </a>
@@ -86,6 +86,16 @@ export default {
     }),
   },
   methods: {
+    // The push subscription is removed while the token is still valid; logout happens even if that fails
+    async logout () {
+      try {
+        if (this.$store.state.chats.push === 'on') {
+          await this.$store.dispatch('chats/disablePush');
+        }
+      } finally {
+        await this.$auth.logout();
+      }
+    },
     clickHandler({target}) {
       if (!this.dropdownOpen || this.$refs.dropdown.contains(target)) return
       this.dropdownOpen = false;
