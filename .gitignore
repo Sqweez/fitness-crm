@@ -83,6 +83,8 @@ dist
 
 # Service worker
 sw.*
+# Hand-written push service worker, not generated
+!static/sw.js
 
 # macOS
 .DS_Store
