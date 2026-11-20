@@ -31,6 +31,7 @@ import userMixin from '@/mixins/userMixin';
 import Sidebar from '~/components/Navigation/Sidebar.vue';
 import { ArrowDown, ArrowUp } from 'lucide-vue';
 import ScrollButtons from '~/components/Layout/ScrollButtons.vue';
+import { canManageChats } from '@/utils/chats';
 
 export default {
   name: 'Dashboard',
@@ -62,9 +63,26 @@ export default {
   },
   created () {
     this.$store.dispatch('INIT');
+    // Not reactive: only needed to undo the subscription in beforeDestroy
+    this.chatsConnected = canManageChats(this.$auth.user);
+    if (this.chatsConnected) {
+      this.$store.dispatch('chats/connect');
+    }
     this.$root.$on('change:club', () => {
       this.showSelectClubModal = true;
     })
+  },
+  // Unread chats counter in the browser tab title, visible from other tabs
+  head () {
+    const unread = this.$store.state.chats.unread.chats;
+    return { titleTemplate: unread ? `(${unread}) %s` : '%s' };
+  },
+  // Logout switches to the empty layout: drop chat channels so the next user does not inherit them
+  beforeDestroy () {
+    // $auth.user is already cleared on logout, so rely on the flag set at creation
+    if (this.chatsConnected) {
+      this.$store.dispatch('chats/disconnect');
+    }
   },
   watch: {
     $route(to, from) {

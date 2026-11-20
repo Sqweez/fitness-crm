@@ -71,6 +71,7 @@
                       <component :is="item.icon" class="sidebar-menu-item__icon" :size="20" />
                       <span class="sidebar-menu-item__label">{{ item.label }}</span>
                     </span>
+                    <span v-if="item.badge" class="sidebar-menu-item__badge">{{ item.badge }}</span>
                   </button>
                 </router-link>
               </nav>
@@ -109,6 +110,7 @@ import {
   Dumbbell,
   Hourglass,
   House,
+  MessageCircle,
   RotateCcw,
   Settings,
   ShoppingBasket,
@@ -119,6 +121,7 @@ import {
 } from 'lucide-vue';
 import userMixin from '@/mixins/userMixin';
 import { canManageTrainers } from '@/utils/trainers';
+import { canManageChats } from '@/utils/chats';
 
 export default {
   name: 'Sidebar',
@@ -131,6 +134,7 @@ export default {
     Dumbbell,
     Hourglass,
     House,
+    MessageCircle,
     RotateCcw,
     Settings,
     ShoppingBasket,
@@ -184,6 +188,7 @@ export default {
           title: 'Мобильное приложение',
           show: canManageTrainers(this.$user),
           children: [
+            { to: '/chats', label: 'Чаты', icon: MessageCircle, show: canManageChats(this.$user), badge: this.$store.state.chats.unread.chats },
             { to: '/mobile/trainers', label: 'Тренеры', icon: BicepsFlexed },
             { to: '/mobile/club', label: 'О клубе', icon: Building2 },
             { to: '/mobile/config', label: 'Настройки приложения', icon: Settings }
@@ -444,6 +449,22 @@ export default {
 
 .sidebar-menu-item--active .sidebar-menu-item__label {
   color: var(--text-primary);
+}
+
+/* Unread chats counter */
+.sidebar-menu-item__badge {
+  flex-shrink: 0;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 10px;
+  background: var(--accent-hover);
+  color: #fff;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 20px;
+  text-align: center;
 }
 
 /* Separator - height: 1px */

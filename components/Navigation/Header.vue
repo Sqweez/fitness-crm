@@ -27,6 +27,7 @@
           <SolariumHistoryNavbarButton v-if="$CAN_WRITE_OFF_SERVICES" />
           <SaleHistoryNavbarButton v-if="$CAN_SALE_PRODUCTS" />
           <CurrentKeysNavbarButton v-if="$CAN_OPEN_SESSION" />
+          <ChatsNavbarButton v-if="canManageChats" />
           <BookmarkNavbarButton />
           <ClientsButton />
           <Notifications align="right" v-if="false"/>
@@ -46,6 +47,7 @@ import Notifications from "@/components/Utils/Notifications";
 import Help from "@/components/Navigation/Buttons/Help";
 import UserMenu from "@/components/Navigation/Buttons/UserMenu";
 import userMixin from '@/mixins/userMixin';
+import { canManageChats } from '@/utils/chats';
 export default {
   name: 'Header',
   props: ['sidebarOpen'],
@@ -54,5 +56,10 @@ export default {
   data: () => ({
     searchModalOpen: false,
   }),
+  computed: {
+    canManageChats () {
+      return canManageChats(this.$auth.user);
+    },
+  },
 }
 </script>
