@@ -96,7 +96,11 @@ export const mutations = {
     state.pending.push(item);
   },
   setPendingFailed (state, { clientMessageId, failed }) {
-    state.pending.find(item => item.client_message_id === clientMessageId).failed = failed;
+    const item = state.pending.find(pending => pending.client_message_id === clientMessageId);
+    // The copy is already gone when the socket delivered the saved message before the HTTP request failed
+    if (item) {
+      item.failed = failed;
+    }
   },
   removePending (state, clientMessageId) {
     state.pending = state.pending.filter(item => item.client_message_id !== clientMessageId);
