@@ -14,12 +14,10 @@
   font-family: var(--font-ui);
   cursor: pointer;
 
-  // Close instantly on click or the cross. The library sets an inline 750ms animation-duration,
-  // and Vue waits for it before removing the node even without an animation, hence !important
+  // Close instantly on click or the cross. The library's JS leave hook keeps the node for about
+  // a second regardless of CSS, so the leaving card is just hidden (it is absolutely positioned by then)
   &.Vue-Toastification__bounce-leave-active {
-    animation: none;
-    animation-duration: 0s !important;
-    transition-duration: 0s !important;
+    display: none;
   }
 
   // Lets a long client name shrink with an ellipsis instead of pushing the close button out
